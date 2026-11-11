@@ -5,13 +5,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NEXUS SHOP</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#080d19;color:#f4f8ff;font-family:Arial,sans-serif}
 header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #20304a}
 .logo{font-size:25px;font-weight:900;color:#39d9ff;letter-spacing:2px}
 button{border:0;border-radius:10px;padding:12px 16px;background:#168cff;color:white;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.5}
 nav{display:flex;gap:10px;flex-wrap:wrap;padding:18px 6%}
 nav button{background:#17243a;color:#b9c8dc}
 nav button.active{background:#168cff;color:white}
@@ -30,11 +33,12 @@ h1{font-size:32px;margin-bottom:8px}
 .panel{padding:20px;max-width:520px;margin-top:20px}
 input{width:100%;padding:13px;margin:7px 0 14px;background:#080f1d;border:1px solid #2b3e5d;border-radius:9px;color:white}
 .hidden{display:none!important}
-.status{margin-top:12px;color:#39d9ff;font-size:14px}
+.status{margin-top:12px;color:#39d9ff;font-size:14px;overflow-wrap:anywhere}
 .notice{font-size:13px;line-height:1.5}
 footer{text-align:center;padding:35px;color:#8493aa;font-size:12px}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -67,27 +71,31 @@ footer{text-align:center;padding:35px;color:#8493aa;font-size:12px}
 <h1>Missions</h1>
 <div class="panel">
 <h3>🔔 Alertes de boutique</h3>
-<p class="notice">Le système d'alertes sera ajouté dans une prochaine version.</p>
+<p class="notice">Les alertes seront ajoutées dans une prochaine version.</p>
 </div>
 <div class="panel">
 <h3>🎮 Fortnite & VALORANT</h3>
-<p class="notice">Les objets affichés actuellement sont des exemples fictifs, pas les boutiques officielles en direct.</p>
+<p class="notice">Les objets affichés sont fictifs et ne représentent pas les boutiques officielles en direct.</p>
 </div>
 </section>
 
 <section id="account" class="hidden">
 <h1>Mon compte</h1>
 <p class="subtitle">Connecte-toi pour synchroniser tes favoris.</p>
+
 <div class="panel">
 <label>Adresse e-mail</label>
-<input id="email" type="email" placeholder="ton@email.com">
+<input id="email" type="email" placeholder="ton@email.com" autocomplete="email">
+
 <label>Mot de passe</label>
-<input id="password" type="password" placeholder="6 caractères minimum">
-<button onclick="signUp()">Créer un compte</button>
-<button onclick="signIn()" style="background:#263c5c">Se connecter</button>
+<input id="password" type="password" placeholder="6 caractères minimum" autocomplete="current-password">
+
+<button id="signupButton" onclick="signUp()">Créer un compte</button>
+<button id="signinButton" onclick="signIn()" style="background:#263c5c">Se connecter</button>
 <button onclick="signOut()" style="background:#263c5c">Déconnexion</button>
-<p id="accountStatus" class="status">Connexion Supabase en attente...</p>
-<p class="notice">Utilise uniquement ta clé Publishable. Ne mets jamais une clé Secret dans ce fichier.</p>
+
+<p id="accountStatus" class="status">Initialisation...</p>
+<p class="notice">Utilise uniquement ta clé Publishable Supabase. Ne mets jamais une clé Secret dans ce fichier.</p>
 </div>
 </section>
 
@@ -96,19 +104,14 @@ footer{text-align:center;padding:35px;color:#8493aa;font-size:12px}
 <footer>NEXUS SHOP · Prototype</footer>
 
 <script>
-// ======================================
-// CONFIGURATION SUPABASE
-// REMPLACE UNIQUEMENT LES DEUX VALEURS
-// ======================================
-
+// CONFIGURATION
 const SUPABASE_URL = "https://exdlarblipzxpdizpppa.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_UlsDthzGdl9kNOKhTaZvbQ_2bBBq-76";
-
-// ======================================
 
 let db = null;
 let currentUser = null;
 let favorites = new Set();
+let busy = false;
 
 const items = [
 {id:"fn1",game:"Fortnite",name:"Skin Démon",price:"1 500 V-Bucks",emoji:"👹"},
@@ -123,85 +126,159 @@ function setStatus(message){
  document.getElementById("accountStatus").textContent=message;
 }
 
-function initSupabase(){
- if(SUPABASE_URL==="COLLE_TON_PROJECT_URL_ICI" ||
-    SUPABASE_PUBLISHABLE_KEY==="COLLE_TA_CLE_PUBLISHABLE_ICI"){
-   setStatus("Il manque les informations Supabase.");
-   return;
- }
+function setBusy(value){
+ busy=value;
+ document.getElementById("signupButton").disabled=value;
+ document.getElementById("signinButton").disabled=value;
+}
 
- try{
-   db=window.supabase.createClient(
-     SUPABASE_URL,
-     SUPABASE_PUBLISHABLE_KEY
-   );
-
-   db.auth.getSession().then(async ({data,error})=>{
-     if(error){setStatus(error.message);return;}
-     currentUser=data.session?.user || null;
-     await loadFavorites();
-     updateAccount();
-   });
-
-   db.auth.onAuthStateChange((_event,session)=>{
-     currentUser=session?.user || null;
-     updateAccount();
-     loadFavorites();
-   });
-
- }catch(error){
-   setStatus("Erreur de configuration : "+error.message);
- }
+function showPage(page,button){
+ ["shop","favorites","missions","account"].forEach(id=>{
+  document.getElementById(id).classList.toggle("hidden",id!==page);
+ });
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
 }
 
 function updateAccount(){
- setStatus(currentUser
-  ? "Connecté : "+currentUser.email
-  : "Non connecté");
+ setStatus(currentUser ? "Connecté : "+currentUser.email : "Non connecté");
+}
+
+async function loadFavorites(){
+ if(!db || !currentUser){
+  favorites.clear();
+  render();
+  return;
+ }
+
+ const {data,error}=await db
+  .from("user_favorites")
+  .select("item_id")
+  .eq("user_id",currentUser.id);
+
+ if(error){
+  setStatus("Erreur favoris : "+error.message);
+  return;
+ }
+
+ favorites=new Set((data||[]).map(row=>row.item_id));
+ render();
+}
+
+function initSupabase(){
+ if(!window.supabase || !window.supabase.createClient){
+  setStatus("Erreur : bibliothèque Supabase non chargée. Recharge la page.");
+  return;
+ }
+
+ try{
+  db=window.supabase.createClient(
+   SUPABASE_URL,
+   SUPABASE_PUBLISHABLE_KEY
+  );
+
+  db.auth.getSession().then(async ({data,error})=>{
+   if(error){
+    setStatus("Erreur session : "+error.message);
+    return;
+   }
+   currentUser=data.session?.user||null;
+   await loadFavorites();
+   updateAccount();
+  }).catch(error=>{
+   setStatus("Erreur session : "+error.message);
+  });
+
+  db.auth.onAuthStateChange((_event,session)=>{
+   currentUser=session?.user||null;
+   updateAccount();
+   loadFavorites();
+  });
+
+ }catch(error){
+  setStatus("Erreur Supabase : "+error.message);
+ }
 }
 
 async function signUp(){
- if(!db)return setStatus("Configuration Supabase manquante.");
+ if(busy)return;
+ if(!db)return setStatus("Supabase n'est pas initialisé.");
 
  const email=document.getElementById("email").value.trim();
  const password=document.getElementById("password").value;
 
- if(!email || password.length<6)
-  return setStatus("Entre un e-mail et un mot de passe de 6 caractères minimum.");
+ if(!email || password.length<6){
+  return setStatus("Entre un e-mail valide et un mot de passe de 6 caractères minimum.");
+ }
 
- const {data,error}=await db.auth.signUp({email,password});
+ setBusy(true);
+ setStatus("Inscription en cours...");
 
- if(error)return setStatus(error.message);
+ try{
+  const {data,error}=await db.auth.signUp({email,password});
 
- if(data.session){
+  if(error){
+   setStatus("Erreur inscription : "+(error.code||error.status||"")+" "+error.message);
+   return;
+  }
+
+  if(data.session){
    currentUser=data.user;
    await loadFavorites();
    updateAccount();
- }else{
+  }else{
    setStatus("Inscription envoyée ! Vérifie tes e-mails pour confirmer ton compte.");
+  }
+
+ }catch(error){
+  setStatus("Erreur technique : "+error.message);
+ }finally{
+  setBusy(false);
  }
 }
 
 async function signIn(){
- if(!db)return setStatus("Configuration Supabase manquante.");
+ if(busy)return;
+ if(!db)return setStatus("Supabase n'est pas initialisé.");
 
  const email=document.getElementById("email").value.trim();
  const password=document.getElementById("password").value;
 
- const {data,error}=await db.auth.signInWithPassword({email,password});
+ if(!email || !password){
+  return setStatus("Entre ton e-mail et ton mot de passe.");
+ }
 
- if(error)return setStatus(error.message);
+ setBusy(true);
+ setStatus("Connexion en cours...");
 
- currentUser=data.user;
- await loadFavorites();
- updateAccount();
+ try{
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+
+  if(error){
+   setStatus("Erreur connexion : "+(error.code||error.status||"")+" "+error.message);
+   return;
+  }
+
+  currentUser=data.user;
+  await loadFavorites();
+  updateAccount();
+
+ }catch(error){
+  setStatus("Erreur technique : "+error.message);
+ }finally{
+  setBusy(false);
+ }
 }
 
 async function signOut(){
  if(!db)return;
 
  const {error}=await db.auth.signOut();
- if(error)return setStatus(error.message);
+
+ if(error){
+  setStatus("Erreur déconnexion : "+error.message);
+  return;
+ }
 
  currentUser=null;
  favorites.clear();
@@ -209,54 +286,30 @@ async function signOut(){
  updateAccount();
 }
 
-async function loadFavorites(){
- if(!db || !currentUser){
-   favorites.clear();
-   render();
-   return;
- }
-
- const {data,error}=await db
-   .from("user_favorites")
-   .select("item_id")
-   .eq("user_id",currentUser.id);
-
- if(error){
-   setStatus("Erreur favoris : "+error.message);
-   return;
- }
-
- favorites=new Set((data||[]).map(row=>row.item_id));
- render();
-}
-
 async function toggleFavorite(id){
  if(!currentUser){
-   setStatus("Connecte-toi pour enregistrer tes favoris.");
-   showPage("account");
-   return;
+  setStatus("Connecte-toi pour enregistrer tes favoris.");
+  showPage("account");
+  return;
  }
 
  if(favorites.has(id)){
-   const {error}=await db
-     .from("user_favorites")
-     .delete()
-     .eq("user_id",currentUser.id)
-     .eq("item_id",id);
+  const {error}=await db.from("user_favorites")
+   .delete()
+   .eq("user_id",currentUser.id)
+   .eq("item_id",id);
 
-   if(error)return setStatus(error.message);
-   favorites.delete(id);
-
+  if(error)return setStatus(error.message);
+  favorites.delete(id);
  }else{
-   const {error}=await db
-     .from("user_favorites")
-     .upsert({
-       user_id:currentUser.id,
-       item_id:id
-     });
+  const {error}=await db.from("user_favorites")
+   .upsert({
+    user_id:currentUser.id,
+    item_id:id
+   });
 
-   if(error)return setStatus(error.message);
-   favorites.add(id);
+  if(error)return setStatus(error.message);
+  favorites.add(id);
  }
 
  render();
@@ -264,7 +317,6 @@ async function toggleFavorite(id){
 
 function createCard(item){
  const saved=favorites.has(item.id);
-
  return `
  <article class="card">
   <div class="art">${item.emoji}</div>
@@ -272,8 +324,7 @@ function createCard(item){
    <div class="tag">${item.game}</div>
    <h3>${item.name}</h3>
    <div class="price">${item.price}</div>
-   <button class="favorite ${saved?'saved':''}"
-    onclick="toggleFavorite('${item.id}')">
+   <button class="favorite ${saved?'saved':''}" onclick="toggleFavorite('${item.id}')">
     ${saved?'♥ Retirer des favoris':'♡ Ajouter aux favoris'}
    </button>
   </div>
@@ -281,24 +332,10 @@ function createCard(item){
 }
 
 function render(){
- document.getElementById("shopGrid").innerHTML=
-   items.map(createCard).join("");
-
+ document.getElementById("shopGrid").innerHTML=items.map(createCard).join("");
  document.getElementById("favoriteGrid").innerHTML=
-   items.filter(item=>favorites.has(item.id)).map(createCard).join("")
-   || '<p class="notice">Aucun favori pour le moment.</p>';
-}
-
-function showPage(page,button){
- ["shop","favorites","missions","account"].forEach(id=>{
-   document.getElementById(id).classList.toggle("hidden",id!==page);
- });
-
- document.querySelectorAll("nav button").forEach(b=>{
-   b.classList.remove("active");
- });
-
- if(button)button.classList.add("active");
+  items.filter(item=>favorites.has(item.id)).map(createCard).join("")
+  || '<p class="notice">Aucun favori pour le moment.</p>';
 }
 
 render();
