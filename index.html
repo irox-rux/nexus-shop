@@ -3,119 +3,120 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NEXUS SHOP</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root {
-  --bg:#080d19; --panel:#111a2b; --blue:#168cff;
-  --cyan:#39d9ff; --text:#f4f8ff; --muted:#8493aa;
-}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1c2a40}
-.logo{font-size:25px;font-weight:900;letter-spacing:2px;color:var(--cyan)}
-.logo span{color:white}
-button{border:0;border-radius:10px;padding:11px 16px;background:var(--blue);color:white;font-weight:bold;cursor:pointer}
+body{margin:0;background:#080d19;color:#f4f8ff;font-family:Arial,sans-serif}
+header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #20304a}
+.logo{font-size:25px;font-weight:900;color:#39d9ff;letter-spacing:2px}
+button{border:0;border-radius:10px;padding:12px 16px;background:#168cff;color:white;font-weight:bold;cursor:pointer}
 nav{display:flex;gap:10px;flex-wrap:wrap;padding:18px 6%}
 nav button{background:#17243a;color:#b9c8dc}
-nav button.active{background:var(--blue);color:white}
+nav button.active{background:#168cff;color:white}
 main{padding:20px 6%}
 h1{font-size:32px;margin-bottom:8px}
-.subtitle{color:var(--muted);margin-bottom:25px}
+.subtitle,.notice{color:#8493aa}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
-.card{background:var(--panel);border:1px solid #21324d;border-radius:16px;overflow:hidden}
+.card,.panel{background:#111a2b;border:1px solid #21324d;border-radius:16px;overflow:hidden}
 .art{height:155px;display:grid;place-items:center;font-size:55px;background:linear-gradient(135deg,#10284b,#153c70,#071323)}
 .card-content{padding:15px}
-.card h3{margin:0 0 7px}
-.tag{font-size:12px;color:var(--cyan)}
+.card h3{margin:8px 0}
+.tag{font-size:12px;color:#39d9ff}
 .price{font-weight:bold;margin:12px 0}
 .favorite{width:100%;background:#1d2b43}
 .favorite.saved{background:#164e70}
-.panel{background:var(--panel);border:1px solid #21324d;border-radius:16px;padding:20px;max-width:520px;margin-top:20px}
+.panel{padding:20px;max-width:520px;margin-top:20px}
 input{width:100%;padding:13px;margin:7px 0 14px;background:#080f1d;border:1px solid #2b3e5d;border-radius:9px;color:white}
 .hidden{display:none!important}
-.notice{color:var(--muted);font-size:13px;line-height:1.5}
-.status{margin-top:12px;color:var(--cyan);font-size:14px}
-footer{text-align:center;padding:35px;color:var(--muted);font-size:12px}
+.status{margin-top:12px;color:#39d9ff;font-size:14px}
+.notice{font-size:13px;line-height:1.5}
+footer{text-align:center;padding:35px;color:#8493aa;font-size:12px}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">NEXUS<span> SHOP</span></div>
-  <button onclick="showPage('account')">Mon compte</button>
+<div class="logo">NEXUS SHOP</div>
+<button onclick="showPage('account')">Mon compte</button>
 </header>
 
 <nav>
-  <button class="active" onclick="showPage('shop',this)">Boutique</button>
-  <button onclick="showPage('favorites',this)">Favoris ♥</button>
-  <button onclick="showPage('missions',this)">Missions</button>
-  <button onclick="showPage('account',this)">Compte</button>
+<button class="active" onclick="showPage('shop',this)">Boutique</button>
+<button onclick="showPage('favorites',this)">Favoris ♥</button>
+<button onclick="showPage('missions',this)">Missions</button>
+<button onclick="showPage('account',this)">Compte</button>
 </nav>
 
 <main>
+
 <section id="shop">
-  <h1>Boutique</h1>
-  <p class="subtitle">Retrouve tes objets préférés au même endroit.</p>
-  <div class="grid" id="shopGrid"></div>
+<h1>Boutique</h1>
+<p class="subtitle">Retrouve tes objets préférés.</p>
+<div class="grid" id="shopGrid"></div>
 </section>
 
 <section id="favorites" class="hidden">
-  <h1>Mes favoris ♥</h1>
-  <p class="subtitle">Tes objets enregistrés.</p>
-  <div class="grid" id="favoriteGrid"></div>
+<h1>Mes favoris ♥</h1>
+<p class="subtitle">Tes objets enregistrés.</p>
+<div class="grid" id="favoriteGrid"></div>
 </section>
 
 <section id="missions" class="hidden">
-  <h1>Missions</h1>
-  <p class="subtitle">Les prochaines fonctionnalités de NEXUS SHOP.</p>
-  <div class="panel">
-    <h3>🔔 Alertes de boutique</h3>
-    <p class="notice">Préparation du système d'alertes lorsque tes objets favoris seront disponibles.</p>
-  </div>
-  <div class="panel">
-    <h3>🎮 Fortnite & VALORANT</h3>
-    <p class="notice">Les boutiques affichées dans cette version sont des exemples fictifs, pas les boutiques officielles en direct.</p>
-  </div>
+<h1>Missions</h1>
+<div class="panel">
+<h3>🔔 Alertes de boutique</h3>
+<p class="notice">Le système d'alertes sera ajouté dans une prochaine version.</p>
+</div>
+<div class="panel">
+<h3>🎮 Fortnite & VALORANT</h3>
+<p class="notice">Les objets affichés actuellement sont des exemples fictifs, pas les boutiques officielles en direct.</p>
+</div>
 </section>
 
 <section id="account" class="hidden">
-  <h1>Mon compte</h1>
-  <p class="subtitle">Connecte-toi pour synchroniser tes favoris.</p>
-  <div class="panel">
-    <h3>Connexion / Inscription</h3>
-    <label>Adresse e-mail</label>
-    <input id="email" type="email" placeholder="ton@email.com">
-    <label>Mot de passe</label>
-    <input id="password" type="password" placeholder="Mot de passe">
-    <button onclick="signUp()">Créer un compte</button>
-    <button onclick="signIn()" style="background:#263c5c">Se connecter</button>
-    <button onclick="signOut()" style="background:#263c5c">Déconnexion</button>
-    <p id="accountStatus" class="status">Non connecté</p>
-    <p class="notice">La clé utilisée ici doit être une clé Publishable Supabase. Ne mets jamais ta clé Secret dans ce fichier.</p>
-  </div>
+<h1>Mon compte</h1>
+<p class="subtitle">Connecte-toi pour synchroniser tes favoris.</p>
+<div class="panel">
+<label>Adresse e-mail</label>
+<input id="email" type="email" placeholder="ton@email.com">
+<label>Mot de passe</label>
+<input id="password" type="password" placeholder="6 caractères minimum">
+<button onclick="signUp()">Créer un compte</button>
+<button onclick="signIn()" style="background:#263c5c">Se connecter</button>
+<button onclick="signOut()" style="background:#263c5c">Déconnexion</button>
+<p id="accountStatus" class="status">Connexion Supabase en attente...</p>
+<p class="notice">Utilise uniquement ta clé Publishable. Ne mets jamais une clé Secret dans ce fichier.</p>
+</div>
 </section>
+
 </main>
 
-<footer>NEXUS SHOP · Projet indépendant · Version prototype</footer>
+<footer>NEXUS SHOP · Prototype</footer>
 
 <script>
-// 1. REMPLACE CES DEUX VALEURS PAR TES INFORMATIONS SUPABASE
+// ======================================
+// CONFIGURATION SUPABASE
+// REMPLACE UNIQUEMENT LES DEUX VALEURS
+// ======================================
+
 const SUPABASE_URL = "https://exdlarblipzxpdizpppa.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_UlsDthzGdl9kNOKhTaZvbQ_2bBBq-76";
+
+// ======================================
 
 let db = null;
 let currentUser = null;
 let favorites = new Set();
 
 const items = [
- {id:"fn1",game:"Fortnite",name:"Skin Démon",price:"1 500 V-Bucks",emoji:"👹"},
- {id:"fn2",game:"Fortnite",name:"Skin Guerrier",price:"1 200 V-Bucks",emoji:"⚔️"},
- {id:"fn3",game:"Fortnite",name:"Skin Galaxie",price:"2 000 V-Bucks",emoji:"🌌"},
- {id:"va1",game:"VALORANT",name:"Vandal Électrique",price:"2 175 VP",emoji:"⚡"},
- {id:"va2",game:"VALORANT",name:"Phantom Néon",price:"1 775 VP",emoji:"🔫"},
- {id:"va3",game:"VALORANT",name:"Couteau Cyber",price:"4 350 VP",emoji:"🔪"}
+{id:"fn1",game:"Fortnite",name:"Skin Démon",price:"1 500 V-Bucks",emoji:"👹"},
+{id:"fn2",game:"Fortnite",name:"Skin Guerrier",price:"1 200 V-Bucks",emoji:"⚔️"},
+{id:"fn3",game:"Fortnite",name:"Skin Galaxie",price:"2 000 V-Bucks",emoji:"🌌"},
+{id:"va1",game:"VALORANT",name:"Vandal Électrique",price:"2 175 VP",emoji:"⚡"},
+{id:"va2",game:"VALORANT",name:"Phantom Néon",price:"1 775 VP",emoji:"🔫"},
+{id:"va3",game:"VALORANT",name:"Couteau Cyber",price:"4 350 VP",emoji:"🔪"}
 ];
 
 function setStatus(message){
@@ -123,42 +124,74 @@ function setStatus(message){
 }
 
 function initSupabase(){
- if(SUPABASE_URL==="https://exdlarblipzxpdizpppa.supabase.co" || SUPABASE_PUBLISHABLE_KEY==="sb_publishable_UlsDthzGdl9kNOKhTaZvbQ_2bBBq-76"){
-   setStatus("Configuration Supabase à compléter.");
+ if(SUPABASE_URL==="COLLE_TON_PROJECT_URL_ICI" ||
+    SUPABASE_PUBLISHABLE_KEY==="COLLE_TA_CLE_PUBLISHABLE_ICI"){
+   setStatus("Il manque les informations Supabase.");
    return;
  }
- db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
- db.auth.getSession().then(async ({data})=>{
-   currentUser=data.session?.user || null;
-   await loadFavorites();
-   updateAccount();
- });
- db.auth.onAuthStateChange((_event,session)=>{
-   currentUser=session?.user || null;
-   loadFavorites();
-   updateAccount();
- });
+
+ try{
+   db=window.supabase.createClient(
+     SUPABASE_URL,
+     SUPABASE_PUBLISHABLE_KEY
+   );
+
+   db.auth.getSession().then(async ({data,error})=>{
+     if(error){setStatus(error.message);return;}
+     currentUser=data.session?.user || null;
+     await loadFavorites();
+     updateAccount();
+   });
+
+   db.auth.onAuthStateChange((_event,session)=>{
+     currentUser=session?.user || null;
+     updateAccount();
+     loadFavorites();
+   });
+
+ }catch(error){
+   setStatus("Erreur de configuration : "+error.message);
+ }
 }
 
 function updateAccount(){
- setStatus(currentUser ? "Connecté : "+currentUser.email : "Non connecté");
+ setStatus(currentUser
+  ? "Connecté : "+currentUser.email
+  : "Non connecté");
 }
 
 async function signUp(){
- if(!db)return setStatus("Configure Supabase avant de continuer.");
+ if(!db)return setStatus("Configuration Supabase manquante.");
+
  const email=document.getElementById("email").value.trim();
  const password=document.getElementById("password").value;
- if(!email || password.length<6)return setStatus("Entre un e-mail et un mot de passe de 6 caractères minimum.");
- const {error}=await db.auth.signUp({email,password});
- setStatus(error ? error.message : "Inscription envoyée. Vérifie tes e-mails si une confirmation est demandée.");
+
+ if(!email || password.length<6)
+  return setStatus("Entre un e-mail et un mot de passe de 6 caractères minimum.");
+
+ const {data,error}=await db.auth.signUp({email,password});
+
+ if(error)return setStatus(error.message);
+
+ if(data.session){
+   currentUser=data.user;
+   await loadFavorites();
+   updateAccount();
+ }else{
+   setStatus("Inscription envoyée ! Vérifie tes e-mails pour confirmer ton compte.");
+ }
 }
 
 async function signIn(){
- if(!db)return setStatus("Configure Supabase avant de continuer.");
+ if(!db)return setStatus("Configuration Supabase manquante.");
+
  const email=document.getElementById("email").value.trim();
  const password=document.getElementById("password").value;
+
  const {data,error}=await db.auth.signInWithPassword({email,password});
+
  if(error)return setStatus(error.message);
+
  currentUser=data.user;
  await loadFavorites();
  updateAccount();
@@ -166,8 +199,10 @@ async function signIn(){
 
 async function signOut(){
  if(!db)return;
+
  const {error}=await db.auth.signOut();
  if(error)return setStatus(error.message);
+
  currentUser=null;
  favorites.clear();
  render();
@@ -175,38 +210,61 @@ async function signOut(){
 }
 
 async function loadFavorites(){
- if(!db || !currentUser)return;
- const {data,error}=await db.from("user_favorites")
+ if(!db || !currentUser){
+   favorites.clear();
+   render();
+   return;
+ }
+
+ const {data,error}=await db
+   .from("user_favorites")
    .select("item_id")
    .eq("user_id",currentUser.id);
- if(error){setStatus("Erreur favoris : "+error.message);return;}
+
+ if(error){
+   setStatus("Erreur favoris : "+error.message);
+   return;
+ }
+
  favorites=new Set((data||[]).map(row=>row.item_id));
  render();
 }
 
 async function toggleFavorite(id){
+ if(!currentUser){
+   setStatus("Connecte-toi pour enregistrer tes favoris.");
+   showPage("account");
+   return;
+ }
+
  if(favorites.has(id)){
-   if(db && currentUser){
-     const {error}=await db.from("user_favorites").delete()
-       .eq("user_id",currentUser.id).eq("item_id",id);
-     if(error)return setStatus(error.message);
-   }
+   const {error}=await db
+     .from("user_favorites")
+     .delete()
+     .eq("user_id",currentUser.id)
+     .eq("item_id",id);
+
+   if(error)return setStatus(error.message);
    favorites.delete(id);
+
  }else{
-   if(db && currentUser){
-     const {error}=await db.from("user_favorites").upsert({
-       user_id:currentUser.id,item_id:id
+   const {error}=await db
+     .from("user_favorites")
+     .upsert({
+       user_id:currentUser.id,
+       item_id:id
      });
-     if(error)return setStatus(error.message);
-   }
+
+   if(error)return setStatus(error.message);
    favorites.add(id);
  }
+
  render();
- if(!currentUser && db)setStatus("Connecte-toi pour synchroniser tes favoris.");
 }
 
 function createCard(item){
  const saved=favorites.has(item.id);
+
  return `
  <article class="card">
   <div class="art">${item.emoji}</div>
@@ -214,7 +272,8 @@ function createCard(item){
    <div class="tag">${item.game}</div>
    <h3>${item.name}</h3>
    <div class="price">${item.price}</div>
-   <button class="favorite ${saved?'saved':''}" onclick="toggleFavorite('${item.id}')">
+   <button class="favorite ${saved?'saved':''}"
+    onclick="toggleFavorite('${item.id}')">
     ${saved?'♥ Retirer des favoris':'♡ Ajouter aux favoris'}
    </button>
   </div>
@@ -222,22 +281,29 @@ function createCard(item){
 }
 
 function render(){
- document.getElementById("shopGrid").innerHTML=items.map(createCard).join("");
+ document.getElementById("shopGrid").innerHTML=
+   items.map(createCard).join("");
+
  document.getElementById("favoriteGrid").innerHTML=
    items.filter(item=>favorites.has(item.id)).map(createCard).join("")
    || '<p class="notice">Aucun favori pour le moment.</p>';
 }
 
 function showPage(page,button){
- ["shop","favorites","missions","account"].forEach(id=>
-   document.getElementById(id).classList.toggle("hidden",id!==page)
- );
- document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ ["shop","favorites","missions","account"].forEach(id=>{
+   document.getElementById(id).classList.toggle("hidden",id!==page);
+ });
+
+ document.querySelectorAll("nav button").forEach(b=>{
+   b.classList.remove("active");
+ });
+
  if(button)button.classList.add("active");
 }
 
 render();
 initSupabase();
 </script>
+
 </body>
 </html>
