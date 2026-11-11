@@ -102,7 +102,7 @@ footer{text-align:center;padding:35px;color:var(--muted);font-size:12px}
 
 <script>
 // 1. REMPLACE CES DEUX VALEURS PAR TES INFORMATIONS SUPABASE
-const SUPABASE_URL = "https://exdlarblipzxpdizpppa.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://exdlarblipzxpdizpppa.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_UlsDthzGdl9kNOKhTaZvbQ_2bBBq-76";
 
 let db = null;
@@ -123,7 +123,7 @@ function setStatus(message){
 }
 
 function initSupabase(){
- if(SUPABASE_URL==="https://exdlarblipzxpdizpppa.supabase.co/rest/v1/" || SUPABASE_PUBLISHABLE_KEY==="sb_publishable_UlsDthzGdl9kNOKhTaZvbQ_2bBBq-76"){
+ if(SUPABASE_URL==="https://exdlarblipzxpdizpppa.supabase.co" || SUPABASE_PUBLISHABLE_KEY==="sb_publishable_UlsDthzGdl9kNOKhTaZvbQ_2bBBq-76"){
    setStatus("Configuration Supabase à compléter.");
    return;
  }
