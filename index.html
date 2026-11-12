@@ -6,11 +6,9 @@
 <meta name="theme-color" content="#08040f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="NEXUS">
 <link rel="manifest" href="./manifest.json">
-<link rel="icon" type="image/svg+xml" href="./icon.svg">
-<link rel="apple-touch-icon" href="./icon.svg">
-<title>NEXUS Gaming Hub — V3</title>
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>NEXUS Gaming Hub — V4 Mobile</title>
 <style>
 :root{--bg:#080b14;--panel:#101626;--panel2:#151e32;--blue:#3985ff;--purple:#8b5cf6;--text:#f4f6ff;--muted:#8c98b2;--border:rgba(255,255,255,.08)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
@@ -51,6 +49,10 @@ body{padding-left:218px;background:radial-gradient(ellipse at 80% 0,rgba(104,26,
 @media(max-width:460px){.top-search{width:40%}.top-search span{display:none}.top-actions .icon-btn:nth-child(2){display:none}.stat-card small,.stat-card em{font-size:8px}.game-feature-grid{grid-template-columns:1fr}.game-feature{min-height:120px}.tracker-connect-panel{padding:28px 15px}}
 
 
+
+/* NEXUS ACCOUNT TRACKER */
+.tracker-shell{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:15px;margin-top:18px}.tracker-panel{background:linear-gradient(145deg,#140d25f5,#090813fa);border:1px solid var(--border);border-radius:16px;padding:18px;min-width:0}.tracker-panel h2{font-size:17px;margin:0 0 7px}.tracker-muted{color:var(--muted);font-size:11px;line-height:1.6}.tracker-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.tracker-field{display:flex;flex-direction:column;gap:6px}.tracker-field.full{grid-column:1/-1}.tracker-field label{font-size:10px;color:#cdbce8;font-weight:800}.tracker-field input,.tracker-field select{width:100%;background:#090714;border:1px solid #a95bff3d;color:white;border-radius:9px;padding:11px;outline:none}.tracker-field input:focus,.tracker-field select:focus{border-color:#a95bff}.tracker-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.tracker-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:15px 0}.tracker-stat{padding:14px 10px;border:1px solid var(--border);border-radius:12px;background:#ffffff08;min-width:0}.tracker-stat small{display:block;color:var(--muted);font-size:9px}.tracker-stat strong{display:block;font-size:22px;margin-top:5px;overflow-wrap:anywhere}.tracker-chart{height:155px;width:100%;display:block;margin-top:12px;background:linear-gradient(180deg,#8d39ff0c,transparent);border-radius:10px}.tracker-history{display:flex;flex-direction:column;gap:8px;margin-top:12px}.tracker-history-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border-radius:9px;background:#ffffff08;font-size:10px}.tracker-history-row span{color:var(--muted)}.tracker-profile-chip{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:11px;background:#ffffff08;margin-top:12px}.tracker-profile-avatar{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#842cff,#3b1a78);font-weight:900}.tracker-empty{padding:24px 12px;text-align:center;color:var(--muted);font-size:11px;border:1px dashed #a95bff45;border-radius:11px}.tracker-warning{margin-top:13px;padding:11px;border-radius:9px;background:#ffbd4210;border:1px solid #ffbd4230;color:#d8c49d;font-size:10px;line-height:1.6}.tracker-link{color:#c99aff;text-decoration:underline;font-weight:800}@media(max-width:850px){.tracker-shell{grid-template-columns:1fr}.tracker-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 /* NEXUS PROFILE EDITOR */
 .profile-editor{max-width:850px;margin:20px auto;padding:25px;background:radial-gradient(circle at 100% 0,rgba(139,92,246,.13),transparent 42%),var(--panel);border:1px solid var(--border);border-radius:18px}
 .profile-editor-preview{display:flex;align-items:center;gap:20px;padding:20px;margin-bottom:24px;border:1px solid #a858ff55;border-radius:16px;background:radial-gradient(circle at 90% 20%,#7520b955,transparent 55%),#100b1d}
@@ -67,6 +69,55 @@ body{padding-left:218px;background:radial-gradient(ellipse at 80% 0,rgba(104,26,
 @media(max-width:650px){.nx-cat{padding:14px}.nx-cat-controls{grid-template-columns:1fr 1fr}.nx-cat-controls input{grid-column:1/-1}.nx-cat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}}
 </style>
 
+
+<style id="nexus-custom-themes-style">
+.nx-theme-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}.nx-theme-panel{min-width:0;padding:22px;border:1px solid var(--border);border-radius:18px;background:var(--panel);box-shadow:0 12px 35px #0002}.nx-theme-panel h2{font-size:20px;margin:7px 0}.nx-theme-panel p{font-size:12px;color:var(--muted);line-height:1.6}.nx-theme-heading{display:flex;justify-content:space-between;gap:12px}.nx-theme-kicker{font-size:10px;font-weight:900;letter-spacing:2px;color:var(--purple)}.nx-theme-icon{font-size:30px}.nx-theme-presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:20px}.nx-theme-card{min-width:0;text-align:left;padding:9px;border:1px solid var(--border);border-radius:13px;background:var(--panel2);color:var(--text);cursor:pointer;transition:.2s}.nx-theme-card:hover{transform:translateY(-3px);border-color:var(--purple)}.nx-theme-card strong,.nx-theme-card small{display:block;overflow-wrap:anywhere}.nx-theme-card strong{font-size:12px;margin-top:9px}.nx-theme-card small{font-size:10px;color:var(--muted);margin-top:4px}.nx-theme-preview{height:72px;border-radius:8px;display:flex;align-items:flex-end;gap:5px;padding:8px;overflow:hidden}.nx-theme-preview i{display:block;height:35px;flex:1;border-radius:5px 5px 2px 2px}.nx-preview-base{background:#08040f}.nx-preview-base i:nth-child(1){background:#17112a}.nx-preview-base i:nth-child(2){background:#8150ff}.nx-preview-base i:nth-child(3){background:#a43cff}.nx-preview-luffy{background:#160906}.nx-preview-luffy i:nth-child(1){background:#35140d}.nx-preview-luffy i:nth-child(2){background:#ef4444}.nx-preview-luffy i:nth-child(3){background:#f5b942}.nx-preview-gear{background:#f5f0fa}.nx-preview-gear i:nth-child(1){background:#fff}.nx-preview-gear i:nth-child(2){background:#ff83bb}.nx-preview-gear i:nth-child(3){background:#4bc5eb}.nx-theme-status{margin-bottom:0!important;color:var(--purple)!important;font-weight:800}.nx-theme-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}.nx-theme-form label{font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:7px}.nx-theme-form input[type=color]{width:100%;height:38px;border:1px solid var(--border);border-radius:9px;background:var(--panel2);padding:4px}.nx-theme-form input[type=text]{background:var(--panel2);border:1px solid var(--border);border-radius:9px;color:var(--text);padding:10px;min-width:0}.nx-theme-import{grid-column:1/-1}.nx-theme-import-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.nx-file-label{display:inline-flex;align-items:center;cursor:pointer}.nx-custom-themes{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.nx-custom-theme-pill{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--border);border-radius:10px;background:var(--panel2);font-size:11px}.nx-custom-theme-pill button{border:0;background:transparent;color:#ff8295;cursor:pointer;font-size:16px}.nx-custom-theme-pill .nx-color-dot{width:12px;height:12px;border-radius:50%;border:1px solid #fff5}
+body[data-nexus-theme="luffy"]{background:radial-gradient(ellipse at 80% 0,rgba(239,68,68,.17),transparent 38%),radial-gradient(ellipse at 10% 90%,rgba(245,185,66,.08),transparent 35%),var(--bg)}
+body[data-nexus-theme="luffy"] .sidebar{background:linear-gradient(180deg,#160907,#100706 70%,#241007);border-color:rgba(245,185,66,.3)}
+body[data-nexus-theme="luffy"] .profile-banner{background:radial-gradient(ellipse at 75% 50%,#8d281c85,transparent 45%),linear-gradient(105deg,#35140d,#130806 60%,#4a1d0b);border-color:#ef444466}
+body[data-nexus-theme="luffy"] .brand-mark{background:linear-gradient(145deg,#ef4444,#9f2319);box-shadow:0 0 25px #ef444466}
+body[data-nexus-theme="gear5"]{background:radial-gradient(ellipse at 80% 0,rgba(255,131,187,.22),transparent 38%),radial-gradient(ellipse at 10% 90%,rgba(75,197,235,.17),transparent 35%),var(--bg)}
+body[data-nexus-theme="gear5"] .sidebar{background:linear-gradient(180deg,#f9f4ff,#eee8f8 70%,#fcecf5);border-color:rgba(196,112,190,.35);box-shadow:8px 0 35px #6a4c7a22}
+body[data-nexus-theme="gear5"] .brand-name,body[data-nexus-theme="gear5"] .side-nav button,body[data-nexus-theme="gear5"] .sidebar-bottom small,body[data-nexus-theme="gear5"] .sidebar-bottom strong{color:#352849}
+body[data-nexus-theme="gear5"] .side-nav button.active{color:#251b36;background:linear-gradient(100deg,#ffc1dc,#c9f0ff);border-color:#d18abf}
+body[data-nexus-theme="gear5"] .side-nav button span{color:#805b91}
+body[data-nexus-theme="gear5"] .brand-mark{background:linear-gradient(145deg,#ff83bb,#4bc5eb);color:#fff;box-shadow:0 0 22px #ff83bb77}
+body[data-nexus-theme="gear5"] .sidebar-bottom{background:linear-gradient(145deg,#fff0f7,#eaf9ff);border-color:#e6a9d1}
+body[data-nexus-theme="gear5"] .profile-banner{background:radial-gradient(ellipse at 75% 50%,#ffb6d6aa,transparent 45%),linear-gradient(105deg,#fff4fa,#f0f8ff 60%,#f6edff);border-color:#e6a9d1}
+body[data-nexus-theme="gear5"] .banner-silhouette{color:#fff9;text-shadow:0 0 3px #e9a4d1,0 0 40px #8edcf5}
+body[data-nexus-theme="gear5"] .banner-wordmark{color:#634b75;text-shadow:0 0 18px #ffb5d8}
+body[data-nexus-theme="gear5"] .profile-avatar{background:linear-gradient(145deg,#ffacd0,#7dd8ef);border-color:#d68ab8;color:#fff}
+@media(max-width:850px){.nx-theme-layout{grid-template-columns:1fr}.nx-theme-import{grid-column:auto}}
+@media(max-width:520px){.nx-theme-presets{grid-template-columns:1fr}.nx-theme-card{display:grid;grid-template-columns:90px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center}.nx-theme-preview{grid-row:1/3;height:55px}.nx-theme-card strong{margin-top:0}}
+</style>
+
+
+<style id="nexus-replay-analyzer-style">
+.nx-replay-hero{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:30px;border:1px solid #9a68ff55;border-radius:20px;background:radial-gradient(circle at 85% 50%,#7c3aed55,transparent 32%),linear-gradient(120deg,#151026,#0b0a16 70%);margin-bottom:15px}.nx-replay-kicker,.nx-replay-label{font-size:10px;letter-spacing:1.8px;font-weight:900;color:#b99aff}.nx-replay-hero h1{font-size:clamp(25px,5vw,39px);letter-spacing:1px;margin:9px 0}.nx-replay-hero h1 span{color:#a78bfa}.nx-replay-hero p{max-width:560px;margin:0;color:#b8aecb;font-size:13px;line-height:1.6}.nx-replay-orb{width:100px;height:100px;flex:0 0 100px;border:1px solid #b18aff66;border-radius:25px;display:grid;place-items:center;font-size:50px;color:#c4a8ff;background:#9b5cff18;box-shadow:0 0 50px #7c3aed33}.nx-replay-statusbar{display:flex;align-items:center;gap:9px;padding:12px 15px;border:1px solid var(--border);border-radius:12px;background:var(--panel);font-size:11px;color:var(--muted);margin-bottom:18px}.nx-replay-live-dot{width:8px;height:8px;border-radius:50%;background:#f5bd4b;box-shadow:0 0 10px #f5bd4b}.nx-replay-status-right{margin-left:auto;font-size:10px}.nx-replay-import-grid,.nx-replay-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.nx-replay-panel{min-width:0;padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--panel)}.nx-replay-panel h2{font-size:18px;margin:7px 0 9px}.nx-replay-panel p,.nx-replay-guide li{font-size:12px;color:var(--muted);line-height:1.65}.nx-replay-upload{margin-top:16px;min-height:120px;border:1px dashed #9b70ed88;border-radius:13px;background:#8b5cf610;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;cursor:pointer;text-align:center}.nx-replay-upload:hover{background:#8b5cf622;border-color:#b89aff}.nx-replay-upload span{font-size:27px;color:#b99aff}.nx-replay-upload b{font-size:13px}.nx-replay-upload small{font-size:10px;color:var(--muted)}.nx-replay-import-actions{display:flex;gap:8px;margin-top:12px}.nx-replay-btn{border:0;border-radius:9px;padding:10px 13px;background:linear-gradient(100deg,#7044df,#9b62f6);color:#fff;font-size:11px;font-weight:800;cursor:pointer}.nx-replay-btn.ghost{background:#ffffff0b;border:1px solid var(--border);color:var(--text)}.nx-replay-privacy{margin-top:13px;font-size:10px;color:#83d9b0}.nx-replay-guide ol{padding-left:18px;margin:12px 0}.nx-replay-guide li{padding:3px 0}.nx-replay-note{padding:10px;border-radius:9px;background:#f5bd4b10;border:1px solid #f5bd4b30!important;color:#d8c49d!important}.nx-replay-link{display:inline-block;color:#c5a7ff;font-size:11px;font-weight:800;text-decoration:underline;margin-top:4px}.nx-replay-section-label{display:block;margin:23px 0 10px}.nx-replay-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}.nx-replay-stat{padding:16px;border:1px solid var(--border);border-radius:13px;background:var(--panel);min-width:0}.nx-replay-stat span{display:block;font-size:9px;letter-spacing:1px;color:var(--muted);font-weight:900}.nx-replay-stat strong{display:block;font-size:27px;margin:8px 0 3px;color:var(--text);font-variant-numeric:tabular-nums}.nx-replay-stat small{font-size:10px;color:var(--muted)}.nx-replay-bottom-grid{margin-top:14px}.nx-replay-panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.nx-replay-mini-tag{font-size:10px;padding:6px 9px;border-radius:20px;background:#8b5cf622;color:#c5a7ff}.nx-replay-list{display:flex;flex-direction:column;gap:7px;margin-top:12px}.nx-replay-match{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--border);border-radius:10px;background:#ffffff05}.nx-replay-match-icon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:#8b5cf622;color:#c5a7ff}.nx-replay-match-main{flex:1;min-width:0}.nx-replay-match-main b,.nx-replay-match-main small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.nx-replay-match-main b{font-size:11px}.nx-replay-match-main small{font-size:9px;color:var(--muted);margin-top:4px}.nx-replay-match-count{font-size:17px;font-weight:900;color:#c4a5ff}.nx-replay-empty{padding:25px 10px;text-align:center;border:1px dashed var(--border);border-radius:10px;color:var(--muted);font-size:11px}.nx-replay-chart{min-height:170px;display:flex;align-items:flex-end;gap:8px;padding:18px 5px 5px}.nx-replay-bar-col{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:150px;gap:6px}.nx-replay-bar{width:min(34px,75%);min-height:3px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,#c4a5ff,#7044df);box-shadow:0 0 15px #8b5cf633}.nx-replay-bar-col small{font-size:9px;color:var(--muted)}.nx-replay-chart-foot{display:flex;justify-content:space-between;color:var(--muted);font-size:9px;border-top:1px solid var(--border);padding-top:9px}.nx-replay-disclaimer{font-size:10px;line-height:1.6;color:var(--muted);padding:12px;margin-top:14px;border-left:2px solid #8b5cf6;background:#8b5cf60a}
+@media(max-width:760px){.nx-replay-hero{padding:20px}.nx-replay-orb{width:65px;height:65px;flex-basis:65px;font-size:32px}.nx-replay-import-grid,.nx-replay-bottom-grid{grid-template-columns:1fr}.nx-replay-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.nx-replay-stat{padding:12px}.nx-replay-stat strong{font-size:23px}}
+</style>
+
+
+<style id="nexus-xp-pro-style">
+.nx-xp-hero{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:28px;border:1px solid #9a68ff55;border-radius:20px;background:radial-gradient(circle at 85% 50%,#7c3aed55,transparent 32%),linear-gradient(120deg,#151026,#0b0a16 70%);margin:12px 0 15px}.nx-xp-kicker{font-size:10px;letter-spacing:1.8px;font-weight:900;color:#b99aff}.nx-xp-hero h1{font-size:clamp(25px,5vw,39px);margin:9px 0}.nx-xp-hero h1 span{color:#a78bfa}.nx-xp-hero p{max-width:580px;color:var(--muted);font-size:12px;line-height:1.6;margin:0}.nx-xp-emblem{width:94px;height:94px;flex:0 0 94px;border-radius:24px;display:grid;place-items:center;font-size:54px;color:#e4ceff;background:#9b5cff18;border:1px solid #b18aff66;box-shadow:0 0 45px #7c3aed33}.nx-xp-overview{display:grid;grid-template-columns:1.3fr .7fr;gap:13px}.nx-xp-level-card,.nx-xp-total-card,.nx-xp-progress-panel,.nx-xp-stat,.nx-xp-achievements,.nx-xp-profile-card{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:18px}.nx-xp-level-card{display:flex;align-items:center;gap:15px}.nx-xp-avatar{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;font-size:27px;font-weight:1000;color:white;background:linear-gradient(145deg,#8c4dff,#321078);border:1px solid #c29bff66}.nx-xp-level-card small,.nx-xp-total-card small,.nx-xp-stat small,.nx-xp-progress-head small{font-size:9px;letter-spacing:1.2px;color:var(--muted);font-weight:900}.nx-xp-level-card h2{font-size:20px;margin:4px 0}.nx-xp-level-card strong{font-size:10px;color:#c4a5ff;letter-spacing:1px}.nx-xp-total-card{display:flex;flex-direction:column;justify-content:center}.nx-xp-total-card strong{font-size:29px;margin:5px 0}.nx-xp-total-card span{font-size:10px;color:var(--muted)}.nx-xp-progress-panel{margin-top:13px}.nx-xp-progress-head,.nx-xp-profile-line,.nx-xp-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.nx-xp-progress-head h2{font-size:17px;margin:4px 0}.nx-xp-progress-head>strong{font-size:14px;color:#c4a5ff}.nx-xp-track{height:10px;border-radius:20px;overflow:hidden;background:#2a1c42;margin-top:12px}.nx-xp-track span{display:block;width:20%;height:100%;border-radius:20px;background:linear-gradient(90deg,#6b1cff,#d15cff);transition:width .3s}.nx-xp-track.large{height:13px}.nx-xp-progress-foot{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:10px}.nx-xp-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-top:13px}.nx-xp-stat strong{display:block;font-size:25px;margin:8px 0 2px}.nx-xp-stat span{font-size:10px;color:var(--muted)}.nx-xp-achievements{margin-top:13px}.nx-xp-section-head h2{font-size:18px;margin:5px 0}.nx-xp-section-head>span{font-size:10px;color:#c4a5ff}.nx-xp-badge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:15px}.nx-xp-badge{padding:14px;border:1px solid var(--border);border-radius:12px;background:#ffffff05;min-width:0}.nx-xp-badge.unlocked{border-color:#9a68ff66;background:#8b5cf610}.nx-xp-badge-icon{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;background:#8b5cf622;font-size:20px;margin-bottom:9px}.nx-xp-badge.locked{opacity:.48;filter:grayscale(1)}.nx-xp-badge strong,.nx-xp-badge small{display:block}.nx-xp-badge strong{font-size:11px}.nx-xp-badge small{font-size:9px;color:var(--muted);line-height:1.5;margin-top:5px}.nx-xp-disclaimer{font-size:10px;line-height:1.6;color:var(--muted);padding:12px;margin-top:13px;border-left:2px solid #8b5cf6;background:#8b5cf60a}.nx-xp-profile-card{margin-top:15px}.nx-xp-profile-card h2{font-size:18px;margin:5px 0}.nx-xp-profile-card p{font-size:11px;color:var(--muted);margin:0}.nx-xp-profile-line{margin-top:15px}.nx-xp-profile-line strong{font-size:14px}.nx-xp-profile-line span{font-size:11px;color:#c4a5ff}.nx-xp-button{margin-top:12px;padding:9px 12px;border-radius:9px;border:1px solid #9b62f6;background:#8b5cf622;color:var(--text);font-size:10px;font-weight:800;cursor:pointer}.nx-replay-player-filter{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 14px;margin-bottom:11px;border:1px solid var(--border);border-radius:12px;background:var(--panel)}.nx-replay-player-filter label{font-size:11px;font-weight:800}.nx-replay-player-filter input{flex:1;min-width:180px;background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:9px 11px;color:var(--text)}.nx-replay-player-filter small{width:100%;font-size:9px;color:var(--muted)}
+@media(max-width:760px){.nx-xp-overview{grid-template-columns:1fr}.nx-xp-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nx-xp-badge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nx-xp-hero{padding:19px}.nx-xp-emblem{width:65px;height:65px;flex-basis:65px;font-size:36px}}
+</style>
+
+
+<style id="nexus-mobile-dock-style">
+.nx-mobile-dock{display:none}
+@media(max-width:760px){
+ body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+ .page{padding-bottom:30px}
+ .nx-mobile-dock{position:fixed;z-index:80;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px;border:1px solid rgba(180,140,255,.25);border-radius:17px;background:rgba(13,10,25,.94);backdrop-filter:blur(18px);box-shadow:0 10px 35px rgba(0,0,0,.42)}
+ .nx-mobile-dock button{min-width:0;min-height:52px;border:1px solid transparent;border-radius:11px;background:transparent;color:#a99dbd;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9px;font-weight:800;letter-spacing:.2px;padding:5px 2px}
+ .nx-mobile-dock button span{font-size:19px;line-height:1.1}
+ .nx-mobile-dock button.active{color:#fff;background:linear-gradient(145deg,#7844d633,#a43cff22);border-color:#a77aff55}
+ .nx-mobile-dock button:active{transform:scale(.97)}
+}
+@media(min-width:761px){.nx-mobile-dock{display:none!important}}
+</style>
+
 </head>
 <body>
 <aside class="sidebar">
@@ -77,6 +128,8 @@ body{padding-left:218px;background:radial-gradient(ellipse at 80% 0,rgba(104,26,
     <button id="nav-valorant" onclick="showPage('valorant')"><span>◇</span>VALORANT Shop</button>
     <button id="nav-crosshair" onclick="showPage('crosshair')"><span>⌖</span>Crosshair Studio</button>
     <button id="nav-tracker" onclick="showPage('tracker')"><span>▥</span>Account Tracker</button>
+    <button id="nav-replay" onclick="showPage('replay')"><span>▣</span>Replay Analyzer PRO</button>
+    <button id="nav-progression" onclick="showPage('progression')"><span>✦</span>NEXUS XP</button>
     <div class="nav-divider"></div>
     <button id="nav-profile" onclick="showPage('profile')"><span>◉</span>Mon profil</button>
     <button id="nav-friends" onclick="showPage('friends')"><span>♧</span>Amis</button>
@@ -97,7 +150,7 @@ body{padding-left:218px;background:radial-gradient(ellipse at 80% 0,rgba(104,26,
   <div class="welcome-row"><div><div class="eyebrow">TON ESPACE GAMING PERSONNEL</div><h1>Bienvenue sur <span>NEXUS.</span></h1><p class="welcome-sub">Ton univers gaming, tes outils et tes statistiques réunis au même endroit.</p></div><div class="welcome-chip"><i></i> SYSTÈME EN LIGNE</div></div>
   <section class="profile-banner">
     <div class="banner-orb"></div><div class="banner-silhouette">N</div><div class="banner-wordmark">NEXUS<small>GAMING HUB</small></div>
-    <div class="banner-profile"><div class="profile-avatar">N<span class="avatar-status"></span></div><div class="banner-user"><div class="user-name">Joueur NEXUS <span>✦</span></div><div class="user-level">Niveau 1 · Nouveau membre</div><div class="xp-track"><span></span></div><small>120 / 1 000 XP · Progression bientôt disponible</small></div></div><div class="banner-quote">PLAY. CREATE. CONQUER.</div>
+    <div class="banner-profile"><div class="profile-avatar">N<span class="avatar-status"></span></div><div class="banner-user"><div class="user-name">Joueur NEXUS <span>✦</span></div><div class="user-level" id="nx-home-level">Niveau 1 · Recrue NEXUS</div><div class="xp-track"><span id="nx-home-xp-bar"></span></div><small id="nx-home-xp-text">100 / 500 XP · Début de ton aventure</small></div></div><div class="banner-quote">PLAY. CREATE. CONQUER.</div>
   </section>
   <div class="stat-grid">
     <article class="stat-card"><div class="stat-icon purple">♥</div><div><small>Favoris enregistrés</small><strong id="dashboard-fav-count">0</strong><em>Dans tes boutiques</em></div></article>
@@ -131,12 +184,13 @@ body{padding-left:218px;background:radial-gradient(ellipse at 80% 0,rgba(104,26,
   <div class="nx-cat-head"><div><div class="nx-cat-kicker">NEXUS DATABASE</div><h2>Catalogue Fortnite</h2><p>Recherche les cosmétiques et ajoute-les à ta liste de surveillance.</p></div><div class="nx-cat-count" id="nx-cat-count">Catalogue en attente…</div></div>
   <div class="nx-cat-controls">
     <input id="nx-cat-search" type="search" placeholder="Rechercher un cosmétique…" autocomplete="off">
-    <select id="nx-cat-category"><option value="all">Toutes les catégories</option><option value="outfit">Tenues</option><option value="backpack">Accessoires de dos</option><option value="pickaxe">Pioches</option><option value="glider">Planeurs</option><option value="emote">Emotes</option><option value="wrap">Revêtements</option><option value="contrail">Traînées</option><option value="loadingscreen">Écrans de chargement</option><option value="music">Musiques</option><option value="spray">Tags</option><option value="emoji">Emojis</option><option value="toy">Jouets</option><option value="bundle">Packs</option><option value="other">Autres</option></select>
+    <select id="nx-cat-category"><option value="outfit" selected>Tenues Fortnite (skins)</option><option value="all">Toutes les catégories</option><option value="backpack">Accessoires de dos</option><option value="pickaxe">Pioches</option><option value="glider">Planeurs</option><option value="emote">Emotes</option><option value="wrap">Revêtements</option><option value="contrail">Traînées</option><option value="loadingscreen">Écrans de chargement</option><option value="music">Musiques</option><option value="spray">Tags</option><option value="emoji">Emojis</option><option value="toy">Jouets</option><option value="bundle">Packs</option><option value="other">Autres</option></select>
     <select id="nx-cat-rarity"><option value="all">Toutes les raretés</option><option value="common">Typique</option><option value="uncommon">Atypique</option><option value="rare">Rare</option><option value="epic">Épique</option><option value="legendary">Légendaire</option><option value="mythic">Mythique</option><option value="marvel">Marvel</option><option value="dc">DC</option><option value="star_wars">Star Wars</option><option value="icon">Icône</option></select>
   </div>
   <div class="nx-cat-actions"><button class="nx-cat-btn primary" id="nx-cat-refresh" type="button">↻ Charger / actualiser</button><button class="nx-cat-btn" id="nx-cat-watch-toggle" type="button">★ Ma watchlist (<span id="nx-cat-watch-count">0</span>)</button><button class="nx-cat-btn" id="nx-cat-notify" type="button">Activer les notifications</button></div>
   <div class="nx-cat-status" id="nx-cat-status" role="status">Le catalogue sera chargé depuis la base de données publique.</div>
   <div class="nx-cat-grid" id="nx-cat-grid"><div class="nx-cat-empty">Clique sur « Charger / actualiser » pour afficher le catalogue.</div></div>
+  <div class="nx-cat-actions" id="nx-cat-pagination" style="justify-content:center;align-items:center"><button class="nx-cat-btn" id="nx-cat-prev" type="button" disabled>← Précédent</button><span class="nx-cat-count" id="nx-cat-page-label">Page 1</span><button class="nx-cat-btn" id="nx-cat-next" type="button" disabled>Suivant →</button></div>
   <div class="nx-watchlist" id="nx-cat-watchlist"><h3>Objets surveillés</h3><div id="nx-cat-watch-items"></div></div>
 </div>
 
@@ -151,7 +205,41 @@ body{padding-left:218px;background:radial-gradient(ellipse at 80% 0,rgba(104,26,
   <div id="valorant-status" class="status">Chargement de la boutique...</div><div id="valorant-grid" class="item-grid"></div><div id="valorant-credit" class="credit"></div>
 </section>
 
-<section id="tracker-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">PLAYER ANALYTICS</div><h1>ACCOUNT <span>TRACKER</span></h1><p class="small-muted">Retrouve tes performances Fortnite et VALORANT dans un seul espace.</p><div class="tracker-tabs"><button class="tracker-tab active" onclick="selectTrackerGame('fortnite',this)">F Fortnite</button><button class="tracker-tab" onclick="selectTrackerGame('valorant',this)">◇ VALORANT</button></div><div class="tracker-connect-panel"><div class="connect-icon">⌁</div><div class="eyebrow">CONNEXION OFFICIELLE</div><h2 id="tracker-game-title">Tracker Fortnite</h2><p id="tracker-game-description">Les statistiques seront disponibles après la mise en place d'une connexion officielle sécurisée.</p><span class="coming-tag large">EN PRÉPARATION</span><div class="connect-note">Aucun mot de passe ne sera demandé directement sur NEXUS. La connexion passera par le service officiel lorsqu'il sera disponible.</div></div></section>
+<section id="tracker-page" class="page">
+  <button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button>
+  <div class="eyebrow">PLAYER ANALYTICS</div><h1>ACCOUNT <span>TRACKER</span></h1>
+  <p class="small-muted">Suis tes performances et garde un historique de ta progression.</p>
+  <div class="tracker-tabs"><button class="tracker-tab active" data-game="fortnite" onclick="selectTrackerGame('fortnite',this)">F Fortnite</button><button class="tracker-tab" data-game="valorant" onclick="selectTrackerGame('valorant',this)">◇ VALORANT</button></div>
+  <div class="tracker-shell">
+    <div class="tracker-panel">
+      <div class="eyebrow">TON COMPTE</div><h2 id="tracker-form-title">Configurer ton profil Fortnite</h2>
+      <p class="tracker-muted">Ajoute ton pseudo et ta plateforme. Tu peux ensuite enregistrer tes statistiques pour suivre leur évolution.</p>
+      <div class="tracker-form-grid">
+        <div class="tracker-field full"><label for="tracker-username">Pseudo joueur</label><input id="tracker-username" maxlength="40" placeholder="Ex : TonPseudo"></div>
+        <div class="tracker-field"><label for="tracker-platform">Plateforme</label><select id="tracker-platform"><option value="epic">Epic Games / PC</option><option value="playstation">PlayStation</option><option value="xbox">Xbox</option><option value="switch">Nintendo Switch</option><option value="mobile">Mobile</option></select></div>
+        <div class="tracker-field"><label for="tracker-mode">Mode suivi</label><select id="tracker-mode"><option value="battle-royale">Battle Royale</option><option value="zero-build">Sans construction</option><option value="ranked">Classé</option><option value="reload">Reload</option></select></div>
+        <div class="tracker-field"><label for="tracker-wins">Victoires</label><input id="tracker-wins" type="number" min="0" step="1" placeholder="0"></div>
+        <div class="tracker-field"><label for="tracker-matches">Parties jouées</label><input id="tracker-matches" type="number" min="0" step="1" placeholder="0"></div>
+        <div class="tracker-field"><label for="tracker-kills">Éliminations</label><input id="tracker-kills" type="number" min="0" step="1" placeholder="0"></div>
+        <div class="tracker-field"><label for="tracker-deaths">Morts (pour le K/D)</label><input id="tracker-deaths" type="number" min="0" step="1" placeholder="0"></div>
+      </div>
+      <div class="tracker-actions"><button class="action-btn" onclick="saveTrackerSnapshot()">＋ Enregistrer les stats</button><button class="secondary-btn" onclick="openExternalTracker()">Voir le profil public ↗</button></div>
+      <div class="tracker-warning">Les statistiques ci-dessous sont celles que tu saisis : NEXUS ne prétend pas récupérer automatiquement les données Epic. L'API publique officielle de Fortnite ne fournit pas les statistiques individuelles des joueurs. <a class="tracker-link" href="https://fortnitetracker.com/" target="_blank" rel="noopener">Consulter un tracker public</a>.</div>
+    </div>
+    <div class="tracker-panel">
+      <div class="eyebrow">PERFORMANCE OVERVIEW</div><h2 id="tracker-profile-title">Aucun profil enregistré</h2><p class="tracker-muted" id="tracker-profile-subtitle">Enregistre une première mise à jour pour commencer ton suivi.</p>
+      <div class="tracker-stats">
+        <div class="tracker-stat"><small>VICTOIRES</small><strong id="tracker-stat-wins">—</strong></div>
+        <div class="tracker-stat"><small>WIN RATE</small><strong id="tracker-stat-winrate">—</strong></div>
+        <div class="tracker-stat"><small>K/D</small><strong id="tracker-stat-kd">—</strong></div>
+        <div class="tracker-stat"><small>PARTIES</small><strong id="tracker-stat-matches">—</strong></div>
+      </div>
+      <div class="panel-heading"><div><small>PROGRESSION</small><h2>Historique du K/D</h2></div><span class="small-muted" id="tracker-history-count">0 relevé</span></div>
+      <svg id="tracker-chart" class="tracker-chart" viewBox="0 0 520 150" role="img" aria-label="Graphique de l'évolution du K/D"><text x="260" y="78" text-anchor="middle" fill="#a69ab9" font-size="12">En attente de données</text></svg>
+      <div id="tracker-history" class="tracker-history"><div class="tracker-empty">Ton historique apparaîtra ici après le premier enregistrement.</div></div>
+    </div>
+  </div>
+</section>
 <section id="profile-page" class="page">
   <button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button>
   <div class="eyebrow">PLAYER IDENTITY</div><h1>MON <span>PROFIL</span></h1>
@@ -169,11 +257,39 @@ body{padding-left:218px;background:radial-gradient(ellipse at 80% 0,rgba(104,26,
       <button class="action-btn" onclick="saveNexusProfile()">Sauvegarder mon profil</button><p id="profile-save-status" class="small-muted" aria-live="polite"></p>
     </div>
   </div>
+  <div class="nx-xp-profile-card"><div><div class="nx-xp-kicker">TON ÉVOLUTION</div><h2>Progression NEXUS</h2><p>Gagne de l'XP en utilisant les outils et en construisant ta collection.</p></div><div class="nx-xp-profile-line"><strong id="nx-profile-level">Niveau 1</strong><span id="nx-profile-xp">100 XP</span></div><div class="nx-xp-track"><span id="nx-profile-xp-bar"></span></div><button class="nx-xp-button" onclick="showPage('progression')">Voir mes récompenses ↗</button></div>
 </section>
 <section id="friends-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">COMMUNITY</div><h1>MES <span>AMIS</span></h1><div class="panel future-panel"><h2>La communauté NEXUS arrive</h2><p>Cette section accueillera tes amis et leur statut en ligne.</p><span class="coming-tag large">EN CONSTRUCTION</span></div></section>
 <section id="teams-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">SQUAD UP</div><h1>ÉQUIPES <span>NEXUS</span></h1><div class="panel future-panel"><h2>Joue ensemble</h2><p>Les équipes et groupes NEXUS seront disponibles dans une prochaine version.</p><span class="coming-tag large">EN CONSTRUCTION</span></div></section>
 <section id="achievements-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">MILESTONES</div><h1>SUCCÈS & <span>RÉCOMPENSES</span></h1><div class="panel future-panel"><h2>Défis NEXUS</h2><p>Débloque des badges en explorant les fonctionnalités de la plateforme.</p><span class="coming-tag large">EN CONSTRUCTION</span></div></section>
-<section id="settings-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">PREFERENCES</div><h1>PARAMÈTRES</h1><div class="panel future-panel"><h2>Personnalise NEXUS</h2><p>Les préférences d'affichage et les options seront ajoutées progressivement.</p><button class="secondary-btn" onclick="toggleTheme()">Basculer l'ambiance</button></div></section>
+<section id="settings-page" class="page">
+  <button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button>
+  <div class="eyebrow">PREFERENCES</div><h1>PARAMÈTRES</h1>
+  <div class="nx-theme-layout">
+    <section class="nx-theme-panel">
+      <div class="nx-theme-heading"><div><div class="nx-theme-kicker">APPARENCE NEXUS</div><h2>Choisis ton univers</h2><p>Change les couleurs du site en un clic. Ton choix est sauvegardé sur cet appareil.</p></div><span class="nx-theme-icon">🎨</span></div>
+      <div class="nx-theme-presets">
+        <button class="nx-theme-card" type="button" onclick="applyNexusTheme('base')"><span class="nx-theme-preview nx-preview-base"><i></i><i></i><i></i></span><strong>Thème de base</strong><small>Violet NEXUS classique</small></button>
+        <button class="nx-theme-card" type="button" onclick="applyNexusTheme('luffy')"><span class="nx-theme-preview nx-preview-luffy"><i></i><i></i><i></i></span><strong>Luffy</strong><small>Rouge, or et aventure</small></button>
+        <button class="nx-theme-card" type="button" onclick="applyNexusTheme('gear5')"><span class="nx-theme-preview nx-preview-gear"><i></i><i></i><i></i></span><strong>Luffy Gear 5</strong><small>Nuages, rose et bleu ciel</small></button>
+      </div>
+      <p id="nx-theme-status" class="nx-theme-status" aria-live="polite">Thème actuel : Base</p>
+    </section>
+    <section class="nx-theme-panel">
+      <div class="nx-theme-kicker">CRÉATEUR DE THÈME</div><h2>Créer ton propre thème</h2><p>Choisis tes couleurs et enregistre ton thème personnalisé.</p>
+      <div class="nx-theme-form"><label>Nom du thème<input id="nx-custom-name" maxlength="28" placeholder="Ex. Mon thème"></label>
+        <label>Fond principal<input id="nx-custom-bg" type="color" value="#08040f"></label><label>Panneaux<input id="nx-custom-panel" type="color" value="#140d22"></label><label>Couleur principale<input id="nx-custom-accent" type="color" value="#8b5cf6"></label><label>Couleur secondaire<input id="nx-custom-secondary" type="color" value="#e879f9"></label><label>Texte<input id="nx-custom-text" type="color" value="#f7f1ff"></label>
+      </div>
+      <button class="action-btn" type="button" onclick="saveCustomNexusTheme()">＋ Enregistrer mon thème</button>
+    </section>
+    <section class="nx-theme-panel nx-theme-import">
+      <div class="nx-theme-kicker">IMPORT / EXPORT</div><h2>Partager un thème</h2><p>Importe un fichier JSON de thème NEXUS ou exporte celui que tu utilises actuellement.</p>
+      <div class="nx-theme-import-actions"><label class="secondary-btn nx-file-label" for="nx-theme-file">↥ Importer un thème JSON</label><input id="nx-theme-file" type="file" accept=".json,application/json" onchange="importNexusTheme(event)" hidden><button class="secondary-btn" type="button" onclick="exportNexusTheme()">↧ Exporter le thème actuel</button></div>
+      <div id="nx-custom-themes" class="nx-custom-themes"></div>
+      <p class="small-muted">Les thèmes sont enregistrés localement dans ton navigateur. Un fichier importé doit être un JSON de thème NEXUS.</p>
+    </section>
+  </div>
+</section>
 
 <section id="crosshair-page" class="page">
   <button class="back-btn" onclick="showPage('home')">← Retour à l'accueil</button><div class="eyebrow">AIM CUSTOMIZATION</div><h1 style="font-size:38px">CROSSHAIR <span>STUDIO</span></h1><p class="small-muted">Crée ton viseur, teste son apparence et sauvegarde tes réglages.</p>
@@ -192,11 +308,56 @@ body{padding-left:218px;background:radial-gradient(ellipse at 80% 0,rgba(104,26,
   </div>
   <div class="tool-panel" style="margin-top:18px"><h3>Mes préréglages</h3><div id="preset-list" class="preset-list"></div><p class="small-muted">Tes préréglages sont conservés sur cet appareil.</p></div>
 </section>
+
+<section id="progression-page" class="page">
+ <button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button>
+ <div class="nx-xp-hero"><div><div class="nx-xp-kicker">NEXUS PLAYER PROGRESSION</div><h1>TON NIVEAU <span>NEXUS</span></h1><p>Chaque activité utile sur le site fait progresser ton profil. Tes points restent enregistrés sur cet appareil.</p></div><div class="nx-xp-emblem">✦</div></div>
+ <div class="nx-xp-overview"><div class="nx-xp-level-card"><div class="nx-xp-avatar" id="nx-xp-avatar">N</div><div><small>JOUEUR NEXUS</small><h2 id="nx-xp-name">Joueur NEXUS</h2><strong id="nx-xp-level-big">NIVEAU 1</strong></div></div><div class="nx-xp-total-card"><small>EXPÉRIENCE TOTALE</small><strong id="nx-xp-total">100 XP</strong><span id="nx-xp-next">400 XP avant le niveau suivant</span></div></div>
+ <div class="nx-xp-progress-panel"><div class="nx-xp-progress-head"><div><small>PROGRESSION DU NIVEAU</small><h2 id="nx-xp-progress-title">Recrue NEXUS</h2></div><strong id="nx-xp-percent">20 %</strong></div><div class="nx-xp-track large"><span id="nx-xp-progress-bar"></span></div><div class="nx-xp-progress-foot"><span id="nx-xp-current">100 XP</span><span id="nx-xp-target">500 XP</span></div></div>
+ <div class="nx-xp-stats-grid"><div class="nx-xp-stat"><small>FAVORIS</small><strong id="nx-xp-favorites">0</strong><span>10 XP chacun</span></div><div class="nx-xp-stat"><small>VISEURS SAUVEGARDÉS</small><strong id="nx-xp-crosshairs">0</strong><span>25 XP chacun</span></div><div class="nx-xp-stat"><small>PARTIES IMPORTÉES</small><strong id="nx-xp-replays">0</strong><span>30 XP chacune</span></div><div class="nx-xp-stat"><small>THÈMES CRÉÉS</small><strong id="nx-xp-themes">0</strong><span>15 XP chacun</span></div></div>
+ <div class="nx-xp-achievements"><div class="nx-xp-section-head"><div><small>NEXUS MILESTONES</small><h2>Badges & récompenses</h2></div><span id="nx-xp-badge-count">1 / 6 débloqués</span></div><div id="nx-xp-badges" class="nx-xp-badge-grid"></div></div>
+ <p class="nx-xp-disclaimer">Le système XP est local et non compétitif : il récompense les actions enregistrées dans ce navigateur. Les points ne sont pas une monnaie et ne donnent aucun avantage dans les jeux.</p>
+</section>
+
+<section id="replay-page" class="page">
+ <div class="nx-replay-hero">
+  <div><div class="nx-replay-kicker">NEXUS INTELLIGENCE SYSTEM</div><h1>REPLAY <span>ANALYZER</span></h1><p>Ton historique Fortnite, tes coffres et tes performances réunis dans un seul tableau de bord.</p></div>
+  <div class="nx-replay-orb">▣</div>
+ </div>
+ <div class="nx-replay-statusbar"><span class="nx-replay-live-dot"></span><span id="nx-replay-status">En attente des données de replay</span><span class="nx-replay-status-right" id="nx-replay-last">Aucun import effectué</span></div>
+ <div class="nx-replay-import-grid">
+  <div class="nx-replay-panel nx-replay-import-card"><div class="nx-replay-label">01 / IMPORT DES DONNÉES</div><h2>Connecter ton historique</h2><p>Importe le fichier <b>data.json</b> ou <b>matches.csv</b> créé par ton analyseur de replays. NEXUS affichera les chiffres reconnus.</p>
+   <label class="nx-replay-upload" for="nx-replay-file"><span>＋</span><b>Importer un fichier</b><small>JSON ou CSV · fichier local uniquement</small></label><input id="nx-replay-file" type="file" accept=".json,.csv,application/json,text/csv" hidden>
+   <div class="nx-replay-import-actions"><button class="nx-replay-btn" id="nx-replay-demo">Voir un exemple</button><button class="nx-replay-btn ghost" id="nx-replay-reset">Réinitialiser</button></div>
+   <div class="nx-replay-privacy">🔒 Tes fichiers restent dans ton navigateur. Aucun identifiant Epic n'est demandé.</div>
+  </div>
+  <div class="nx-replay-panel nx-replay-guide"><div class="nx-replay-label">02 / SOURCE DES REPLAYS</div><h2>Comment récupérer les données ?</h2><ol><li>Active <b>Paramètres → Jeu → Rediffusions → Enregistrer les rediffusions</b> dans Fortnite.</li><li>Un analyseur compatible lit les replays après chaque partie et produit un historique.</li><li>Importe son fichier <b>data.json</b> ou <b>matches.csv</b> ici.</li></ol><p class="nx-replay-note">Les fichiers .replay bruts ne sont pas encore décodés directement par cette page. L'analyseur doit d'abord les convertir en statistiques.</p><a href="https://github.com/LED-N/Fortnite-ChestCounter" target="_blank" rel="noopener" class="nx-replay-link">Consulter le projet open source ChestCounter ↗</a></div>
+ </div>
+ <div class="nx-replay-label nx-replay-section-label">03 / TES STATISTIQUES</div>
+ <div class="nx-replay-player-filter"><label for="nx-replay-player-filter">Joueur à suivre</label><input id="nx-replay-player-filter" type="search" placeholder="Ton pseudo (si présent dans le fichier)…"><small>Le filtre fonctionne uniquement si la source contient un nom de joueur.</small></div>
+ <div class="nx-replay-stats">
+  <div class="nx-replay-stat"><span>COFFRES OUVERTS</span><strong id="nx-r-total">—</strong><small>Total détecté</small></div>
+  <div class="nx-replay-stat"><span>PARTIES ANALYSÉES</span><strong id="nx-r-matches">—</strong><small>Dans ton historique</small></div>
+  <div class="nx-replay-stat"><span>MOYENNE / PARTIE</span><strong id="nx-r-average">—</strong><small>Coffres par partie</small></div>
+  <div class="nx-replay-stat"><span>RECORD</span><strong id="nx-r-best">—</strong><small>Meilleure partie</small></div>
+ </div>
+ <div class="nx-replay-bottom-grid">
+  <div class="nx-replay-panel"><div class="nx-replay-panel-head"><div><div class="nx-replay-label">04 / ACTIVITÉ RÉCENTE</div><h2>Dernières parties</h2></div><span class="nx-replay-mini-tag" id="nx-r-count-tag">0 parties</span></div><div id="nx-replay-list" class="nx-replay-list"><div class="nx-replay-empty">Importe ton historique pour afficher tes parties.</div></div></div>
+  <div class="nx-replay-panel"><div class="nx-replay-label">05 / PROGRESSION</div><h2>Répartition des coffres</h2><div class="nx-replay-chart-wrap"><div class="nx-replay-chart" id="nx-replay-chart"><div class="nx-replay-empty">Les données apparaîtront après l'import.</div></div></div><div class="nx-replay-chart-foot"><span>0 coffre</span><span>Historique importé</span></div></div>
+ </div>
+ <div class="nx-replay-disclaimer">NEXUS affiche les données fournies par le fichier importé. Si le fichier ne contient pas le détail des coffres par partie, certaines statistiques resteront indisponibles.</div>
+</section>
 </main>
 
 <div id="item-modal" class="item-modal" onclick="if(event.target===this)closeItemDetails()">
   <div class="item-modal-content"><button class="modal-close" onclick="closeItemDetails()">✕</button><img id="modal-image" src="" alt=""><div class="modal-details"><div class="eyebrow">NEXUS ITEM DETAILS</div><h2 id="modal-name"></h2><p id="modal-type"></p><p id="modal-rarity"></p><h3 id="modal-price"></h3><button id="modal-favorite" class="action-btn">♡ Ajouter aux favoris</button></div></div>
 </div>
+<nav class="nx-mobile-dock" aria-label="Navigation rapide">
+ <button id="nx-dock-home" class="active" onclick="showPage('home')"><span>⌂</span>Accueil</button>
+ <button id="nx-dock-fortnite" onclick="showPage('fortnite')"><span>◈</span>Fortnite</button>
+ <button id="nx-dock-replay" onclick="showPage('replay')"><span>▣</span>Replays</button>
+ <button id="nx-dock-progression" onclick="showPage('progression')"><span>✦</span>XP</button>
+</nav>
 <footer class="footer">NEXUS GAMING HUB · Fan project indépendant · Non affilié à Epic Games ou Riot Games.</footer>
 
 <script>
@@ -212,10 +373,13 @@ function showPage(name){
   const page=document.getElementById(name+"-page");if(page)page.classList.add("active");
   document.querySelectorAll(".side-nav button, .nav button").forEach(b=>b.classList.remove("active"));
   const nav=document.getElementById("nav-"+name);if(nav)nav.classList.add("active");
+  document.querySelectorAll(".nx-mobile-dock button").forEach(b=>b.classList.remove("active"));
+  const dock=document.getElementById("nx-dock-"+name);if(dock)dock.classList.add("active");
   if(name==="fortnite"&&!shops.fortnite.length)loadShop("fortnite");
   if(name==="valorant"&&!shops.valorant.length)loadShop("valorant");
   if(name==="crosshair")updateCrosshair();
   if(name==="profile")loadNexusProfile();
+  if(name==="progression"||name==="profile"||name==="home")window.renderNexusXP?.();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function toggleTheme(){document.body.classList.toggle("light-theme");}
@@ -225,29 +389,29 @@ function globalSearch(){
   if(q.includes("valo")){showPage("valorant");document.getElementById("valorant-search").value=q;renderShop("valorant");return;}
   if(q.includes("viseur")||q.includes("crosshair")){showPage("crosshair");return;}
   if(q.includes("tracker")){showPage("tracker");return;}
+  if(q.includes("replay")||q.includes("replay analyzer")||q.includes("coffre")){showPage("replay");return;}
+  if(q.includes("xp")||q.includes("niveau")||q.includes("progression")){showPage("progression");return;}
   showPage("home");
 }
 function selectTrackerGame(game,button){
-  document.querySelectorAll(".tracker-tab").forEach(tab=>tab.classList.remove("active"));button.classList.add("active");
-  document.getElementById("tracker-game-title").textContent=game==="fortnite"?"Tracker Fortnite":"Tracker VALORANT";
-  document.getElementById("tracker-game-description").textContent=game==="fortnite"?"Les statistiques Fortnite seront disponibles après la mise en place d'une connexion officielle sécurisée.":"Les statistiques VALORANT seront disponibles après la mise en place d'une connexion officielle sécurisée.";
+  nexusTrackerGame=game;
+  document.querySelectorAll(".tracker-tab").forEach(tab=>tab.classList.toggle("active",tab===button));
+  const title=document.getElementById("tracker-form-title");
+  if(title)title.textContent=game==="fortnite"?"Configurer ton profil Fortnite":"Configurer ton profil VALORANT";
+  const mode=document.getElementById("tracker-mode");
+  if(mode){mode.innerHTML=game==="fortnite"?'<option value="battle-royale">Battle Royale</option><option value="zero-build">Sans construction</option><option value="ranked">Classé</option><option value="reload">Reload</option>':'<option value="competitive">Compétitif</option><option value="unrated">Non classé</option>'}
+  renderTracker();
 }
 function toggleTheme(){document.body.classList.toggle("light-theme");}
 function globalSearch(){const q=(document.getElementById("global-search")?.value||"").trim().toLowerCase();if(!q)return;if(q.includes("fort")){showPage("fortnite");document.getElementById("fortnite-search").value=q;renderShop("fortnite");return;}if(q.includes("valo")){showPage("valorant");document.getElementById("valorant-search").value=q;renderShop("valorant");return;}if(q.includes("viseur")||q.includes("crosshair")){showPage("crosshair");return;}if(q.includes("tracker")){showPage("tracker");return;}showPage("home");}
-function selectTrackerGame(game,button){document.querySelectorAll(".tracker-tab").forEach(tab=>tab.classList.remove("active"));button.classList.add("active");document.getElementById("tracker-game-title").textContent=game==="fortnite"?"Tracker Fortnite":"Tracker VALORANT";document.getElementById("tracker-game-description").textContent=game==="fortnite"?"Les statistiques Fortnite seront disponibles après la mise en place d'une connexion officielle sécurisée.":"Les statistiques VALORANT seront disponibles après la mise en place d'une connexion officielle sécurisée."}
-function normalizeType(item,game){
-  const t=String(item.type||"").toLowerCase(),name=String(item.name||"").toLowerCase();
-  if(game==="fortnite"){
-    if(t.includes("outfit")||t.includes("tenue"))return"tenue";
-    if(t.includes("emote")||t.includes("dance"))return"emote";
-    if(t.includes("pickaxe")||t.includes("harvesting"))return"pioche";
-    if(t.includes("glider"))return"planeur";
-    if(t.includes("bundle")||t.includes("pack"))return"pack";
-    return"autre";
-  }
-  if(t.includes("bundle")||t.includes("pack")||name.includes("bundle"))return"bundle";
-  if(t.includes("skin")||t.includes("weapon"))return"skin";
-  return"autre";
+function selectTrackerGame(game,button){
+  nexusTrackerGame=game;
+  document.querySelectorAll(".tracker-tab").forEach(tab=>tab.classList.toggle("active",tab===button));
+  const title=document.getElementById("tracker-form-title");
+  if(title)title.textContent=game==="fortnite"?"Configurer ton profil Fortnite":"Configurer ton profil VALORANT";
+  const mode=document.getElementById("tracker-mode");
+  if(mode){mode.innerHTML=game==="fortnite"?'<option value="battle-royale">Battle Royale</option><option value="zero-build">Sans construction</option><option value="ranked">Classé</option><option value="reload">Reload</option>':'<option value="competitive">Compétitif</option><option value="unrated">Non classé</option>'}
+  renderTracker();
 }
 function flattenShop(data,game){
   const result=[];
@@ -315,7 +479,8 @@ function toggleFavorite(game,id){
   const key=game+":"+id,index=favorites.indexOf(key);
   if(index>=0)favorites.splice(index,1);else favorites.push(key);
   localStorage.setItem("nexus_favorites",JSON.stringify(favorites));
-  renderShop(game);logActivity(index>=0?"Favori retiré":"Nouveau favori",game.toUpperCase()+" · "+id);
+  if(index<0)window.awardNexusXP?.("favorite",key,10);
+  renderShop(game);logActivity(index>=0?"Favori retiré":"Nouveau favori",game.toUpperCase()+" · "+id);window.renderNexusXP?.();
 }
 function toggleFavorites(game){
   favoriteOnly[game]=!favoriteOnly[game];
@@ -389,7 +554,7 @@ function loadNexusProfile(){
 }
 function saveNexusProfile(){
   const profile={name:document.getElementById("profile-name-input").value.trim().slice(0,20)||defaultNexusProfile.name,avatar:document.getElementById("profile-avatar-input").value.trim().slice(0,2).toUpperCase()||defaultNexusProfile.avatar,motto:document.getElementById("profile-motto-input").value.trim().slice(0,45)||defaultNexusProfile.motto,game:document.getElementById("profile-game-input").value};
-  try{localStorage.setItem("nexus_profile",JSON.stringify(profile));loadNexusProfile();document.getElementById("profile-save-status").textContent="✓ Profil sauvegardé avec succès !";logActivity("Profil modifié",profile.name)}
+  try{localStorage.setItem("nexus_profile",JSON.stringify(profile));loadNexusProfile();document.getElementById("profile-save-status").textContent="✓ Profil sauvegardé avec succès !";logActivity("Profil modifié",profile.name);window.renderNexusXP?.()}
   catch(e){document.getElementById("profile-save-status").textContent="Impossible de sauvegarder sur cet appareil."}
 }
 ["profile-name-input","profile-avatar-input","profile-motto-input","profile-game-input"].forEach(id=>{document.getElementById(id).addEventListener("input",updateNexusProfilePreview);document.getElementById(id).addEventListener("change",updateNexusProfilePreview)});
@@ -420,7 +585,7 @@ function savePreset(){
   const name=document.getElementById("preset-name").value.trim();if(!name){alert("Donne un nom à ton préréglage.");return}
   const presets=getPresets();presets.push({id:Date.now(),name,settings:getCrosshairSettings()});
   localStorage.setItem("nexus_crosshair_presets",JSON.stringify(presets));document.getElementById("preset-name").value="";
-  renderPresets();logActivity("Préréglage sauvegardé",name);
+  window.awardNexusXP?.("crosshair",String(presets[presets.length-1].id),25);renderPresets();logActivity("Préréglage sauvegardé",name);window.renderNexusXP?.();
 }
 function loadPreset(id){const preset=getPresets().find(p=>p.id===id);if(preset){applyCrosshairSettings(preset.settings);logActivity("Viseur chargé",preset.name)}}
 function deletePreset(id){
@@ -453,6 +618,7 @@ ensureIroxPreset();
 renderPresets();
 loadNexusProfile();
 renderDashboard();
+renderTracker();
 // Précharge les boutiques afin de retrouver les aperçus des favoris sur l'accueil.
 loadShop("fortnite");
 loadShop("valorant");
@@ -467,7 +633,8 @@ loadShop("valorant");
  const $=id=>document.getElementById(id);
  const el={search:$('nx-cat-search'),category:$('nx-cat-category'),rarity:$('nx-cat-rarity'),grid:$('nx-cat-grid'),status:$('nx-cat-status'),count:$('nx-cat-count'),watchCount:$('nx-cat-watch-count'),watch:$('nx-cat-watchlist'),watchItems:$('nx-cat-watch-items')};
  if(!el.grid||!$('fortnite-page'))return;
- let catalogue=[],watchlist=readWatchlist(),showWatchlist=false,loading=false,lastShopIds=new Set();
+ let catalogue=[],watchlist=readWatchlist(),showWatchlist=false,loading=false,lastShopIds=new Set(),currentPage=1;
+ const PAGE_SIZE=60;
  function readWatchlist(){try{const v=JSON.parse(localStorage.getItem(STORE)||'[]');return Array.isArray(v)?v:[]}catch(_){return[]}}
  function saveWatchlist(){try{localStorage.setItem(STORE,JSON.stringify(watchlist))}catch(_){el.status.textContent='Impossible de sauvegarder la watchlist dans ce navigateur.'}updateWatchlist()}
  function clean(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
@@ -477,14 +644,15 @@ loadShop("valorant");
  function categoryLabel(v){return({outfit:'Tenue',backpack:'Accessoire de dos',pickaxe:'Pioche',glider:'Planeur',emote:'Emote',wrap:'Revêtement',contrail:'Traînée',loadingscreen:'Écran de chargement',music:'Musique',spray:'Tag',emoji:'Emoji',toy:'Jouet',bundle:'Pack',other:'Autre'})[v]||v}
  function itemImage(item){return item.images?.icon||item.images?.smallIcon||item.images?.featured||item.images?.largeIcon||''}
  function filtered(){const q=el.search.value.trim().toLocaleLowerCase('fr');const cat=el.category.value,rar=el.rarity.value;return catalogue.filter(it=>{const hay=[it.name,it.description,it.type?.displayValue,it.set?.text].join(' ').toLocaleLowerCase('fr');return(!q||hay.includes(q))&&(cat==='all'||categoryOf(it)===cat)&&(rar==='all'||rarityOf(it)===rar)})}
- function render(){const list=filtered();el.count.textContent=list.length.toLocaleString('fr-FR')+' / '+catalogue.length.toLocaleString('fr-FR')+' objets';if(!list.length){el.grid.innerHTML='<div class="nx-cat-empty">Aucun objet trouvé avec ces filtres.</div>';return}const frag=document.createDocumentFragment();const html=list.slice(0,240).map(it=>{const id=String(it.id||'');const saved=watchlist.some(x=>x.id===id);const img=itemImage(it);return `<article class="nx-cat-card"><button class="nx-cat-star ${saved?'saved':''}" type="button" data-watch="${clean(id)}" aria-label="${saved?'Retirer de':'Ajouter à'} la watchlist">${saved?'★':'☆'}</button>${img?`<img src="${clean(img)}" alt="${clean(it.name)}" loading="lazy" onerror="this.style.visibility='hidden'">`:'<div style="aspect-ratio:1/1"></div>'}<div class="nx-cat-card-info"><div class="nx-cat-name">${clean(it.name||'Objet inconnu')}</div><div class="nx-cat-meta">${clean(categoryLabel(categoryOf(it)))} · ${clean(it.rarity?.displayValue||'Rareté inconnue')}</div></div></article>`}).join('');el.grid.innerHTML=html;if(list.length>240)el.status.textContent='Affichage des 240 premiers résultats. Affine ta recherche pour trouver un objet précis.';else el.status.textContent=list.length+' résultat(s).'}
+ function render(){const list=filtered();const totalPages=Math.max(1,Math.ceil(list.length/PAGE_SIZE));currentPage=Math.min(currentPage,totalPages);el.count.textContent=list.length.toLocaleString('fr-FR')+' / '+catalogue.length.toLocaleString('fr-FR')+' objets';const label=$('nx-cat-page-label'),prev=$('nx-cat-prev'),next=$('nx-cat-next');if(label)label.textContent='Page '+currentPage+' / '+totalPages+' · '+PAGE_SIZE+' par page';if(prev)prev.disabled=currentPage<=1;if(next)next.disabled=currentPage>=totalPages;if(!list.length){el.grid.innerHTML='<div class="nx-cat-empty">Aucun objet trouvé avec ces filtres.</div>';el.status.textContent='0 résultat';return}const start=(currentPage-1)*PAGE_SIZE;const pageItems=list.slice(start,start+PAGE_SIZE);const html=pageItems.map(it=>{const id=String(it.id||'');const saved=watchlist.some(x=>x.id===id);const img=itemImage(it);return `<article class="nx-cat-card"><button class="nx-cat-star ${saved?'saved':''}" type="button" data-watch="${clean(id)}" aria-label="${saved?'Retirer de':'Ajouter à'} la watchlist">${saved?'★':'☆'}</button>${img?`<img src="${clean(img)}" alt="${clean(it.name)}" loading="lazy" onerror="this.style.visibility='hidden'">`:'<div style="aspect-ratio:1/1"></div>'}<div class="nx-cat-card-info"><div class="nx-cat-name">${clean(it.name||'Objet inconnu')}</div><div class="nx-cat-meta">${clean(categoryLabel(categoryOf(it)))} · ${clean(it.rarity?.displayValue||'Rareté inconnue')}</div></div></article>`}).join('');el.grid.innerHTML=html;el.status.textContent='Affichage '+(start+1)+'–'+Math.min(start+PAGE_SIZE,list.length)+' sur '+list.length+' résultat(s). Tous les résultats sont accessibles avec la pagination.'}
  function updateWatchlist(){el.watchCount.textContent=watchlist.length;el.watchItems.innerHTML=watchlist.length?watchlist.map(x=>`<div class="nx-watch-row"><img src="${clean(x.image||'')}" alt="" onerror="this.style.display='none'"><div><strong>${clean(x.name)}</strong><small>${clean(x.category||'Cosmétique')} · Surveillance de la boutique</small></div><button type="button" data-remove="${clean(x.id)}" aria-label="Retirer">×</button></div>`).join(''):'<div class="nx-cat-empty">Ta watchlist est vide. Ajoute des objets avec ☆.</div>';if(showWatchlist)el.watch.classList.add('open');else el.watch.classList.remove('open')}
  function toggleItem(id){const item=catalogue.find(x=>String(x.id)===id);const index=watchlist.findIndex(x=>x.id===id);if(index>=0)watchlist.splice(index,1);else if(item)watchlist.push({id,name:item.name||'Objet inconnu',image:itemImage(item),category:categoryLabel(categoryOf(item))});saveWatchlist();render()}
  async function loadCatalogue(){if(loading)return;loading=true;$('nx-cat-refresh').disabled=true;el.status.textContent='Chargement du catalogue Fortnite…';try{const r=await fetch(API,{cache:'no-store',headers:{Accept:'application/json'}});if(!r.ok)throw new Error('HTTP '+r.status);const json=await r.json();if(!Array.isArray(json.data))throw new Error('Format de réponse inattendu');catalogue=json.data;el.status.textContent='Catalogue chargé. Recherche et filtres disponibles.';render()}catch(err){el.status.textContent='Impossible de charger le catalogue : '+err.message+'. Vérifie ta connexion ou réessaie plus tard.';el.grid.innerHTML='<div class="nx-cat-empty">La source du catalogue ne répond pas. Tu peux réessayer avec le bouton ci-dessus.</div>'}finally{loading=false;$('nx-cat-refresh').disabled=false}}
  function collectIds(value,out,depth=0){if(depth>9||value==null)return;if(Array.isArray(value)){for(const v of value)collectIds(v,out,depth+1);return}if(typeof value==='object'){for(const k of ['id','itemId','item_id','templateId','template_id']){const v=value[k];if(typeof v==='string'&&v.length>=5)out.add(v)}for(const [k,v] of Object.entries(value)){if(v&&typeof v==='object')collectIds(v,out,depth+1)}}}
  async function checkShop(){if(!watchlist.length)return;try{const r=await fetch(SHOP_API,{cache:'no-store',headers:{Accept:'application/json'}});if(!r.ok)throw new Error('shop HTTP '+r.status);const json=await r.json();const ids=new Set();collectIds(json.data??json,ids);const found=watchlist.filter(x=>ids.has(x.id));for(const x of found){if(!lastShopIds.has(x.id))notifyFound(x)}lastShopIds=ids}catch(err){console.info('NEXUS watchlist: vérification boutique indisponible',err)}}
  function notifyFound(item){const title='NEXUS — Objet dans la boutique';const body=item.name+' est peut-être disponible dans la boutique Fortnite.';if('Notification'in window&&Notification.permission==='granted'){try{new Notification(title,{body,icon:item.image||undefined,tag:'nexus-'+item.id})}catch(_){}}el.status.textContent='★ Objet surveillé détecté dans les données de la boutique : '+item.name}
- $('nx-cat-refresh').addEventListener('click',loadCatalogue);el.search.addEventListener('input',render);el.category.addEventListener('change',render);el.rarity.addEventListener('change',render);
+ $('nx-cat-refresh').addEventListener('click',loadCatalogue);el.search.addEventListener('input',()=>{currentPage=1;render()});el.category.addEventListener('change',()=>{currentPage=1;render()});el.rarity.addEventListener('change',()=>{currentPage=1;render()});
+ $('nx-cat-prev').addEventListener('click',()=>{if(currentPage>1){currentPage--;render();$('nexus-catalogue-v3').scrollIntoView({behavior:'smooth',block:'start'})}});$('nx-cat-next').addEventListener('click',()=>{const pages=Math.max(1,Math.ceil(filtered().length/PAGE_SIZE));if(currentPage<pages){currentPage++;render();$('nexus-catalogue-v3').scrollIntoView({behavior:'smooth',block:'start'})}});
  el.grid.addEventListener('click',e=>{const b=e.target.closest('[data-watch]');if(b)toggleItem(b.getAttribute('data-watch'))});el.watchItems.addEventListener('click',e=>{const b=e.target.closest('[data-remove]');if(!b)return;watchlist=watchlist.filter(x=>x.id!==b.getAttribute('data-remove'));saveWatchlist();render()});
  $('nx-cat-watch-toggle').addEventListener('click',()=>{showWatchlist=!showWatchlist;updateWatchlist();$('nx-cat-watch-toggle').classList.toggle('active',showWatchlist)});
  $('nx-cat-notify').addEventListener('click',async()=>{if(!('Notification'in window)){el.status.textContent='Les notifications ne sont pas prises en charge par ce navigateur.';return}try{const p=await Notification.requestPermission();el.status.textContent=p==='granted'?'Notifications activées sur ce navigateur.':'Autorisation de notification non accordée.'}catch(_){el.status.textContent='Impossible de demander les notifications dans ce navigateur.'}});
@@ -493,14 +661,267 @@ loadShop("valorant");
 </script>
 
 <script>
-// Enregistrement PWA : fonctionne sur HTTPS (GitHub Pages) ou localhost.
-if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").catch(error => {
-      console.warn("NEXUS : enregistrement du service worker impossible", error);
-    });
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.warn('NEXUS service worker indisponible', err));
   });
 }
 </script>
+
+<script id="nexus-theme-manager">
+(()=>{
+ const KEY='nexus_custom_themes_v1',ACTIVE='nexus_active_theme_v1';
+ const presets={
+  base:{name:'Base',bg:'#05040d',panel:'#0d0a19',panel2:'#17112a',accent:'#8150ff',secondary:'#a43cff',text:'#f7f1ff',muted:'#a69ab9',border:'rgba(174,112,255,.18)'},
+  luffy:{name:'Luffy',bg:'#100807',panel:'#1b100e',panel2:'#2a1713',accent:'#ef4444',secondary:'#f5b942',text:'#fff5e9',muted:'#d6b7a4',border:'rgba(245,185,66,.2)'},
+  gear5:{name:'Luffy Gear 5',bg:'#f4eff7',panel:'#fffaff',panel2:'#eee5f4',accent:'#45bde5',secondary:'#ff83bb',text:'#30233e',muted:'#766b83',border:'rgba(179,125,180,.25)'}
+ };
+ const fields=['bg','panel','panel2','accent','secondary','text','muted'];
+ function read(){try{const x=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}}
+ function valid(t){return t&&typeof t.name==='string'&&t.name.trim()&&fields.every(k=>typeof t[k]==='string'&&/^#[0-9a-f]{6}$/i.test(t[k]))}
+ function apply(theme,id){if(!valid(theme))return;const root=document.documentElement,body=document.body;root.style.setProperty('--bg',theme.bg);root.style.setProperty('--panel',theme.panel);root.style.setProperty('--panel2',theme.panel2);root.style.setProperty('--blue',theme.accent);root.style.setProperty('--purple',theme.secondary);root.style.setProperty('--text',theme.text);root.style.setProperty('--muted',theme.muted);root.style.setProperty('--border',theme.border||'rgba(255,255,255,.12)');body.dataset.nexusTheme=id||'custom';localStorage.setItem(ACTIVE,id||'custom');const status=document.getElementById('nx-theme-status');if(status)status.textContent='Thème actuel : '+theme.name;render()}
+ function all(){return {...presets,...Object.fromEntries(read().map((t,i)=>[t.id||('custom'+i),t]))}}
+ window.applyNexusTheme=function(id){const t=all()[id];if(t)apply(t,id)};
+ window.saveCustomNexusTheme=function(){const $=id=>document.getElementById(id),name=$('nx-custom-name').value.trim();if(!name){$('nx-theme-status').textContent='Donne un nom à ton thème avant de l’enregistrer.';return}const t={id:'custom-'+Date.now(),name,bg:$('nx-custom-bg').value,panel:$('nx-custom-panel').value,panel2:'#21182d',accent:$('nx-custom-accent').value,secondary:$('nx-custom-secondary').value,text:$('nx-custom-text').value,muted:'#a69ab9',border:'rgba(255,255,255,.14)'};const list=read();list.push(t);localStorage.setItem(KEY,JSON.stringify(list));window.awardNexusXP?.('theme',t.id,15);apply(t,t.id);window.renderNexusXP?.()};
+ window.importNexusTheme=function(e){const f=e.target.files?.[0];if(!f)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result),t=data.theme||data;if(!valid(t))throw new Error('Format/couleurs invalides');const saved={...t,id:'custom-'+Date.now(),name:t.name.trim().slice(0,28)};const list=read();list.push(saved);localStorage.setItem(KEY,JSON.stringify(list));window.awardNexusXP?.('theme',saved.id,15);apply(saved,saved.id);window.renderNexusXP?.();$('nx-theme-file').value=''}catch(err){alert('Import impossible : '+err.message)}};reader.readAsText(f)};
+ window.exportNexusTheme=function(){const id=localStorage.getItem(ACTIVE)||'base',t=all()[id]||presets.base;const blob=new Blob([JSON.stringify({app:'NEXUS Gaming Hub',version:1,theme:t},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nexus-theme-'+id+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+ window.deleteCustomNexusTheme=function(id){localStorage.setItem(KEY,JSON.stringify(read().filter(t=>t.id!==id)));if(localStorage.getItem(ACTIVE)===id)apply(presets.base,'base');else render();window.renderNexusXP?.()};
+ function render(){const el=document.getElementById('nx-custom-themes');if(!el)return;const list=read();el.innerHTML=list.length?list.map(t=>`<span class="nx-custom-theme-pill"><i class="nx-color-dot" style="background:${t.accent}"></i>${String(t.name).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}<button type="button" title="Appliquer" onclick="applyNexusTheme('${t.id}')">✓</button><button type="button" title="Supprimer" onclick="deleteCustomNexusTheme('${t.id}')">×</button></span>`).join(''):'<span class="small-muted">Aucun thème personnalisé enregistré pour le moment.</span>'}
+ const id=localStorage.getItem(ACTIVE)||'base';apply(all()[id]||presets.base,id);render();
+})();
+</script>
+
+
+<script id="nexus-replay-analyzer-script">
+(()=>{
+ const $=id=>document.getElementById(id), KEY='nexus_replay_import_v1'; let matches=[];
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const num=v=>{if(typeof v==='number'&&Number.isFinite(v))return v;if(typeof v==='string'){const n=Number(v.replace(',','.'));if(Number.isFinite(n))return n}return null};
+ function keyMatch(k){return /chest|coffre/i.test(k)}
+ function pick(obj,rx){for(const [k,v] of Object.entries(obj||{})){if(rx.test(k)){const n=num(v);if(n!==null)return n}}return null}
+ function findRows(root,out=[],depth=0){if(depth>12||root==null)return out;if(Array.isArray(root)){if(root.length&&root.some(x=>x&&typeof x==='object'&&!Array.isArray(x))){const rows=root.filter(x=>x&&typeof x==='object'&&!Array.isArray(x));if(rows.some(x=>Object.keys(x).some(keyMatch)))out.push(...rows)}for(const x of root)findRows(x,out,depth+1)}else if(typeof root==='object'){for(const v of Object.values(root))if(v&&typeof v==='object')findRows(v,out,depth+1)}return out}
+ function normalizeRows(rows){const seen=new Set(),out=[];for(const r of rows){const chest=pick(r,/chests?[_\s-]*(opened|open|count|total)?|coffres?[_\s-]*(ouverts?|total)?/i);if(chest===null||chest<0)continue;const date=Object.entries(r).find(([k,v])=>/date|time|timestamp|played|match/i.test(k)&&typeof v==='string')?.[1]||'';const id=String(r.id||r.matchId||r.match_id||date||JSON.stringify(r).slice(0,80));if(seen.has(id))continue;seen.add(id);out.push({id,date,chests:chest,name:r.name||r.map||r.mode||'Partie Fortnite',player:r.player||r.playerName||r.player_name||r.username||r.epicName||'',kills:pick(r,/kills?|eliminations?|elims?/i),placement:pick(r,/placement|position|rank|place/i),duration:pick(r,/duration|seconds|time_played/i),demo:false})}return out}
+ function parseCSV(text){const lines=text.replace(/^\uFEFF/,'').split(/\r?\n/).filter(x=>x.trim());if(lines.length<2)return[];const sep=(lines[0].match(/;/g)||[]).length>(lines[0].match(/,/g)||[]).length?';':',';const parseLine=line=>{const a=[];let cur='',q=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'&&line[i+1]==='"'&&q){cur+='"';i++}else if(c==='"')q=!q;else if(c===sep&&!q){a.push(cur);cur=''}else cur+=c}a.push(cur);return a};const heads=parseLine(lines[0]).map(x=>x.trim());return lines.slice(1).map(line=>{const vals=parseLine(line);return Object.fromEntries(heads.map((h,i)=>[h,vals[i]??'']))})}
+ function render(){const filter=($('nx-replay-player-filter')?.value||'').trim().toLowerCase();const visible=filter?matches.filter(m=>String(m.player||'').toLowerCase().includes(filter)):matches;const total=visible.reduce((a,m)=>a+m.chests,0),count=visible.length,best=count?Math.max(...visible.map(m=>m.chests)):0; $('nx-r-total').textContent=count?total.toLocaleString('fr-FR'):'—';$('nx-r-matches').textContent=count.toLocaleString('fr-FR');$('nx-r-average').textContent=count?(total/count).toFixed(1).replace('.',','):'—';$('nx-r-best').textContent=count?best.toLocaleString('fr-FR'):'—';$('nx-r-count-tag').textContent=count+' partie'+(count>1?'s':'');$('nx-replay-last').textContent=count?'Historique importé':'Aucun import effectué';$('nx-replay-status').textContent=count?'Données chargées dans NEXUS':'En attente des données de replay';document.querySelector('.nx-replay-live-dot').style.background=count?'#39e88b':'#f5bd4b';
+ const sorted=[...visible].reverse().slice(0,8);$('nx-replay-list').innerHTML=sorted.length?sorted.map(m=>`<div class="nx-replay-match"><div class="nx-replay-match-icon">▣</div><div class="nx-replay-match-main"><b>${esc(m.name||'Partie Fortnite')}</b><small>${esc(m.player?m.player+' · ':'')}${esc(m.date||'Date non fournie')}${m.kills!==null&&m.kills!==undefined?' · '+m.kills+' élim.':''}${m.placement!==null&&m.placement!==undefined?' · #'+m.placement:''}</small></div><div class="nx-replay-match-count">${m.chests}</div></div>`).join(''):'<div class="nx-replay-empty">Aucune partie exploitable pour ce filtre.</div>';
+ const bars=visible.slice(-10),max=Math.max(1,...bars.map(m=>m.chests));$('nx-replay-chart').innerHTML=bars.length?bars.map((m,i)=>`<div class="nx-replay-bar-col" title="${m.chests} coffres"><div class="nx-replay-bar" style="height:${Math.max(4,m.chests/max*118)}px"></div><small>${i+1}</small></div>`).join(''):'<div class="nx-replay-empty" style="width:100%">Les données apparaîtront après l’import.</div>';
+ try{localStorage.setItem(KEY,JSON.stringify(matches))}catch(_){}window.renderNexusXP?.();}
+ async function importFile(file){if(!file)return;try{const text=await file.text();let rows;if(file.name.toLowerCase().endsWith('.csv'))rows=parseCSV(text);else{const json=JSON.parse(text);rows=findRows(json)}const parsed=normalizeRows(rows);if(!parsed.length){$('nx-replay-status').textContent='Fichier lu, mais aucune colonne de coffres reconnue';$('nx-replay-last').textContent=file.name;alert('Le fichier a été ouvert, mais NEXUS n’a pas trouvé de lignes avec un compteur de coffres. Essaie le fichier matches.csv ou data.json produit par ton analyseur.');return}matches=parsed;parsed.forEach(m=>window.awardNexusXP?.('replay',String(m.id),30));render();$('nx-replay-last').textContent=file.name;$('nx-replay-status').textContent='Import réussi · '+parsed.length+' partie(s) détectée(s)'}catch(e){console.error(e);alert('Import impossible : le fichier est invalide ou illisible.')}}
+ $('nx-replay-file').addEventListener('change',e=>importFile(e.target.files?.[0]));$('nx-replay-player-filter').addEventListener('input',render);$('nx-replay-demo').addEventListener('click',()=>{matches=[{id:'demo1',date:'Exemple · aujourd’hui',chests:7,name:'Partie classée — Victoire Royale',demo:true},{id:'demo2',date:'Exemple · hier',chests:4,name:'Partie Battle Royale',demo:true},{id:'demo3',date:'Exemple · hier',chests:11,name:'Partie Battle Royale',demo:true},{id:'demo4',date:'Exemple · cette semaine',chests:6,name:'Partie Battle Royale',demo:true},{id:'demo5',date:'Exemple · cette semaine',chests:9,name:'Partie Battle Royale',demo:true}];render();$('nx-replay-status').textContent='Données de démonstration · non réelles';$('nx-replay-last').textContent='Exemple de démonstration'});$('nx-replay-reset').addEventListener('click',()=>{matches=[];localStorage.removeItem(KEY);$('nx-replay-file').value='';render()});try{const saved=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(saved))matches=saved.filter(x=>x&&typeof x.chests==='number')}catch(_){}render();
+})();
+</script>
+
+
+<script id="nexus-xp-engine">
+(()=>{
+ const read=(key,fallback=[])=>{try{const v=JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));return Array.isArray(v)?v:fallback}catch(_){return fallback}};
+ const ledger=()=>read('nexus_xp_ledger_v1');
+ window.awardNexusXP=(type,id,points)=>{if(!id)return;const events=ledger(),key=type+':'+id;if(events.some(e=>e.key===key))return;events.push({key,type,points:Number(points)||0,date:Date.now()});try{localStorage.setItem('nexus_xp_ledger_v1',JSON.stringify(events))}catch(_){}window.renderNexusXP?.()};
+ const badges=[
+  {id:'welcome',icon:'✦',name:'Premiers pas',desc:'Créer ton espace NEXUS',ok:()=>true},
+  {id:'collector',icon:'♥',name:'Collectionneur',desc:'Ajouter 5 objets aux favoris',ok:s=>s.favorites>=5},
+  {id:'creator',icon:'⌖',name:'Créateur',desc:'Sauvegarder ton premier viseur',ok:s=>s.crosshairs>=1},
+  {id:'replay',icon:'▣',name:'Replay Hunter',desc:'Importer 5 parties réelles',ok:s=>s.replays>=5},
+  {id:'designer',icon:'🎨',name:'Designer',desc:'Créer un thème personnalisé',ok:s=>s.themes>=1},
+  {id:'veteran',icon:'♜',name:'Vétéran NEXUS',desc:'Atteindre 1 000 XP',ok:s=>s.xp>=1000}
+ ];
+ function stats(){const favorites=read('nexus_favorites').length,crosshairs=read('nexus_crosshair_presets').filter(p=>String(p.name||'').toLowerCase()!=='irox').length,themes=read('nexus_custom_themes_v1').length,replays=read('nexus_replay_import_v1').filter(m=>m&&!m.demo&&!/^exemple/i.test(String(m.date||''))).length;const xp=100+ledger().reduce((sum,e)=>sum+(Number(e.points)||0),0);return{favorites,crosshairs,themes,replays,xp}}
+ function render(){const s=stats(),level=Math.floor(s.xp/500)+1,into=s.xp%500,percent=Math.round(into/500*100),next=500-into,profile=(()=>{try{return JSON.parse(localStorage.getItem('nexus_profile')||'{}')}catch(_){return{}}})();const title=level>=20?'Légende NEXUS':level>=10?'Élite NEXUS':level>=5?'Expert NEXUS':'Recrue NEXUS';
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};const bar=(id,v)=>{const el=document.getElementById(id);if(el)el.style.width=percent+'%'};
+  set('nx-home-level','Niveau '+level+' · '+title);set('nx-home-xp-text',into+' / 500 XP · '+next+' XP avant le niveau suivant');bar('nx-home-xp-bar',percent+'%');
+  set('nx-profile-level','Niveau '+level+' · '+title);set('nx-profile-xp',s.xp.toLocaleString('fr-FR')+' XP au total');bar('nx-profile-xp-bar',percent+'%');
+  set('nx-xp-name',profile.name||'Joueur NEXUS');set('nx-xp-avatar',profile.avatar||'N');set('nx-xp-level-big','NIVEAU '+level);set('nx-xp-total',s.xp.toLocaleString('fr-FR')+' XP');set('nx-xp-next',next+' XP avant le niveau suivant');set('nx-xp-progress-title',title);set('nx-xp-percent',percent+' %');set('nx-xp-current',into+' XP');set('nx-xp-target','500 XP');bar('nx-xp-progress-bar',percent+'%');set('nx-xp-favorites',s.favorites);set('nx-xp-crosshairs',s.crosshairs);set('nx-xp-replays',s.replays);set('nx-xp-themes',s.themes);
+  const unlocked=badges.filter(b=>b.ok(s)).length;set('nx-xp-badge-count',unlocked+' / '+badges.length+' débloqués');const list=document.getElementById('nx-xp-badges');if(list)list.innerHTML=badges.map(b=>{const ok=b.ok(s);return `<article class="nx-xp-badge ${ok?'unlocked':'locked'}"><div class="nx-xp-badge-icon">${b.icon}</div><strong>${b.name}</strong><small>${b.desc}</small><small>${ok?'✓ Débloqué':'🔒 Verrouillé'}</small></article>`}).join('');
+ }
+ window.renderNexusXP=render;document.addEventListener('DOMContentLoaded',render);render();
+})();
+</script>
+
+<style>
+#nexus-v6{--v6:#a34cff;--v6bg:#100b1c;color:#f8f1ff;font-family:Arial,sans-serif}
+#n6-launch{position:fixed;right:16px;bottom:85px;z-index:9999;border:1px solid #c084fc;background:linear-gradient(120deg,#7626d9,#bd45ff);color:white;padding:13px 18px;border-radius:30px;font-weight:900;box-shadow:0 0 25px #963dff88}
+#n6-panel{display:none;position:fixed;z-index:9998;inset:5% 3%;overflow:auto;background:#0b0814;border:1px solid #a34cff;border-radius:20px;padding:18px;box-shadow:0 0 60px #000}
+#n6-panel.open{display:block}
+.n6-head{display:flex;justify-content:space-between;align-items:center;gap:10px;position:sticky;top:-18px;background:#0b0814;padding:12px 0;z-index:2}
+.n6-head h2{margin:0;color:#c084fc;letter-spacing:2px}
+.n6-close,.n6-tab,.n6-btn{border:1px solid #583080;background:#1b122b;color:white;border-radius:10px;padding:10px;cursor:pointer}
+.n6-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:14px 0}
+.n6-tab.active,.n6-btn.primary{background:linear-gradient(110deg,#7126c9,#a43cff);border-color:#c084fc}
+.n6-page{display:none}.n6-page.active{display:block}
+.n6-card{background:#171021;border:1px solid #42265f;border-radius:14px;padding:15px;margin:12px 0}
+.n6-card h3{margin:0 0 10px;color:#d7a5ff}
+.n6-muted{color:#a99bb9;font-size:13px}
+.n6-input{width:100%;padding:11px;border-radius:9px;border:1px solid #51336e;background:#0c0913;color:white;margin:6px 0 12px;box-sizing:border-box}
+.n6-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.n6-stat{background:#21142f;padding:12px;border-radius:10px}
+.n6-stat strong{display:block;font-size:22px;color:#d7a5ff}
+.n6-list{display:flex;flex-wrap:wrap;gap:8px}
+.n6-chip{background:#29183c;border:1px solid #7541a0;padding:7px 10px;border-radius:20px;font-size:12px}
+.n6-cloud{font-size:35px;animation:n6float 3s ease-in-out infinite}
+@keyframes n6float{50%{transform:translateY(-12px) rotate(5deg)}}
+#n6-secret{display:none;background:linear-gradient(120deg,#fff,#c9f5ff);color:#6b39a0;padding:15px;border-radius:14px;text-align:center;font-weight:900}
+@media(max-width:520px){#n6-panel{inset:2%;padding:12px}.n6-tabs{grid-template-columns:repeat(2,1fr)}.n6-grid{grid-template-columns:1fr}}
+</style>
+
+<div id="nexus-v6">
+<button id="n6-launch" type="button">✦ NEXUS V6</button>
+<section id="n6-panel" aria-label="NEXUS V6">
+ <header class="n6-head">
+  <h2>✦ NEXUS V6</h2>
+  <button class="n6-close" id="n6-close">✕</button>
+ </header>
+ <p class="n6-muted">PLAYER EXPERIENCE · ONE PIECE EDITION</p>
+ <nav class="n6-tabs">
+  <button class="n6-tab active" data-tab="profile">👤 Profil</button>
+  <button class="n6-tab" data-tab="locker">🎮 Locker</button>
+  <button class="n6-tab" data-tab="coach">🤖 Coach</button>
+  <button class="n6-tab" data-tab="luffy">☁️ Luffy</button>
+ </nav>
+
+ <section class="n6-page active" id="n6-profile">
+  <div class="n6-card">
+   <h3>Ton identité NEXUS</h3>
+   <label>Pseudo</label><input class="n6-input" id="n6-name" maxlength="24" placeholder="Ton pseudo">
+   <label>Avatar (emoji)</label><input class="n6-input" id="n6-avatar" maxlength="4" placeholder="🎮">
+   <button class="n6-btn primary" id="n6-save-profile">Enregistrer le profil</button>
+  </div>
+  <div class="n6-card">
+   <h3 id="n6-welcome">Joueur NEXUS</h3>
+   <div class="n6-grid">
+    <div class="n6-stat"><span>XP NEXUS</span><strong id="n6-xp">0</strong></div>
+    <div class="n6-stat"><span>Niveau</span><strong id="n6-level">1</strong></div>
+    <div class="n6-stat"><span>Objets Locker</span><strong id="n6-items">0</strong></div>
+    <div class="n6-stat"><span>Badges</span><strong id="n6-badges">0</strong></div>
+   </div>
+   <p class="n6-muted" id="n6-next">500 XP pour le prochain niveau</p>
+   <div style="height:9px;background:#30213d;border-radius:20px;overflow:hidden"><div id="n6-progress" style="height:100%;width:0;background:linear-gradient(90deg,#7834e8,#e879f9)"></div></div>
+  </div>
+  <div class="n6-card"><h3>Badges</h3><div class="n6-list" id="n6-badge-list"></div></div>
+ </section>
+
+ <section class="n6-page" id="n6-locker">
+  <div class="n6-card">
+   <h3>Ta collection Fortnite</h3>
+   <p class="n6-muted">Ajoute manuellement tes skins et accessoires préférés.</p>
+   <input class="n6-input" id="n6-item-name" maxlength="45" placeholder="Nom du skin ou accessoire">
+   <select class="n6-input" id="n6-item-type">
+    <option>Skin</option><option>Pioche</option><option>Planeur</option><option>Accessoire de dos</option><option>Emote</option>
+   </select>
+   <select class="n6-input" id="n6-item-rarity">
+    <option>Commun</option><option>Atypique</option><option>Rare</option><option>Épique</option><option>Légendaire</option><option>Iconique</option>
+   </select>
+   <button class="n6-btn primary" id="n6-add-item">＋ Ajouter à ma collection</button>
+  </div>
+  <div class="n6-card"><h3>Ma collection</h3><div id="n6-locker-list" class="n6-list"></div></div>
+ </section>
+
+ <section class="n6-page" id="n6-coach">
+  <div class="n6-card">
+   <h3>🤖 NEXUS AI Coach</h3>
+   <p class="n6-muted">Un coach de progression basé sur les informations que tu renseignes. Il ne lit pas automatiquement ton compte de jeu.</p>
+   <label>Jeu</label>
+   <select id="n6-game" class="n6-input"><option>Fortnite</option><option>VALORANT</option></select>
+   <label>Ton objectif</label>
+   <select id="n6-goal" class="n6-input">
+    <option>Améliorer ma précision</option><option>Prendre de meilleures décisions</option><option>Améliorer mes constructions</option><option>Améliorer mon placement</option><option>Être plus régulier</option>
+   </select>
+   <label>Ton niveau actuel / rang (facultatif)</label>
+   <input id="n6-rank" class="n6-input" placeholder="Ex. Bronze, Gold, débutant…">
+   <button id="n6-coach-run" class="n6-btn primary">Générer mon programme</button>
+  </div>
+  <div class="n6-card"><h3>Ton plan de progression</h3><div id="n6-coach-result" class="n6-muted">Ton programme apparaîtra ici.</div></div>
+ </section>
+
+ <section class="n6-page" id="n6-luffy">
+  <div class="n6-card" style="text-align:center">
+   <div class="n6-cloud">☁️ ☁️ ☁️</div>
+   <h3>UN RÊVE NE MEURT JAMAIS</h3>
+   <p class="n6-muted">L'esprit du futur Roi des Pirates est caché dans NEXUS.</p>
+   <button class="n6-btn primary" id="n6-gear">☀️ Réveiller le Gear 5</button>
+   <div id="n6-secret" style="margin-top:15px">
+    <div style="font-size:42px">☀️</div>
+    GEAR 5 ACTIVÉ !<br>LIBERTÉ TOTALE !
+   </div>
+  </div>
+  <div class="n6-card">
+   <h3>Les petits secrets</h3>
+   <p>🍖 Le pouvoir de la viande : ajoute un objet à ton Locker.</p>
+   <p>👒 Le chapeau de paille : ton profil représente ton équipage.</p>
+   <p>☁️ Le nuage blanc : appuie sur Gear 5 pour révéler le secret.</p>
+   <p>⚓ L'aventure continue : chaque niveau NEXUS te rapproche du sommet.</p>
+  </div>
+ </section>
+ <p class="n6-muted" style="text-align:center">NEXUS V6 · Données sauvegardées sur cet appareil</p>
+</section>
+</div>
+
+<script>
+(()=>{
+ const $=id=>document.getElementById(id);
+ const KEY='nexus_v6_data';
+ let data={profile:{name:'Joueur NEXUS',avatar:'👒'},items:[],xp:0,badges:[]};
+ try{data={...data,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){}
+ const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
+ const award=(n)=>{data.xp+=n;save();render()};
+ const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function render(){
+  const level=Math.floor(data.xp/500)+1,progress=data.xp%500;
+  $('n6-welcome').textContent=(data.profile.avatar||'👤')+' '+(data.profile.name||'Joueur NEXUS');
+  $('n6-xp').textContent=data.xp;$('n6-level').textContent=level;
+  $('n6-items').textContent=data.items.length;
+  const badges=[];
+  if(data.profile.name!=='Joueur NEXUS')badges.push('👤 Profil créé');
+  if(data.items.length>=1)badges.push('🎒 Collectionneur');
+  if(data.items.length>=5)badges.push('💎 Collectionneur pro');
+  if(level>=5)badges.push('⭐ Niveau 5');
+  if(data.xp>=1000)badges.push('👑 Élite NEXUS');
+  $('n6-badges').textContent=badges.length;
+  $('n6-badge-list').innerHTML=badges.length?badges.map(x=>'<span class="n6-chip">'+x+'</span>').join(''):'<span class="n6-muted">Tes premiers badges sont à débloquer.</span>';
+  $('n6-next').textContent=(500-progress)+' XP avant le niveau suivant';
+  $('n6-progress').style.width=(progress/5)+'%';
+  $('n6-locker-list').innerHTML=data.items.length?data.items.map((x,i)=>'<span class="n6-chip">'+safe(x.name)+' · '+safe(x.type)+' · '+safe(x.rarity)+' <button data-del="'+i+'" style="background:none;border:0;color:#ff8caa">×</button></span>').join(''):'<span class="n6-muted">Ta collection est vide.</span>';
+ }
+ $('n6-launch').onclick=()=>$('n6-panel').classList.add('open');
+ $('n6-close').onclick=()=>$('n6-panel').classList.remove('open');
+ document.querySelectorAll('#nexus-v6 .n6-tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#nexus-v6 .n6-tab').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('#nexus-v6 .n6-page').forEach(x=>x.classList.toggle('active',x.id==='n6-'+b.dataset.tab));
+ });
+ $('n6-save-profile').onclick=()=>{
+  data.profile.name=$('n6-name').value.trim().slice(0,24)||'Joueur NEXUS';
+  data.profile.avatar=$('n6-avatar').value.trim().slice(0,4)||'👤';
+  award(25);
+ };
+ $('n6-add-item').onclick=()=>{
+  const name=$('n6-item-name').value.trim();if(!name){alert('Entre un nom pour ton objet.');return}
+  data.items.push({name,type:$('n6-item-type').value,rarity:$('n6-item-rarity').value});
+  $('n6-item-name').value='';award(10);
+ };
+ $('n6-locker-list').onclick=e=>{
+  const b=e.target.closest('[data-del]');if(!b)return;
+  data.items.splice(Number(b.dataset.del),1);save();render();
+ };
+ $('n6-coach-run').onclick=()=>{
+  const game=$('n6-game').value,goal=$('n6-goal').value,rank=$('n6-rank').value.trim();
+  const plans={
+   'Améliorer ma précision':['Fais quelques minutes de suivi de cibles dans un mode d’entraînement autorisé.','Travaille la régularité de tes mouvements plutôt que la vitesse.','Fais une pause entre les sessions et note tes progrès.'],
+   'Prendre de meilleures décisions':['Après chaque partie, repère une décision que tu aurais pu prendre autrement.','Travaille la gestion des ressources et le choix des moments d’engagement.','Fixe-toi un objectif simple pour la prochaine partie.'],
+   'Améliorer mes constructions':['Pratique les bases dans un mode créatif prévu pour l’entraînement.','Travaille une technique à la fois, lentement et proprement.','Revois tes erreurs sans chercher à tout changer en même temps.'],
+   'Améliorer mon placement':['Observe les zones sûres et anticipe tes déplacements.','Évite les engagements inutiles lorsque ta position est défavorable.','Analyse une rotation après chaque partie.'],
+   'Être plus régulier':['Choisis un objectif mesurable par session.','Évite de changer tous tes réglages en permanence.','Fais des pauses et compare plusieurs sessions plutôt qu’une seule partie.']
+  };
+  const list=plans[goal];
+  $('n6-coach-result').innerHTML='<b>'+safe(game)+' · '+safe(goal)+'</b>'+(rank?'<p>Repère de niveau : '+safe(rank)+'</p>':'')+'<ol>'+list.map(x=>'<li style="margin:10px 0">'+x+'</li>').join('')+'</ol><p>Programme indicatif généré localement à partir de ton objectif, pas d’une analyse automatique de tes matchs.</p>';
+  award(5);
+ };
+ $('n6-gear').onclick=()=>{
+  const secret=$('n6-secret');secret.style.display=secret.style.display==='block'?'none':'block';
+  document.body.classList.toggle('n6-gear-mode',secret.style.display==='block');
+  if(secret.style.display==='block')award(5);
+ };
+ render();
+})();
+</script>
+
 </body>
 </html>
