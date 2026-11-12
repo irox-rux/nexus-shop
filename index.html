@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08040f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NEXUS">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/svg+xml" href="./icon.svg">
+<link rel="apple-touch-icon" href="./icon.svg">
+<title>NEXUS Gaming Hub — V3</title>
+<style>
+:root{--bg:#080b14;--panel:#101626;--panel2:#151e32;--blue:#3985ff;--purple:#8b5cf6;--text:#f4f6ff;--muted:#8c98b2;--border:rgba(255,255,255,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+.topbar{height:72px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(8,11,20,.92);position:sticky;top:0;z-index:10;backdrop-filter:blur(15px)}
+.logo{font-size:23px;font-weight:900;letter-spacing:2px}.logo span{color:var(--blue)}.nav{display:flex;gap:10px;align-items:center}.nav button,.back-btn{background:transparent;border:1px solid transparent;color:var(--muted);padding:10px 14px;border-radius:10px;font-weight:700}.nav button:hover,.nav button.active{background:var(--panel2);color:white;border-color:var(--border)}
+.container{width:min(1200px,92%);margin:auto}.page{display:none;padding:38px 0 70px}.page.active{display:block;animation:nexusFade .35s ease both}
+.hero{min-height:310px;border:1px solid var(--border);border-radius:24px;padding:45px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 85% 15%,rgba(139,92,246,.25),transparent 35%),radial-gradient(circle at 15% 90%,rgba(57,133,255,.20),transparent 40%),var(--panel);animation:nexusGlow 4s ease-in-out infinite}
+.eyebrow{color:#8bb6ff;font-size:12px;font-weight:900;letter-spacing:3px}h1{font-size:clamp(34px,6vw,64px);line-height:1.05;margin:15px 0}h1 span{color:var(--blue)}.hero p{color:var(--muted);max-width:550px;line-height:1.7}.section-title{font-size:25px;margin:38px 0 18px}
+.game-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.game-card{min-height:220px;padding:25px;border-radius:20px;border:1px solid var(--border);background:var(--panel);display:flex;flex-direction:column;justify-content:flex-end;transition:.2s;cursor:pointer;position:relative;overflow:hidden}.game-card:hover{transform:translateY(-6px) scale(1.015);border-color:var(--blue);box-shadow:0 12px 30px rgba(57,133,255,.12)}.game-card.fortnite{background:linear-gradient(135deg,rgba(57,133,255,.35),transparent 75%),var(--panel)}.game-card.valorant{background:linear-gradient(135deg,rgba(239,68,68,.23),transparent 75%),var(--panel)}.game-card h2{font-size:28px;margin:0 0 8px}.game-card p{color:var(--muted);margin:0}.game-icon{font-size:42px;margin-bottom:16px}.open-label{margin-top:20px;color:#8bb6ff;font-weight:800}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0;align-items:center}.search{flex:1;min-width:190px;background:var(--panel);border:1px solid var(--border);color:white;padding:13px 16px;border-radius:12px;outline:none}.search:focus{border-color:var(--blue)}.filter{background:var(--panel);color:white;border:1px solid var(--border);padding:12px;border-radius:12px;outline:none}
+.action-btn{background:linear-gradient(100deg,var(--blue),var(--purple));color:white;border:0;border-radius:11px;padding:12px 17px;font-weight:800}.secondary-btn{background:var(--panel2);color:white;border:1px solid var(--border);padding:11px 15px;border-radius:10px;font-weight:700}.action-btn,.secondary-btn,.favorite{transition:filter .2s ease,transform .2s ease}.action-btn:hover,.secondary-btn:hover,.favorite:hover{filter:brightness(1.2);transform:translateY(-2px)}
+.status{color:var(--muted);font-size:13px;margin:12px 0 18px;min-height:18px}.item-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.item-card{background:var(--panel);border:1px solid var(--border);border-radius:15px;overflow:hidden;min-width:0;transition:.25s;cursor:pointer;animation:nexusFade .35s ease both}.item-card:hover{transform:translateY(-6px) scale(1.015);border-color:rgba(57,133,255,.5);box-shadow:0 12px 30px rgba(57,133,255,.12)}.item-image{width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--panel2);display:block;transition:transform .35s ease}.item-card:hover .item-image{transform:scale(1.04)}.item-info{padding:13px}.item-name{font-weight:800;font-size:14px;line-height:1.4;min-height:39px}.item-type{font-size:11px;color:var(--muted);margin-top:6px}.item-bottom{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:12px}.price{font-weight:900;color:#9cc2ff;font-size:13px}.favorite{border:1px solid var(--border);background:var(--panel2);color:white;border-radius:9px;padding:7px 9px}.favorite.saved{color:#ff6b9d;border-color:#ff6b9d}.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:50px 15px;background:var(--panel);border-radius:15px}.credit{font-size:12px;color:var(--muted);margin-top:25px}.credit a{color:#9cc2ff;text-decoration:underline}.back-btn{margin-bottom:15px;padding-left:0}.page-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.page-heading h1{font-size:36px;margin:10px 0}.small-muted{font-size:13px;color:var(--muted)}
+.crosshair-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}.tool-panel{background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:22px}.tool-panel h3{margin:0 0 18px}.preview{min-height:300px;border-radius:14px;background:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),#101522;background-size:30px 30px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+#crosshair{position:relative;width:1px;height:1px;opacity:1}.cross-line{position:absolute;background:#00ff88}#ch-top{bottom:var(--gap);left:50%;transform:translateX(-50%);width:var(--thick);height:var(--size)}#ch-bottom{top:var(--gap);left:50%;transform:translateX(-50%);width:var(--thick);height:var(--size)}#ch-left{right:var(--gap);top:50%;transform:translateY(-50%);height:var(--thick);width:var(--size)}#ch-right{left:var(--gap);top:50%;transform:translateY(-50%);height:var(--thick);width:var(--size)}#ch-dot{position:absolute;width:var(--dot);height:var(--dot);border-radius:50%;background:var(--chcolor);left:50%;top:50%;transform:translate(-50%,-50%)}
+.control{margin:17px 0}.control label{display:flex;justify-content:space-between;gap:10px;color:#cbd5e8;font-size:13px;margin-bottom:9px}.control input[type=range]{width:100%;accent-color:var(--blue)}.control input[type=color]{width:50px;height:30px;border:0;background:none}.checkline{display:flex;gap:10px;align-items:center;color:#cbd5e8;font-size:13px}.checkline input{accent-color:var(--blue)}.preset-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.preset{background:var(--panel2);border:1px solid var(--border);padding:9px 11px;border-radius:9px;color:white;font-size:12px}.preset button{margin-left:8px;border:0;background:none;color:#ff7897}.preset-row{display:flex;gap:8px;flex-wrap:wrap}.preset-row input{flex:1;min-width:130px}
+.footer{border-top:1px solid var(--border);padding:25px 5%;text-align:center;color:var(--muted);font-size:12px}
+@keyframes nexusFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes nexusGlow{0%,100%{box-shadow:0 0 18px rgba(57,133,255,.08)}50%{box-shadow:0 0 32px rgba(139,92,246,.22)}}
+.item-modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.78);backdrop-filter:blur(9px);align-items:center;justify-content:center;padding:18px}.item-modal.open{display:flex;animation:nexusFade .2s ease}.item-modal-content{position:relative;width:min(650px,100%);display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:24px;border:1px solid rgba(139,92,246,.35);border-radius:20px;background:var(--panel);box-shadow:0 0 45px rgba(57,133,255,.18)}.item-modal-content img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:14px;background:var(--panel2)}.modal-details{align-self:center}.modal-details h2{font-size:25px;overflow-wrap:anywhere}.modal-details p{color:var(--muted)}.modal-details h3{color:#9cc2ff}.modal-close{position:absolute;right:12px;top:12px;background:var(--panel2);color:white;border:1px solid var(--border);border-radius:8px;padding:8px 11px}
+/* DASHBOARD */
+.dashboard-section{margin-top:32px}.dashboard-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.dashboard-heading h2{margin:0;font-size:23px}.dashboard-heading span{color:var(--muted);font-size:12px}.dashboard-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px}.dashboard-card{min-width:0;padding:20px;border-radius:18px;border:1px solid rgba(255,255,255,.09);background:radial-gradient(circle at 100% 0%,rgba(139,92,246,.12),transparent 45%),linear-gradient(145deg,#141e32,#0d1322);transition:.25s ease;animation:nexusFade .45s ease both}.dashboard-card:hover{transform:translateY(-4px);border-color:rgba(57,133,255,.5);box-shadow:0 10px 35px rgba(57,133,255,.1)}.dashboard-card h3{margin:0 0 8px;font-size:16px}.dashboard-number{font-size:36px;font-weight:900;margin:12px 0;background:linear-gradient(90deg,#55a5ff,#a78bfa);background-clip:text;-webkit-background-clip:text;color:transparent}.dashboard-favorites,.dashboard-tools,.dashboard-activity{display:flex;flex-direction:column;gap:10px;margin-top:15px}.dashboard-favorite{display:flex;align-items:center;gap:10px;padding:8px;background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:11px;cursor:pointer;min-width:0}.dashboard-favorite:hover{background:rgba(57,133,255,.1)}.dashboard-favorite img,.dashboard-favorite-img{width:43px;height:43px;object-fit:cover;border-radius:8px;background:var(--panel2);flex-shrink:0}.dashboard-favorite-info{min-width:0;flex:1}.dashboard-favorite-info strong{display:block;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dashboard-favorite-info small{color:var(--muted);font-size:10px}.dashboard-tool{display:flex;align-items:center;gap:12px;padding:12px;border-radius:11px;background:rgba(255,255,255,.035);border:1px solid var(--border);color:white;text-align:left;transition:.2s}.dashboard-tool:hover{border-color:var(--blue);background:rgba(57,133,255,.1);transform:translateX(3px)}.dashboard-tool-icon{font-size:23px}.dashboard-tool strong{display:block;font-size:13px}.dashboard-tool small{color:var(--muted);font-size:11px}.activity-entry{display:flex;align-items:flex-start;gap:10px;font-size:12px}.activity-dot{width:8px;height:8px;margin-top:4px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--blue);flex-shrink:0}.activity-entry strong{display:block;margin-bottom:3px}.activity-entry small,.dashboard-empty{color:var(--muted);font-size:12px}.dashboard-empty{padding:12px 0}
+@media(max-width:850px){.item-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.dashboard-grid{grid-template-columns:1fr 1fr}.dashboard-card:first-child{grid-column:1/-1}}
+@media(max-width:760px){.topbar{height:auto;min-height:65px;padding:12px 4%;flex-wrap:wrap;gap:8px}.nav{gap:3px}.nav button{padding:8px;font-size:12px}.hero{padding:27px;min-height:270px}.game-grid{grid-template-columns:1fr}.item-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.item-info{padding:10px}.item-name{font-size:12px}.price{font-size:12px}.page-heading h1{font-size:30px}.crosshair-layout{grid-template-columns:1fr}}
+@media(max-width:550px){.item-modal-content{grid-template-columns:1fr;gap:10px}.item-modal-content img{max-height:230px}.dashboard-grid{grid-template-columns:1fr}.dashboard-card:first-child{grid-column:auto}}
+
+:root{--bg:#05040d;--panel:#0d0a19;--panel2:#17112a;--blue:#8150ff;--purple:#a43cff;--text:#f7f1ff;--muted:#a69ab9;--border:rgba(174,112,255,.18)}
+body{padding-left:218px;background:radial-gradient(ellipse at 80% 0,rgba(104,26,191,.18),transparent 35%),#05040d}
+.sidebar{position:fixed;inset:0 auto 0 0;width:218px;padding:22px 14px 15px;background:linear-gradient(180deg,#090714,#070611 70%,#10081d);border-right:1px solid rgba(160,83,255,.3);z-index:30;display:flex;flex-direction:column;box-shadow:8px 0 35px #0005}
+.brand{display:flex;align-items:center;gap:11px;padding:3px 8px 27px;border:0;background:none;color:white;text-align:left}.brand-mark{width:45px;height:45px;border-radius:14px;display:grid;place-items:center;font-size:30px;font-weight:1000;font-style:italic;background:linear-gradient(145deg,#a53cff,#4e12a5);box-shadow:0 0 25px #9034ff80;clip-path:polygon(50% 0,92% 22%,85% 78%,50% 100%,15% 78%,8% 22%)}.brand-name{font-size:22px;font-weight:1000;letter-spacing:2px}.brand-name small{display:block;color:#9587b8;font-size:9px;letter-spacing:3px;margin-top:2px}
+.side-nav{display:flex;flex-direction:column;gap:5px}.side-nav button{border:1px solid transparent;border-radius:11px;background:transparent;color:#b8afce;padding:11px 10px;text-align:left;font-size:12px;font-weight:700;display:flex;align-items:center;gap:12px;transition:.2s}.side-nav button span{width:20px;text-align:center;font-size:18px;color:#9b8bbd}.side-nav button:hover{background:#8237ff1f;color:white}.side-nav button.active{background:linear-gradient(100deg,#8426ff70,#47189333);border-color:#a34aff;color:white;box-shadow:0 0 20px #8526ff3b}.side-nav button.active span{color:white}.nav-divider{height:1px;background:var(--border);margin:8px 4px}
+.sidebar-bottom{margin-top:auto;border:1px solid #a149ff66;border-radius:14px;padding:13px 11px;background:radial-gradient(circle at 50% 0,#8728ff3d,transparent 70%),#100a20;text-align:center;display:flex;flex-direction:column;gap:7px}.premium-crown{font-size:23px;color:#ffca54}.sidebar-bottom strong{font-size:10px;color:#d7b6ff;letter-spacing:1px}.sidebar-bottom small{font-size:10px;color:var(--muted)}.sidebar-bottom button{border:1px solid #8d39ff;border-radius:8px;background:#4b13a2;color:white;padding:8px;font-size:10px;font-weight:800}.online-state{display:flex;align-items:center;gap:7px;text-align:left;font-size:10px;color:#55e6a0;margin-top:8px}.online-state i,.welcome-chip i{width:7px;height:7px;border-radius:50%;background:#39e88b;box-shadow:0 0 10px #39e88b}.online-state span{margin-left:auto;color:#756b8e}
+.topbar{height:68px;position:sticky;top:0;padding:0 3.5%;background:#05040de8;border-bottom:1px solid var(--border);z-index:20;backdrop-filter:blur(18px)}.top-search{height:41px;width:min(530px,58%);display:flex;align-items:center;gap:10px;border:1px solid #a95bff4d;border-radius:12px;background:#0c0a18;padding:0 13px;color:#bda9e3}.top-search span{font-size:24px}.top-search input{width:100%;border:0;outline:0;background:transparent;color:white;font-size:13px}.top-actions{display:flex;align-items:center;gap:12px}.icon-btn,.avatar-button{position:relative;border:0;background:transparent;color:#c9bee0;font-size:19px;width:36px;height:36px;border-radius:50%}.icon-btn:hover{background:#211337;color:white}.notification-dot{position:absolute;right:3px;top:3px;width:7px;height:7px;border-radius:50%;background:#ff4e9c}.avatar-button{border:2px solid #b34cff;background:linear-gradient(145deg,#44118a,#130d27);box-shadow:0 0 16px #9e3aff66;font-weight:900;color:white}.mobile-brand{display:none}
+.container{width:min(1500px,96%);margin:auto}.page{padding:27px 0 60px}.welcome-row{display:flex;justify-content:space-between;align-items:center;gap:18px;margin:5px 0 19px}.welcome-row h1{font-size:clamp(27px,3vw,39px);margin:7px 0}.welcome-row h1 span{background:linear-gradient(90deg,#d7a0ff,#8e3dff);background-clip:text;-webkit-background-clip:text;color:transparent}.welcome-sub{margin:0;color:var(--muted);font-size:13px}.welcome-chip{border:1px solid #49eb9a40;background:#2ac87e14;border-radius:30px;padding:9px 13px;display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:1px;color:#73e6a7;white-space:nowrap}
+.profile-banner{position:relative;min-height:185px;border:1px solid #a858ff66;border-radius:19px;overflow:hidden;background:radial-gradient(ellipse at 75% 50%,#7320cd85,transparent 45%),linear-gradient(105deg,#130b28,#080716 60%,#1b0c35);box-shadow:0 12px 38px #4b148726;display:flex;align-items:center;padding:24px 28px;margin-bottom:16px}.banner-orb{position:absolute;width:210px;height:210px;border-radius:50%;right:27%;top:-65px;background:radial-gradient(circle at 50% 40%,#e2a5ff,#8c2cff 40%,#4a0f851a 70%);opacity:.75;box-shadow:0 0 70px #8e24ff}.banner-silhouette{position:absolute;right:34%;bottom:-70px;font-size:240px;font-weight:1000;font-style:italic;line-height:1;color:#070311a6;text-shadow:0 0 3px #bd79ff,0 0 40px #8a20ff;transform:rotate(-8deg)}.banner-wordmark{position:absolute;right:4%;top:38px;font-size:clamp(35px,5vw,65px);font-weight:1000;font-style:italic;letter-spacing:-3px;color:#f6eaff;text-shadow:0 0 20px #a33cff;transform:skew(-9deg);text-align:right}.banner-wordmark small{display:block;font-size:13px;letter-spacing:5px;color:#b75bff}.banner-profile{position:relative;z-index:2;display:flex;align-items:center;gap:19px}.profile-avatar{position:relative;width:98px;height:98px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;font-size:50px;font-weight:1000;color:white;background:radial-gradient(circle at 30% 20%,#a64dff,#210b4a 70%);border:3px solid #b44aff;box-shadow:0 0 0 6px #9f3fff29,0 0 28px #9f3fff8c}.avatar-status{position:absolute;right:2px;bottom:5px;width:14px;height:14px;border:3px solid #12091f;border-radius:50%;background:#3ce89a}.user-name{font-size:23px;font-weight:900}.user-name span{color:#b85aff}.user-level{font-size:12px;color:#c6b3e6;margin:5px 0 10px}.xp-track{height:8px;border-radius:10px;background:#2a1c42;overflow:hidden;max-width:245px}.xp-track span{display:block;width:12%;height:100%;border-radius:10px;background:linear-gradient(90deg,#6b1cff,#d15cff)}.banner-user small{display:block;margin-top:7px;color:#a99abb;font-size:10px}.banner-quote{position:absolute;bottom:15px;left:28px;color:#c19bff;font-size:9px;letter-spacing:3px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.stat-card{display:flex;align-items:center;gap:12px;min-height:82px;padding:14px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(145deg,#110d20,#0b0915);transition:.2s}.stat-card:hover{transform:translateY(-3px);border-color:#923cff}.stat-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:11px;font-size:22px;background:#9137ff26}.stat-icon.cyan{color:#50dfff;background:#28beff21}.stat-icon.gold{color:#ffc34f;background:#ffb12e1f}.stat-icon.blue{color:#6a9dff;background:#466eff24}.stat-card small,.stat-card em{display:block;color:var(--muted);font-size:9px;font-style:normal}.stat-card strong{display:block;font-size:22px;line-height:1.4}.dashboard-main-grid{display:grid;grid-template-columns:1.3fr .9fr .9fr;gap:13px}.panel{min-width:0;padding:16px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(145deg,#140d25f5,#090813fa);box-shadow:0 8px 24px #0002}.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.panel-heading small{display:block;color:#a76ce0;font-size:9px;font-weight:900;letter-spacing:1.5px}.panel-heading h2{font-size:17px;margin:4px 0 0}.panel-link{font-size:9px;color:#b56aff;letter-spacing:1px}.text-link{border:0;background:none;color:#b56aff;font-size:11px;font-weight:800}.game-feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.game-feature{min-height:165px;border-radius:12px;border:1px solid #a95eff59;padding:13px;text-align:left;color:white;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;position:relative;overflow:hidden;transition:.25s}.game-feature:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#05030df7,transparent 85%)}.game-feature>*{position:relative}.game-feature:hover{transform:translateY(-4px);box-shadow:0 0 25px #8c2cff33}.fortnite-feature{background:radial-gradient(circle at 70% 20%,#337cff,#24104e 58%,#0c0b18)}.valorant-feature{background:radial-gradient(circle at 70% 20%,#f34b67,#49122e 58%,#0c0b18);border-color:#ff46734d}.game-feature-tag{font-size:8px;letter-spacing:1px;color:#d6aaff;margin-bottom:auto}.game-feature strong{font-size:24px;font-style:italic;font-weight:1000}.game-feature small{font-size:10px;color:#c7badb;margin:3px 0 11px}.game-feature-cta{font-size:10px;color:#d9b5ff;font-weight:800}.tracker-preview{display:flex;align-items:center;gap:9px;padding:11px 0;border-bottom:1px solid #ffffff0f}.tracker-game-logo{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:18px;font-weight:1000;color:white}.fortnite-logo{background:linear-gradient(135deg,#318aff,#5424c9)}.valorant-logo{background:linear-gradient(135deg,#ff4e67,#a4163c)}.tracker-preview>div:nth-child(2){flex:1}.tracker-preview strong,.tracker-preview small{display:block}.tracker-preview strong{font-size:11px}.tracker-preview small{font-size:9px;color:var(--muted);margin-top:3px}.coming-tag{font-size:8px;letter-spacing:1px;padding:5px 7px;border-radius:6px;color:#cba1ff;background:#913eff21;border:1px solid #a553ff40;white-space:nowrap}.coming-tag.large{display:inline-block;font-size:10px;padding:8px 12px}.outline-wide{width:100%;margin-top:11px;border:1px solid #9c4aff61;border-radius:9px;background:#7524d621;color:#d7b3ff;padding:10px;font-size:10px;font-weight:800}.outline-wide:hover{background:#7524d63d}.dashboard-favorites,.dashboard-activity{margin-top:0;gap:8px;min-height:100px}.dashboard-favorite{background:#ffffff08;border-color:#ffffff10}.dashboard-favorite:hover{background:#8933ff1f}.dashboard-favorite-info small{color:#9d91b5}.activity-entry{padding:7px 0;border-bottom:1px solid #ffffff0d;font-size:11px}.activity-dot{background:#b44aff;box-shadow:0 0 9px #b44aff}.activity-entry small{font-size:9px;color:#a99cbb}.bottom-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:13px;margin-top:13px}.achievement-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.achievement{text-align:center;padding:9px 4px;border-radius:11px;background:#7e33db1a;border:1px solid #a05cff33}.achievement span{display:grid;place-items:center;width:40px;height:40px;margin:0 auto 7px;border-radius:11px;font-size:22px;color:#d9a4ff;background:linear-gradient(145deg,#5a1da0,#1b1031)}.achievement strong,.achievement small{display:block}.achievement strong{font-size:9px}.achievement small{font-size:8px;color:var(--muted);margin-top:4px}.achievement.locked{opacity:.45}.quick-tool{width:100%;display:flex;align-items:center;gap:10px;padding:9px 0;border:0;border-bottom:1px solid #ffffff0f;background:none;color:white;text-align:left}.quick-tool>span{width:33px;height:33px;display:grid;place-items:center;border-radius:9px;background:#8f36ff26;color:#ca8aff;font-size:19px}.quick-tool div{flex:1}.quick-tool strong,.quick-tool small{display:block}.quick-tool strong{font-size:11px}.quick-tool small{font-size:9px;color:var(--muted);margin-top:3px}.quick-tool b{color:#b15cff}
+.tracker-tabs{display:flex;gap:9px;margin:20px 0}.tracker-tab{border:1px solid var(--border);border-radius:10px;background:#100c1d;color:#bfb2d7;padding:12px 25px;font-weight:800}.tracker-tab.active{background:linear-gradient(100deg,#6b1cdb,#a13aff);color:white;border-color:#bb78ff}.tracker-connect-panel,.future-panel{max-width:720px;margin:20px auto;padding:42px 24px;text-align:center;border:1px solid #a551ff59;border-radius:19px;background:radial-gradient(circle at 50% 0,#7d29de38,transparent 60%),#0c0918}.connect-icon{font-size:42px;color:#bb76ff}.tracker-connect-panel h2,.future-panel h2{font-size:24px;margin:10px}.tracker-connect-panel p,.future-panel p{max-width:520px;margin:0 auto 18px;color:var(--muted);font-size:13px;line-height:1.6}.connect-note{margin:20px auto 0;max-width:520px;padding:12px;border-radius:9px;background:#ffffff09;color:#a99cbb;font-size:10px;line-height:1.6}.big-avatar{margin:0 auto 18px}
+@media(max-width:1150px){.dashboard-main-grid{grid-template-columns:1fr 1fr}.games-panel{grid-column:1/-1}}
+@media(max-width:760px){body{padding-left:0}.sidebar{width:100%;height:auto;inset:0 0 auto;padding:7px 9px;display:block;border-right:0;border-bottom:1px solid var(--border)}.brand{display:none}.side-nav{display:flex;flex-direction:row;overflow-x:auto;gap:4px}.side-nav button{flex:0 0 auto;padding:8px 9px;font-size:10px;white-space:nowrap}.side-nav button span{font-size:14px;width:auto}.nav-divider,.sidebar-bottom{display:none}.topbar{position:sticky;top:47px;height:56px;padding:0 4%;margin-top:47px}.mobile-brand{display:block;font-size:17px;font-weight:1000;letter-spacing:2px}.mobile-brand span{color:#b24dff}.top-search{width:44%;height:35px}.top-search input{font-size:10px}.top-actions{gap:2px}.icon-btn{width:29px}.avatar-button{width:31px;height:31px}.container{width:94%}.page{padding-top:19px}.profile-banner{min-height:165px;padding:17px}.banner-wordmark{font-size:29px;right:4%;top:28px}.banner-wordmark small{font-size:8px;letter-spacing:2px}.banner-orb{right:12%;width:145px;height:145px}.banner-silhouette{right:22%;font-size:175px}.profile-avatar{width:70px;height:70px;font-size:34px}.user-name{font-size:18px}.banner-profile{gap:12px}.banner-quote{left:17px;bottom:10px}.dashboard-main-grid,.bottom-grid{grid-template-columns:1fr}.games-panel{grid-column:auto}.welcome-row{align-items:flex-start;flex-direction:column}.stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat-card{padding:9px;gap:8px}.stat-icon{width:32px;height:32px}.stat-card strong{font-size:18px}.achievement-row{grid-template-columns:repeat(2,1fr)}.game-feature{min-height:135px}.crosshair-nav{display:flex!important}.crosshair-layout{grid-template-columns:1fr}}
+@media(max-width:460px){.top-search{width:40%}.top-search span{display:none}.top-actions .icon-btn:nth-child(2){display:none}.stat-card small,.stat-card em{font-size:8px}.game-feature-grid{grid-template-columns:1fr}.game-feature{min-height:120px}.tracker-connect-panel{padding:28px 15px}}
+
+
+/* NEXUS PROFILE EDITOR */
+.profile-editor{max-width:850px;margin:20px auto;padding:25px;background:radial-gradient(circle at 100% 0,rgba(139,92,246,.13),transparent 42%),var(--panel);border:1px solid var(--border);border-radius:18px}
+.profile-editor-preview{display:flex;align-items:center;gap:20px;padding:20px;margin-bottom:24px;border:1px solid #a858ff55;border-radius:16px;background:radial-gradient(circle at 90% 20%,#7520b955,transparent 55%),#100b1d}
+.profile-editor-preview .big-avatar{width:82px;height:82px;margin:0;flex:0 0 82px;font-size:36px}
+.profile-editor-preview h2{margin:0 0 6px;font-size:22px}.profile-editor-preview p{margin:0 0 12px;color:var(--muted);font-size:13px}
+.profile-form{display:flex;flex-direction:column;gap:10px}.profile-form label{margin-top:7px;color:#cbb9e8;font-size:12px;font-weight:800}.profile-form .search,.profile-form .filter{width:100%;min-height:45px;flex:none}.profile-form .action-btn{margin-top:12px}.profile-game-line{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px;margin-top:5px}.profile-game-line strong{color:#c9b2ff}
+@media(max-width:550px){.profile-editor{padding:16px}.profile-editor-preview{padding:14px;gap:13px}.profile-editor-preview .big-avatar{width:65px;height:65px;flex-basis:65px;font-size:29px}.profile-editor-preview h2{font-size:18px}}
+
+</style>
+
+<style id="nexus-catalogue-v3-style">
+.nx-cat{margin:22px 0 18px;padding:20px;border:1px solid rgba(139,92,246,.28);border-radius:18px;background:linear-gradient(145deg,rgba(139,92,246,.10),rgba(16,22,38,.96) 42%)}
+.nx-cat-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}.nx-cat-head h2{margin:4px 0;font-size:clamp(20px,3vw,27px)}.nx-cat-head p{margin:5px 0;color:var(--muted);font-size:13px}.nx-cat-kicker{font-size:10px;letter-spacing:2px;color:#b69aff;font-weight:800}.nx-cat-controls{display:grid;grid-template-columns:minmax(180px,2fr) repeat(2,minmax(130px,1fr));gap:9px;margin-bottom:12px}.nx-cat-controls input,.nx-cat-controls select{width:100%;min-width:0;padding:12px 13px;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:var(--text);outline:none}.nx-cat-controls input:focus,.nx-cat-controls select:focus{border-color:var(--purple)}.nx-cat-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}.nx-cat-btn{border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:9px 12px;background:rgba(255,255,255,.06);color:var(--text);cursor:pointer;font-weight:700}.nx-cat-btn.primary{background:linear-gradient(100deg,#7044df,#9b62f6);border:0}.nx-cat-btn.active{border-color:#a78bfa;background:rgba(139,92,246,.2)}.nx-cat-status{font-size:12px;color:var(--muted);margin:10px 0}.nx-cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px}.nx-cat-card{min-width:0;position:relative;overflow:hidden;border:1px solid var(--border);border-radius:13px;background:rgba(8,11,20,.7);cursor:pointer;transition:transform .16s,border-color .16s}.nx-cat-card:hover{transform:translateY(-3px);border-color:rgba(167,139,250,.65)}.nx-cat-card img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain;background:radial-gradient(circle,rgba(139,92,246,.16),rgba(8,11,20,.6));padding:8px}.nx-cat-card-info{padding:10px}.nx-cat-name{font-size:12px;font-weight:800;line-height:1.3;min-height:31px}.nx-cat-meta{font-size:10px;color:var(--muted);margin-top:5px}.nx-cat-star{position:absolute;top:8px;right:8px;width:31px;height:31px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(8,11,20,.86);color:#fff;font-size:17px;cursor:pointer}.nx-cat-star.saved{color:#f7c948;border-color:#f7c948}.nx-cat-empty{grid-column:1/-1;padding:25px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:12px}.nx-watchlist{display:none;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}.nx-watchlist.open{display:block}.nx-watchlist h3{margin:0 0 10px;font-size:16px}.nx-watch-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}.nx-watch-row img{width:42px;height:42px;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.05)}.nx-watch-row div{flex:1;min-width:0}.nx-watch-row strong{display:block;font-size:12px}.nx-watch-row small{color:var(--muted);font-size:10px}.nx-watch-row button{border:0;background:transparent;color:#ff8295;cursor:pointer;font-size:18px}.nx-cat-count{font-variant-numeric:tabular-nums;color:#c4b5fd;font-size:12px}
+@media(max-width:650px){.nx-cat{padding:14px}.nx-cat-controls{grid-template-columns:1fr 1fr}.nx-cat-controls input{grid-column:1/-1}.nx-cat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}}
+</style>
+
+</head>
+<body>
+<aside class="sidebar">
+  <button class="brand" onclick="showPage('home')"><span class="brand-mark">N</span><span class="brand-name">NEXUS<small>GAMING HUB</small></span></button>
+  <nav class="side-nav">
+    <button id="nav-home" class="active" onclick="showPage('home')"><span>⌂</span>Accueil</button>
+    <button id="nav-fortnite" onclick="showPage('fortnite')"><span>◈</span>Fortnite Shop</button>
+    <button id="nav-valorant" onclick="showPage('valorant')"><span>◇</span>VALORANT Shop</button>
+    <button id="nav-crosshair" onclick="showPage('crosshair')"><span>⌖</span>Crosshair Studio</button>
+    <button id="nav-tracker" onclick="showPage('tracker')"><span>▥</span>Account Tracker</button>
+    <div class="nav-divider"></div>
+    <button id="nav-profile" onclick="showPage('profile')"><span>◉</span>Mon profil</button>
+    <button id="nav-friends" onclick="showPage('friends')"><span>♧</span>Amis</button>
+    <button id="nav-teams" onclick="showPage('teams')"><span>⬡</span>Équipes</button>
+    <button id="nav-achievements" onclick="showPage('achievements')"><span>♜</span>Succès</button>
+    <button id="nav-settings" onclick="showPage('settings')"><span>⚙</span>Paramètres</button>
+  </nav>
+  <div class="sidebar-bottom"><div class="premium-crown">♛</div><strong>NEXUS PREMIUM</strong><small>Un espace gaming à ton image.</small><button onclick="showPage('profile')">Voir mon profil →</button><div class="online-state"><i></i> En ligne <span>V2.0</span></div></div>
+</aside>
+<header class="topbar">
+  <div class="mobile-brand">NEXUS<span>.</span></div>
+  <div class="top-search"><span>⌕</span><input id="global-search" type="search" placeholder="Rechercher sur NEXUS..." onkeydown="if(event.key==='Enter')globalSearch()"></div>
+  <div class="top-actions"><button class="icon-btn" title="Notifications" onclick="showPage('home')">♧<i class="notification-dot"></i></button><button class="icon-btn" title="Communauté" onclick="showPage('friends')">◉</button><button class="icon-btn" title="Changer le thème" onclick="toggleTheme()">☼</button><button class="avatar-button" onclick="showPage('profile')">N</button></div>
+</header>
+
+<main class="container">
+<section id="home-page" class="page active">
+  <div class="welcome-row"><div><div class="eyebrow">TON ESPACE GAMING PERSONNEL</div><h1>Bienvenue sur <span>NEXUS.</span></h1><p class="welcome-sub">Ton univers gaming, tes outils et tes statistiques réunis au même endroit.</p></div><div class="welcome-chip"><i></i> SYSTÈME EN LIGNE</div></div>
+  <section class="profile-banner">
+    <div class="banner-orb"></div><div class="banner-silhouette">N</div><div class="banner-wordmark">NEXUS<small>GAMING HUB</small></div>
+    <div class="banner-profile"><div class="profile-avatar">N<span class="avatar-status"></span></div><div class="banner-user"><div class="user-name">Joueur NEXUS <span>✦</span></div><div class="user-level">Niveau 1 · Nouveau membre</div><div class="xp-track"><span></span></div><small>120 / 1 000 XP · Progression bientôt disponible</small></div></div><div class="banner-quote">PLAY. CREATE. CONQUER.</div>
+  </section>
+  <div class="stat-grid">
+    <article class="stat-card"><div class="stat-icon purple">♥</div><div><small>Favoris enregistrés</small><strong id="dashboard-fav-count">0</strong><em>Dans tes boutiques</em></div></article>
+    <article class="stat-card"><div class="stat-icon cyan">⌖</div><div><small>Outils disponibles</small><strong>3</strong><em>À explorer</em></div></article>
+    <article class="stat-card"><div class="stat-icon gold">♜</div><div><small>Succès NEXUS</small><strong>0</strong><em>Défis à découvrir</em></div></article>
+    <article class="stat-card"><div class="stat-icon blue">♧</div><div><small>Amis en ligne</small><strong>—</strong><em>Communauté bientôt</em></div></article>
+  </div>
+  <div class="dashboard-main-grid">
+    <section class="panel games-panel"><div class="panel-heading"><div><small>TON UNIVERS</small><h2>Mes jeux</h2></div><span class="panel-link">2 ESPACES</span></div><div class="game-feature-grid">
+      <button class="game-feature fortnite-feature" onclick="showPage('fortnite')"><span class="game-feature-tag">BOUTIQUE EN DIRECT</span><strong>FORTNITE</strong><small>Objets, tenues et favoris</small><span class="game-feature-cta">Explorer la boutique ↗</span></button>
+      <button class="game-feature valorant-feature" onclick="showPage('valorant')"><span class="game-feature-tag">BOUTIQUE SUIVIE</span><strong>VALORANT</strong><small>Skins et collections</small><span class="game-feature-cta">Explorer la boutique ↗</span></button>
+    </div></section>
+    <section class="panel tracker-panel"><div class="panel-heading"><div><small>TES PERFORMANCES</small><h2>Account Tracker</h2></div><button class="text-link" onclick="showPage('tracker')">Voir tout ↗</button></div>
+      <div class="tracker-preview"><b class="tracker-game-logo fortnite-logo">F</b><div><strong>Fortnite</strong><small>Connexion officielle prévue</small></div><span class="coming-tag">BIENTÔT</span></div>
+      <div class="tracker-preview"><b class="tracker-game-logo valorant-logo">V</b><div><strong>VALORANT</strong><small>Connexion officielle prévue</small></div><span class="coming-tag">BIENTÔT</span></div><button class="outline-wide" onclick="showPage('tracker')">Découvrir le tracker →</button>
+    </section>
+    <section class="panel"><div class="panel-heading"><div><small>TA COLLECTION</small><h2>Mes favoris</h2></div><span class="panel-link" id="favorite-label">0 OBJET</span></div><div class="dashboard-favorites" id="dashboard-favorites"><div class="dashboard-empty">Tes objets favoris apparaîtront ici.</div></div><button class="outline-wide" onclick="showPage('fortnite')">Parcourir les boutiques →</button></section>
+    <section class="panel"><div class="panel-heading"><div><small>TON HISTORIQUE</small><h2>Activité récente</h2></div><span class="panel-link">LOCAL</span></div><div class="dashboard-activity" id="dashboard-activity"><div class="dashboard-empty">Tes prochaines actions apparaîtront ici.</div></div></section>
+  </div>
+  <div class="bottom-grid"><section class="panel"><div class="panel-heading"><div><small>PROGRESSION</small><h2>Succès & récompenses</h2></div><button class="text-link" onclick="showPage('achievements')">Voir tout ↗</button></div><div class="achievement-row"><div class="achievement"><span>✦</span><strong>Explorateur</strong><small>Visiter NEXUS</small></div><div class="achievement locked"><span>♜</span><strong>Collectionneur</strong><small>Ajouter 5 favoris</small></div><div class="achievement locked"><span>⌖</span><strong>Créateur</strong><small>Créer un viseur</small></div><div class="achievement locked"><span>♧</span><strong>Social</strong><small>À venir</small></div></div></section>
+    <section class="panel"><div class="panel-heading"><div><small>PERSONNALISATION</small><h2>Accès rapide</h2></div></div><button class="quick-tool" onclick="showPage('crosshair')"><span>⌖</span><div><strong>Crosshair Studio</strong><small>Crée ton propre viseur</small></div><b>↗</b></button><button class="quick-tool" onclick="showPage('profile')"><span>◉</span><div><strong>Mon profil</strong><small>Personnalise ton espace</small></div><b>↗</b></button></section>
+  </div>
+</section>
+
+<section id="fortnite-page" class="page">
+  <button class="back-btn" onclick="showPage('home')">← Retour à l'accueil</button>
+  <div class="page-heading"><div><div class="eyebrow">DAILY ROTATION</div><h1>FORTNITE <span>SHOP</span></h1><div class="small-muted">La boutique actuelle</div></div><button class="secondary-btn" onclick="loadShop('fortnite')">↻ Actualiser</button></div>
+  <div class="toolbar"><input id="fortnite-search" class="search" placeholder="Rechercher un objet..." oninput="renderShop('fortnite')"><select id="fortnite-filter" class="filter" onchange="renderShop('fortnite')"><option value="all">Tous les objets</option><option value="tenue">Tenues</option><option value="emote">Emotes</option><option value="pioche">Pioches</option><option value="planeur">Planeurs</option><option value="pack">Packs</option><option value="autre">Autres</option></select><button class="secondary-btn" onclick="toggleFavorites('fortnite')">♥ Favoris</button></div>
+  <div id="fortnite-status" class="status">Chargement de la boutique...</div><div id="fortnite-grid" class="item-grid"></div>
+<div id="nexus-catalogue-v3" class="nx-cat">
+  <div class="nx-cat-head"><div><div class="nx-cat-kicker">NEXUS DATABASE</div><h2>Catalogue Fortnite</h2><p>Recherche les cosmétiques et ajoute-les à ta liste de surveillance.</p></div><div class="nx-cat-count" id="nx-cat-count">Catalogue en attente…</div></div>
+  <div class="nx-cat-controls">
+    <input id="nx-cat-search" type="search" placeholder="Rechercher un cosmétique…" autocomplete="off">
+    <select id="nx-cat-category"><option value="all">Toutes les catégories</option><option value="outfit">Tenues</option><option value="backpack">Accessoires de dos</option><option value="pickaxe">Pioches</option><option value="glider">Planeurs</option><option value="emote">Emotes</option><option value="wrap">Revêtements</option><option value="contrail">Traînées</option><option value="loadingscreen">Écrans de chargement</option><option value="music">Musiques</option><option value="spray">Tags</option><option value="emoji">Emojis</option><option value="toy">Jouets</option><option value="bundle">Packs</option><option value="other">Autres</option></select>
+    <select id="nx-cat-rarity"><option value="all">Toutes les raretés</option><option value="common">Typique</option><option value="uncommon">Atypique</option><option value="rare">Rare</option><option value="epic">Épique</option><option value="legendary">Légendaire</option><option value="mythic">Mythique</option><option value="marvel">Marvel</option><option value="dc">DC</option><option value="star_wars">Star Wars</option><option value="icon">Icône</option></select>
+  </div>
+  <div class="nx-cat-actions"><button class="nx-cat-btn primary" id="nx-cat-refresh" type="button">↻ Charger / actualiser</button><button class="nx-cat-btn" id="nx-cat-watch-toggle" type="button">★ Ma watchlist (<span id="nx-cat-watch-count">0</span>)</button><button class="nx-cat-btn" id="nx-cat-notify" type="button">Activer les notifications</button></div>
+  <div class="nx-cat-status" id="nx-cat-status" role="status">Le catalogue sera chargé depuis la base de données publique.</div>
+  <div class="nx-cat-grid" id="nx-cat-grid"><div class="nx-cat-empty">Clique sur « Charger / actualiser » pour afficher le catalogue.</div></div>
+  <div class="nx-watchlist" id="nx-cat-watchlist"><h3>Objets surveillés</h3><div id="nx-cat-watch-items"></div></div>
+</div>
+
+  <div id="fortnite-credit" class="credit"></div>
+</section>
+
+<section id="valorant-page" class="page">
+  <button class="back-btn" onclick="showPage('home')">← Retour à l'accueil</button>
+  <div class="page-heading"><div><div class="eyebrow">DAILY ROTATION</div><h1>VALORANT <span>SHOP</span></h1><div class="small-muted">Offres suivies par la source de données</div></div><button class="secondary-btn" onclick="loadShop('valorant')">↻ Actualiser</button></div>
+  <div class="tool-panel" style="margin-top:15px"><p class="small-muted" style="margin:0">Information : cette boutique présente les offres disponibles dans les données publiques. Elle ne récupère pas ton magasin personnel ni tes offres quotidiennes privées Riot.</p></div>
+  <div class="toolbar"><input id="valorant-search" class="search" placeholder="Rechercher un skin..." oninput="renderShop('valorant')"><select id="valorant-filter" class="filter" onchange="renderShop('valorant')"><option value="all">Tous les objets</option><option value="skin">Skins</option><option value="bundle">Packs</option><option value="autre">Autres</option></select><button class="secondary-btn" onclick="toggleFavorites('valorant')">♥ Favoris</button></div>
+  <div id="valorant-status" class="status">Chargement de la boutique...</div><div id="valorant-grid" class="item-grid"></div><div id="valorant-credit" class="credit"></div>
+</section>
+
+<section id="tracker-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">PLAYER ANALYTICS</div><h1>ACCOUNT <span>TRACKER</span></h1><p class="small-muted">Retrouve tes performances Fortnite et VALORANT dans un seul espace.</p><div class="tracker-tabs"><button class="tracker-tab active" onclick="selectTrackerGame('fortnite',this)">F Fortnite</button><button class="tracker-tab" onclick="selectTrackerGame('valorant',this)">◇ VALORANT</button></div><div class="tracker-connect-panel"><div class="connect-icon">⌁</div><div class="eyebrow">CONNEXION OFFICIELLE</div><h2 id="tracker-game-title">Tracker Fortnite</h2><p id="tracker-game-description">Les statistiques seront disponibles après la mise en place d'une connexion officielle sécurisée.</p><span class="coming-tag large">EN PRÉPARATION</span><div class="connect-note">Aucun mot de passe ne sera demandé directement sur NEXUS. La connexion passera par le service officiel lorsqu'il sera disponible.</div></div></section>
+<section id="profile-page" class="page">
+  <button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button>
+  <div class="eyebrow">PLAYER IDENTITY</div><h1>MON <span>PROFIL</span></h1>
+  <p class="small-muted">Personnalise ton identité NEXUS. Tes changements sont enregistrés sur cet appareil.</p>
+  <div class="profile-editor">
+    <div class="profile-editor-preview">
+      <div class="profile-avatar big-avatar" id="profile-avatar-preview">N</div>
+      <div><h2 id="profile-name-preview">Joueur NEXUS</h2><p id="profile-motto-preview">PLAY. CREATE. CONQUER.</p><span class="coming-tag">NIVEAU 1</span><div class="profile-game-line">Jeu favori : <strong id="profile-game-preview">Fortnite</strong></div></div>
+    </div>
+    <div class="profile-form">
+      <label for="profile-name-input">Pseudo NEXUS</label><input id="profile-name-input" class="search" maxlength="20" placeholder="Ton pseudo">
+      <label for="profile-avatar-input">Avatar (2 caractères maximum)</label><input id="profile-avatar-input" class="search" maxlength="2" placeholder="N">
+      <label for="profile-motto-input">Ta devise</label><input id="profile-motto-input" class="search" maxlength="45" placeholder="PLAY. CREATE. CONQUER.">
+      <label for="profile-game-input">Jeu favori</label><select id="profile-game-input" class="filter"><option value="Fortnite">Fortnite</option><option value="VALORANT">VALORANT</option><option value="Minecraft">Minecraft</option><option value="Roblox">Roblox</option><option value="Autre">Autre</option></select>
+      <button class="action-btn" onclick="saveNexusProfile()">Sauvegarder mon profil</button><p id="profile-save-status" class="small-muted" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+<section id="friends-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">COMMUNITY</div><h1>MES <span>AMIS</span></h1><div class="panel future-panel"><h2>La communauté NEXUS arrive</h2><p>Cette section accueillera tes amis et leur statut en ligne.</p><span class="coming-tag large">EN CONSTRUCTION</span></div></section>
+<section id="teams-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">SQUAD UP</div><h1>ÉQUIPES <span>NEXUS</span></h1><div class="panel future-panel"><h2>Joue ensemble</h2><p>Les équipes et groupes NEXUS seront disponibles dans une prochaine version.</p><span class="coming-tag large">EN CONSTRUCTION</span></div></section>
+<section id="achievements-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">MILESTONES</div><h1>SUCCÈS & <span>RÉCOMPENSES</span></h1><div class="panel future-panel"><h2>Défis NEXUS</h2><p>Débloque des badges en explorant les fonctionnalités de la plateforme.</p><span class="coming-tag large">EN CONSTRUCTION</span></div></section>
+<section id="settings-page" class="page"><button class="back-btn" onclick="showPage('home')">← Retour au dashboard</button><div class="eyebrow">PREFERENCES</div><h1>PARAMÈTRES</h1><div class="panel future-panel"><h2>Personnalise NEXUS</h2><p>Les préférences d'affichage et les options seront ajoutées progressivement.</p><button class="secondary-btn" onclick="toggleTheme()">Basculer l'ambiance</button></div></section>
+
+<section id="crosshair-page" class="page">
+  <button class="back-btn" onclick="showPage('home')">← Retour à l'accueil</button><div class="eyebrow">AIM CUSTOMIZATION</div><h1 style="font-size:38px">CROSSHAIR <span>STUDIO</span></h1><p class="small-muted">Crée ton viseur, teste son apparence et sauvegarde tes réglages.</p>
+  <div class="crosshair-layout">
+    <div class="tool-panel"><h3>Aperçu du viseur</h3><div class="preview"><div id="crosshair"><div class="cross-line" id="ch-top"></div><div class="cross-line" id="ch-bottom"></div><div class="cross-line" id="ch-left"></div><div class="cross-line" id="ch-right"></div><div id="ch-dot"></div></div></div><p class="small-muted">Aperçu visuel uniquement : le viseur n'est pas injecté dans le jeu.</p><div class="preset-row"><button class="action-btn" onclick="exportCrosshair()">Exporter en PNG</button><button class="secondary-btn" onclick="randomCrosshair()">Aléatoire</button><button class="secondary-btn" onclick="resetCrosshair()">Réinitialiser</button></div></div>
+    <div class="tool-panel"><h3>Personnalisation</h3>
+      <div class="control"><label>Couleur <input id="ch-color" type="color" value="#00ff88" oninput="updateCrosshair()"></label></div>
+      <div class="control"><label>Taille <span id="size-value">8</span></label><input id="ch-size" type="range" min="2" max="25" value="8" oninput="updateCrosshair()"></div>
+      <div class="control"><label>Épaisseur <span id="thick-value">2</span></label><input id="ch-thick" type="range" min="1" max="8" value="2" oninput="updateCrosshair()"></div>
+      <div class="control"><label>Écartement <span id="gap-value">4</span></label><input id="ch-gap" type="range" min="0" max="18" value="4" oninput="updateCrosshair()"></div>
+      <div class="control"><label>Point central <span id="dot-value">0</span></label><input id="ch-dot-size" type="range" min="0" max="8" value="0" oninput="updateCrosshair()"></div>
+      <div class="control"><label>Opacité <span id="opacity-value">100%</span></label><input id="ch-opacity" type="range" min="20" max="100" value="100" oninput="updateCrosshair()"></div>
+      <div class="control"><label class="checkline"><input id="ch-outline" type="checkbox" onchange="updateCrosshair()"> Contour sombre</label></div>
+      <div class="preset-row" style="margin-top:20px"><input id="preset-name" class="search" placeholder="Nom du préréglage"><button class="action-btn" onclick="savePreset()">Sauvegarder</button></div>
+    </div>
+  </div>
+  <div class="tool-panel" style="margin-top:18px"><h3>Mes préréglages</h3><div id="preset-list" class="preset-list"></div><p class="small-muted">Tes préréglages sont conservés sur cet appareil.</p></div>
+</section>
+</main>
+
+<div id="item-modal" class="item-modal" onclick="if(event.target===this)closeItemDetails()">
+  <div class="item-modal-content"><button class="modal-close" onclick="closeItemDetails()">✕</button><img id="modal-image" src="" alt=""><div class="modal-details"><div class="eyebrow">NEXUS ITEM DETAILS</div><h2 id="modal-name"></h2><p id="modal-type"></p><p id="modal-rarity"></p><h3 id="modal-price"></h3><button id="modal-favorite" class="action-btn">♡ Ajouter aux favoris</button></div></div>
+</div>
+<footer class="footer">NEXUS GAMING HUB · Fan project indépendant · Non affilié à Epic Games ou Riot Games.</footer>
+
+<script>
+const API_BASE="https://itemshop.gg/api/v1/shop/";
+const shops={fortnite:[],valorant:[]};
+const shopMeta={fortnite:null,valorant:null};
+let favorites=[];
+try{const stored=JSON.parse(localStorage.getItem("nexus_favorites")||"[]");favorites=Array.isArray(stored)?stored:[]}catch(e){favorites=[]}
+const favoriteOnly={fortnite:false,valorant:false};
+
+function showPage(name){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  const page=document.getElementById(name+"-page");if(page)page.classList.add("active");
+  document.querySelectorAll(".side-nav button, .nav button").forEach(b=>b.classList.remove("active"));
+  const nav=document.getElementById("nav-"+name);if(nav)nav.classList.add("active");
+  if(name==="fortnite"&&!shops.fortnite.length)loadShop("fortnite");
+  if(name==="valorant"&&!shops.valorant.length)loadShop("valorant");
+  if(name==="crosshair")updateCrosshair();
+  if(name==="profile")loadNexusProfile();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function toggleTheme(){document.body.classList.toggle("light-theme");}
+function globalSearch(){
+  const q=(document.getElementById("global-search")?.value||"").trim().toLowerCase();if(!q)return;
+  if(q.includes("fort")){showPage("fortnite");document.getElementById("fortnite-search").value=q;renderShop("fortnite");return;}
+  if(q.includes("valo")){showPage("valorant");document.getElementById("valorant-search").value=q;renderShop("valorant");return;}
+  if(q.includes("viseur")||q.includes("crosshair")){showPage("crosshair");return;}
+  if(q.includes("tracker")){showPage("tracker");return;}
+  showPage("home");
+}
+function selectTrackerGame(game,button){
+  document.querySelectorAll(".tracker-tab").forEach(tab=>tab.classList.remove("active"));button.classList.add("active");
+  document.getElementById("tracker-game-title").textContent=game==="fortnite"?"Tracker Fortnite":"Tracker VALORANT";
+  document.getElementById("tracker-game-description").textContent=game==="fortnite"?"Les statistiques Fortnite seront disponibles après la mise en place d'une connexion officielle sécurisée.":"Les statistiques VALORANT seront disponibles après la mise en place d'une connexion officielle sécurisée.";
+}
+function toggleTheme(){document.body.classList.toggle("light-theme");}
+function globalSearch(){const q=(document.getElementById("global-search")?.value||"").trim().toLowerCase();if(!q)return;if(q.includes("fort")){showPage("fortnite");document.getElementById("fortnite-search").value=q;renderShop("fortnite");return;}if(q.includes("valo")){showPage("valorant");document.getElementById("valorant-search").value=q;renderShop("valorant");return;}if(q.includes("viseur")||q.includes("crosshair")){showPage("crosshair");return;}if(q.includes("tracker")){showPage("tracker");return;}showPage("home");}
+function selectTrackerGame(game,button){document.querySelectorAll(".tracker-tab").forEach(tab=>tab.classList.remove("active"));button.classList.add("active");document.getElementById("tracker-game-title").textContent=game==="fortnite"?"Tracker Fortnite":"Tracker VALORANT";document.getElementById("tracker-game-description").textContent=game==="fortnite"?"Les statistiques Fortnite seront disponibles après la mise en place d'une connexion officielle sécurisée.":"Les statistiques VALORANT seront disponibles après la mise en place d'une connexion officielle sécurisée."}
+function normalizeType(item,game){
+  const t=String(item.type||"").toLowerCase(),name=String(item.name||"").toLowerCase();
+  if(game==="fortnite"){
+    if(t.includes("outfit")||t.includes("tenue"))return"tenue";
+    if(t.includes("emote")||t.includes("dance"))return"emote";
+    if(t.includes("pickaxe")||t.includes("harvesting"))return"pioche";
+    if(t.includes("glider"))return"planeur";
+    if(t.includes("bundle")||t.includes("pack"))return"pack";
+    return"autre";
+  }
+  if(t.includes("bundle")||t.includes("pack")||name.includes("bundle"))return"bundle";
+  if(t.includes("skin")||t.includes("weapon"))return"skin";
+  return"autre";
+}
+function flattenShop(data,game){
+  const result=[];
+  for(const section of(data.sections||[])){
+    if(section.upcoming)continue;
+    for(const item of(section.items||[])){
+      const price=item.price||{},images=item.images||{};
+      result.push({id:item.id||item.itemKey||item.name,name:item.name||"Objet sans nom",type:item.type||"Objet",category:normalizeType(item,game),rarity:item.rarity?.name||"",price:price.amount,priceLabel:price.label||"",currency:price.currency||(game==="fortnite"?"V-Bucks":"VP"),image:images.card||images.render||"",section:section.title||""});
+    }
+  }
+  return result;
+}
+async function loadShop(game){
+  const status=document.getElementById(game+"-status"),grid=document.getElementById(game+"-grid");
+  status.textContent="Chargement de la boutique...";grid.innerHTML='<div class="empty">Récupération des objets...</div>';
+  try{
+    const response=await fetch(API_BASE+game,{method:"GET",headers:{"Accept":"application/json"},cache:"no-store"});
+    if(!response.ok)throw new Error("HTTP "+response.status);
+    const json=await response.json();if(!json||!json.data)throw new Error("Réponse API invalide");
+    shops[game]=flattenShop(json.data,game);shopMeta[game]=json.meta||{};
+    if(!shops[game].length){status.textContent="La source ne renvoie actuellement aucun objet disponible.";renderShop(game);renderDashboard();return}
+    const date=json.data.shopDate?" · Mise à jour : "+json.data.shopDate:"";
+    status.textContent=shops[game].length+" objets chargés"+date;
+    const attribution=json.meta?.attribution,creditUrl=attribution?.url||"https://itemshop.gg",creditText=attribution?.text||"Data from itemshop.gg";
+    document.getElementById(game+"-credit").innerHTML='<a href="'+safeUrl(creditUrl)+'" target="_blank" rel="noopener">'+escapeHtml(creditText)+'</a>';
+    renderShop(game);renderDashboard();
+  }catch(error){
+    console.error("NEXUS shop error:",error);status.textContent="Impossible de charger la boutique. Vérifie ta connexion ou réessaie plus tard.";
+    grid.innerHTML='<div class="empty">La boutique est momentanément indisponible.<br><br>Appuie sur Actualiser pour réessayer.</div>';
+  }
+}
+function safeUrl(url){try{const parsed=new URL(url);if(parsed.protocol==="https:")return parsed.href}catch(e){}return"https://itemshop.gg"}
+function escapeHtml(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function formatPrice(item){if(item.priceLabel)return item.priceLabel;if(item.price===null||item.price===undefined)return"Prix inconnu";return Number(item.price).toLocaleString("fr-FR")+" "+item.currency}
+function renderShop(game){
+  const search=document.getElementById(game+"-search").value.toLowerCase().trim(),filter=document.getElementById(game+"-filter").value;
+  let list=(shops[game]||[]).filter(item=>{
+    const matchesSearch=item.name.toLowerCase().includes(search)||item.type.toLowerCase().includes(search)||item.section.toLowerCase().includes(search);
+    return matchesSearch&&(filter==="all"||item.category===filter)&&(!favoriteOnly[game]||favorites.includes(game+":"+item.id));
+  });
+  const grid=document.getElementById(game+"-grid");
+  if(!list.length){grid.innerHTML='<div class="empty">Aucun objet ne correspond à ta recherche.</div>';return}
+  grid.innerHTML=list.map(item=>{
+    const key=game+":"+item.id,saved=favorites.includes(key),image=item.image?safeUrl(item.image):"",encoded=encodeURIComponent(String(item.id));
+    return `<article class="item-card" onclick="openItemDetails('${game}',decodeURIComponent('${encoded}'))">
+      ${image?`<img class="item-image" src="${escapeHtml(image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.style.display='none'">`:'<div class="item-image"></div>'}
+      <div class="item-info"><div class="item-name">${escapeHtml(item.name)}</div><div class="item-type">${escapeHtml(item.type)}${item.rarity?" · "+escapeHtml(item.rarity):""}</div>
+      <div class="item-bottom"><span class="price">${escapeHtml(formatPrice(item))}</span><button class="favorite ${saved?"saved":""}" onclick="event.stopPropagation();toggleFavorite('${game}',decodeURIComponent('${encoded}'))">${saved?"♥":"♡"}</button></div></div></article>`;
+  }).join("");
+}
+function openItemDetails(game,id){
+  const item=shops[game].find(x=>String(x.id)===String(id));if(!item)return;
+  const modal=document.getElementById("item-modal"),image=document.getElementById("modal-image");
+  image.src=item.image?safeUrl(item.image):"";image.style.display=item.image?"block":"none";image.alt=item.name;
+  document.getElementById("modal-name").textContent=item.name;
+  document.getElementById("modal-type").textContent="Type : "+item.type;
+  document.getElementById("modal-rarity").textContent=item.rarity?"Rareté : "+item.rarity:"Rareté non renseignée";
+  document.getElementById("modal-price").textContent=formatPrice(item);
+  const key=game+":"+item.id,button=document.getElementById("modal-favorite");
+  const refreshButton=()=>{button.textContent=favorites.includes(key)?"♥ Retirer des favoris":"♡ Ajouter aux favoris"};
+  button.onclick=()=>{toggleFavorite(game,String(item.id));refreshButton()};refreshButton();modal.classList.add("open");
+}
+function closeItemDetails(){document.getElementById("item-modal").classList.remove("open")}
+function toggleFavorite(game,id){
+  const key=game+":"+id,index=favorites.indexOf(key);
+  if(index>=0)favorites.splice(index,1);else favorites.push(key);
+  localStorage.setItem("nexus_favorites",JSON.stringify(favorites));
+  renderShop(game);logActivity(index>=0?"Favori retiré":"Nouveau favori",game.toUpperCase()+" · "+id);
+}
+function toggleFavorites(game){
+  favoriteOnly[game]=!favoriteOnly[game];
+  const button=document.querySelector("#"+game+"-page .toolbar button:last-child");
+  if(button)button.textContent=favoriteOnly[game]?"♥ Tous les objets":"♥ Favoris";
+  renderShop(game);
+}
+
+/* DASHBOARD */
+function getActivities(){try{const data=JSON.parse(localStorage.getItem("nexus_activities")||"[]");return Array.isArray(data)?data:[]}catch(e){return[]}}
+function logActivity(title,description){
+  const activities=getActivities();activities.unshift({title,description,date:Date.now()});
+  localStorage.setItem("nexus_activities",JSON.stringify(activities.slice(0,8)));renderDashboard();
+}
+function formatActivityDate(timestamp){
+  const diff=Date.now()-timestamp;
+  if(diff<60000)return"À l'instant";if(diff<3600000)return"Il y a "+Math.floor(diff/60000)+" min";
+  if(diff<86400000)return"Il y a "+Math.floor(diff/3600000)+" h";
+  return new Date(timestamp).toLocaleDateString("fr-FR");
+}
+function renderDashboard(){
+  const count=document.getElementById("dashboard-fav-count"),favoriteList=document.getElementById("dashboard-favorites"),activityList=document.getElementById("dashboard-activity");
+  if(!count||!favoriteList||!activityList)return;
+  count.textContent=favorites.length;const favLabel=document.getElementById("favorite-label");if(favLabel)favLabel.textContent=favorites.length+" OBJET"+(favorites.length>1?"S":"");
+  if(!favorites.length)favoriteList.innerHTML='<div class="dashboard-empty">Tu n’as pas encore de favoris. Ajoute tes premiers objets !</div>';
+  else{
+    const previews=favorites.slice(0,4).map(key=>{
+      const separator=key.indexOf(":");if(separator<0)return null;
+      const game=key.slice(0,separator),id=key.slice(separator+1);if(!shops[game])return null;
+      const item=shops[game].find(entry=>String(entry.id)===id);if(!item)return null;
+      const image=item.image?safeUrl(item.image):"",encoded=encodeURIComponent(String(item.id));
+      return `<div class="dashboard-favorite" onclick="showPage('${game}');openItemDetails('${game}',decodeURIComponent('${encoded}'))">
+        ${image?`<img src="${escapeHtml(image)}" alt="" loading="lazy">`:'<div class="dashboard-favorite-img"></div>'}
+        <div class="dashboard-favorite-info"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(game.toUpperCase())} · ${escapeHtml(formatPrice(item))}</small></div><span>♥</span></div>`;
+    }).filter(Boolean);
+    favoriteList.innerHTML=previews.length?previews.join(""):'<div class="dashboard-empty">Chargement des aperçus des favoris...</div>';
+  }
+  const activities=getActivities();
+  activityList.innerHTML=activities.length?activities.slice(0,5).map(a=>`<div class="activity-entry"><span class="activity-dot"></span><div><strong>${escapeHtml(a.title)}</strong><small>${escapeHtml(a.description)} · ${formatActivityDate(Number(a.date))}</small></div></div>`).join(""):'<div class="dashboard-empty">Tes prochaines actions apparaîtront ici.</div>';
+}
+
+/* NEXUS PROFILE */
+const defaultNexusProfile={name:"Joueur NEXUS",avatar:"N",motto:"PLAY. CREATE. CONQUER.",game:"Fortnite"};
+function getNexusProfile(){try{return{...defaultNexusProfile,...JSON.parse(localStorage.getItem("nexus_profile")||"{}")}}catch(e){return{...defaultNexusProfile}}}
+function updateNexusProfilePreview(){
+  const name=document.getElementById("profile-name-input").value.trim()||defaultNexusProfile.name;
+  const avatar=document.getElementById("profile-avatar-input").value.trim().slice(0,2).toUpperCase()||defaultNexusProfile.avatar;
+  const motto=document.getElementById("profile-motto-input").value.trim()||defaultNexusProfile.motto;
+  const game=document.getElementById("profile-game-input").value;
+  document.getElementById("profile-name-preview").textContent=name;
+  document.getElementById("profile-avatar-preview").textContent=avatar;
+  document.getElementById("profile-motto-preview").textContent=motto;
+  document.getElementById("profile-game-preview").textContent=game;
+}
+function updateNexusDashboardProfile(){
+  const profile=getNexusProfile();
+  const avatar=document.querySelector(".banner-profile .profile-avatar");
+  if(avatar&&avatar.firstChild)avatar.firstChild.textContent=profile.avatar;
+  const username=document.querySelector(".banner-user .user-name");
+  if(username){username.textContent=profile.name+" ";const star=document.createElement("span");star.textContent="✦";username.appendChild(star)}
+  const motto=document.querySelector(".banner-quote");if(motto)motto.textContent=profile.motto;
+  const topAvatar=document.querySelector(".avatar-button");if(topAvatar)topAvatar.textContent=profile.avatar;
+}
+function loadNexusProfile(){
+  const profile=getNexusProfile();
+  document.getElementById("profile-name-input").value=profile.name;
+  document.getElementById("profile-avatar-input").value=profile.avatar;
+  document.getElementById("profile-motto-input").value=profile.motto;
+  document.getElementById("profile-game-input").value=profile.game;
+  updateNexusProfilePreview();updateNexusDashboardProfile();
+}
+function saveNexusProfile(){
+  const profile={name:document.getElementById("profile-name-input").value.trim().slice(0,20)||defaultNexusProfile.name,avatar:document.getElementById("profile-avatar-input").value.trim().slice(0,2).toUpperCase()||defaultNexusProfile.avatar,motto:document.getElementById("profile-motto-input").value.trim().slice(0,45)||defaultNexusProfile.motto,game:document.getElementById("profile-game-input").value};
+  try{localStorage.setItem("nexus_profile",JSON.stringify(profile));loadNexusProfile();document.getElementById("profile-save-status").textContent="✓ Profil sauvegardé avec succès !";logActivity("Profil modifié",profile.name)}
+  catch(e){document.getElementById("profile-save-status").textContent="Impossible de sauvegarder sur cet appareil."}
+}
+["profile-name-input","profile-avatar-input","profile-motto-input","profile-game-input"].forEach(id=>{document.getElementById(id).addEventListener("input",updateNexusProfilePreview);document.getElementById(id).addEventListener("change",updateNexusProfilePreview)});
+
+/* CROSSHAIR STUDIO */
+const defaultCrosshair={color:"#00ff88",size:8,thick:2,gap:4,dot:0,opacity:100,outline:false};
+function getCrosshairSettings(){return{color:document.getElementById("ch-color").value,size:Number(document.getElementById("ch-size").value),thick:Number(document.getElementById("ch-thick").value),gap:Number(document.getElementById("ch-gap").value),dot:Number(document.getElementById("ch-dot-size").value),opacity:Number(document.getElementById("ch-opacity").value),outline:document.getElementById("ch-outline").checked}}
+function applyCrosshairSettings(s){
+  document.getElementById("ch-color").value=s.color??defaultCrosshair.color;document.getElementById("ch-size").value=s.size??defaultCrosshair.size;
+  document.getElementById("ch-thick").value=s.thick??defaultCrosshair.thick;document.getElementById("ch-gap").value=s.gap??defaultCrosshair.gap;
+  document.getElementById("ch-dot-size").value=s.dot??defaultCrosshair.dot;document.getElementById("ch-opacity").value=s.opacity??defaultCrosshair.opacity;
+  document.getElementById("ch-outline").checked=!!s.outline;updateCrosshair();
+}
+function updateCrosshair(){
+  const s=getCrosshairSettings(),root=document.documentElement;
+  root.style.setProperty("--size",s.size+"px");root.style.setProperty("--thick",s.thick+"px");root.style.setProperty("--gap",s.gap+"px");root.style.setProperty("--dot",s.dot+"px");root.style.setProperty("--chcolor",s.color);
+  document.querySelectorAll(".cross-line").forEach(el=>{el.style.background=s.color;el.style.opacity=s.opacity/100;el.style.boxShadow=s.outline?"0 0 0 1px #000, 0 0 2px #000":"none"});
+  const dot=document.getElementById("ch-dot");dot.style.background=s.color;dot.style.opacity=s.opacity/100;dot.style.boxShadow=s.outline?"0 0 0 1px #000":"none";
+  document.getElementById("size-value").textContent=s.size;document.getElementById("thick-value").textContent=s.thick;document.getElementById("gap-value").textContent=s.gap;document.getElementById("dot-value").textContent=s.dot;document.getElementById("opacity-value").textContent=s.opacity+"%";
+}
+function resetCrosshair(){applyCrosshairSettings(defaultCrosshair)}
+function randomCrosshair(){
+  const colors=["#00ff88","#ffffff","#ff4d6d","#00d9ff","#ffe45e","#b18cff"];
+  applyCrosshairSettings({color:colors[Math.floor(Math.random()*colors.length)],size:Math.floor(Math.random()*12)+4,thick:Math.floor(Math.random()*3)+1,gap:Math.floor(Math.random()*9),dot:Math.floor(Math.random()*3),opacity:100,outline:Math.random()>.5});
+}
+function getPresets(){try{const p=JSON.parse(localStorage.getItem("nexus_crosshair_presets")||"[]");return Array.isArray(p)?p:[]}catch(e){return[]}}
+function savePreset(){
+  const name=document.getElementById("preset-name").value.trim();if(!name){alert("Donne un nom à ton préréglage.");return}
+  const presets=getPresets();presets.push({id:Date.now(),name,settings:getCrosshairSettings()});
+  localStorage.setItem("nexus_crosshair_presets",JSON.stringify(presets));document.getElementById("preset-name").value="";
+  renderPresets();logActivity("Préréglage sauvegardé",name);
+}
+function loadPreset(id){const preset=getPresets().find(p=>p.id===id);if(preset){applyCrosshairSettings(preset.settings);logActivity("Viseur chargé",preset.name)}}
+function deletePreset(id){
+  const presets=getPresets().filter(p=>p.id!==id);localStorage.setItem("nexus_crosshair_presets",JSON.stringify(presets));
+  renderPresets();logActivity("Préréglage supprimé","Crosshair Studio");
+}
+function ensureIroxPreset(){
+  const presets=getPresets();if(presets.some(p=>String(p.name).toLowerCase()==="irox"))return;
+  presets.push({id:Date.now(),name:"irox",settings:{color:"#ff2525",size:5,thick:2,gap:2,dot:0,opacity:100,outline:false}});
+  localStorage.setItem("nexus_crosshair_presets",JSON.stringify(presets));
+}
+function renderPresets(){
+  const list=document.getElementById("preset-list"),presets=getPresets();
+  if(!presets.length){list.innerHTML='<span class="small-muted">Aucun préréglage sauvegardé pour le moment.</span>';return}
+  list.innerHTML=presets.map(p=>`<div class="preset"><button class="preset" onclick="loadPreset(${Number(p.id)})">${escapeHtml(p.name)}</button><button onclick="deletePreset(${Number(p.id)})" title="Supprimer">✕</button></div>`).join("");
+}
+function exportCrosshair(){
+  const s=getCrosshairSettings(),canvas=document.createElement("canvas");canvas.width=256;canvas.height=256;
+  const ctx=canvas.getContext("2d"),cx=128,cy=128;ctx.globalAlpha=s.opacity/100;ctx.fillStyle=s.color;
+  const drawRect=(x,y,w,h)=>{if(s.outline){ctx.fillStyle="#000000";ctx.fillRect(x-1,y-1,w+2,h+2);ctx.fillStyle=s.color}ctx.fillRect(x,y,w,h)};
+  drawRect(cx-s.thick/2,cy-s.gap-s.size,s.thick,s.size);drawRect(cx-s.thick/2,cy+s.gap,s.thick,s.size);
+  drawRect(cx-s.gap-s.size,cy-s.thick/2,s.size,s.thick);drawRect(cx+s.gap,cy-s.thick/2,s.size,s.thick);
+  if(s.dot>0){ctx.beginPath();ctx.arc(cx,cy,s.dot/2,0,Math.PI*2);ctx.fillStyle=s.color;ctx.fill()}
+  const link=document.createElement("a");link.download="nexus-crosshair.png";link.href=canvas.toDataURL("image/png");link.click();
+}
+
+/* INITIALISATION */
+applyCrosshairSettings(defaultCrosshair);
+ensureIroxPreset();
+renderPresets();
+loadNexusProfile();
+renderDashboard();
+// Précharge les boutiques afin de retrouver les aperçus des favoris sur l'accueil.
+loadShop("fortnite");
+loadShop("valorant");
+</script>
+
+<script id="nexus-catalogue-v3">
+(()=>{
+ 'use strict';
+ const API='https://fortnite-api.com/v2/cosmetics/br?language=fr';
+ const SHOP_API='https://itemshop.gg/api/v1/shop/fortnite';
+ const STORE='nexus_fortnite_watchlist_v3';
+ const $=id=>document.getElementById(id);
+ const el={search:$('nx-cat-search'),category:$('nx-cat-category'),rarity:$('nx-cat-rarity'),grid:$('nx-cat-grid'),status:$('nx-cat-status'),count:$('nx-cat-count'),watchCount:$('nx-cat-watch-count'),watch:$('nx-cat-watchlist'),watchItems:$('nx-cat-watch-items')};
+ if(!el.grid||!$('fortnite-page'))return;
+ let catalogue=[],watchlist=readWatchlist(),showWatchlist=false,loading=false,lastShopIds=new Set();
+ function readWatchlist(){try{const v=JSON.parse(localStorage.getItem(STORE)||'[]');return Array.isArray(v)?v:[]}catch(_){return[]}}
+ function saveWatchlist(){try{localStorage.setItem(STORE,JSON.stringify(watchlist))}catch(_){el.status.textContent='Impossible de sauvegarder la watchlist dans ce navigateur.'}updateWatchlist()}
+ function clean(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ function rarityOf(item){return String(item.rarity?.value||item.rarity?.displayValue||'').toLowerCase().replace(/[^a-z0-9_]/g,'')}
+ function categoryOf(item){const v=String(item.type?.value||'').toLowerCase();const d=String(item.displayType||'').toLowerCase();const all=v+' '+d;
+  if(all.includes('outfit')||all.includes('tenue'))return'outfit';if(all.includes('backpack')||all.includes('back bling')||all.includes('accessoire de dos'))return'backpack';if(all.includes('pickaxe')||all.includes('harvesting tool')||all.includes('pioche'))return'pickaxe';if(all.includes('glider')||all.includes('planeur'))return'glider';if(all.includes('emote')||all.includes('dance'))return'emote';if(all.includes('wrap')||all.includes('weapon skin'))return'wrap';if(all.includes('contrail'))return'contrail';if(all.includes('loadingscreen')||all.includes('loading screen')||all.includes('écran de chargement'))return'loadingscreen';if(all.includes('music'))return'music';if(all.includes('spray'))return'spray';if(all.includes('emoji'))return'emoji';if(all.includes('toy'))return'toy';if(all.includes('bundle'))return'bundle';return'other'}
+ function categoryLabel(v){return({outfit:'Tenue',backpack:'Accessoire de dos',pickaxe:'Pioche',glider:'Planeur',emote:'Emote',wrap:'Revêtement',contrail:'Traînée',loadingscreen:'Écran de chargement',music:'Musique',spray:'Tag',emoji:'Emoji',toy:'Jouet',bundle:'Pack',other:'Autre'})[v]||v}
+ function itemImage(item){return item.images?.icon||item.images?.smallIcon||item.images?.featured||item.images?.largeIcon||''}
+ function filtered(){const q=el.search.value.trim().toLocaleLowerCase('fr');const cat=el.category.value,rar=el.rarity.value;return catalogue.filter(it=>{const hay=[it.name,it.description,it.type?.displayValue,it.set?.text].join(' ').toLocaleLowerCase('fr');return(!q||hay.includes(q))&&(cat==='all'||categoryOf(it)===cat)&&(rar==='all'||rarityOf(it)===rar)})}
+ function render(){const list=filtered();el.count.textContent=list.length.toLocaleString('fr-FR')+' / '+catalogue.length.toLocaleString('fr-FR')+' objets';if(!list.length){el.grid.innerHTML='<div class="nx-cat-empty">Aucun objet trouvé avec ces filtres.</div>';return}const frag=document.createDocumentFragment();const html=list.slice(0,240).map(it=>{const id=String(it.id||'');const saved=watchlist.some(x=>x.id===id);const img=itemImage(it);return `<article class="nx-cat-card"><button class="nx-cat-star ${saved?'saved':''}" type="button" data-watch="${clean(id)}" aria-label="${saved?'Retirer de':'Ajouter à'} la watchlist">${saved?'★':'☆'}</button>${img?`<img src="${clean(img)}" alt="${clean(it.name)}" loading="lazy" onerror="this.style.visibility='hidden'">`:'<div style="aspect-ratio:1/1"></div>'}<div class="nx-cat-card-info"><div class="nx-cat-name">${clean(it.name||'Objet inconnu')}</div><div class="nx-cat-meta">${clean(categoryLabel(categoryOf(it)))} · ${clean(it.rarity?.displayValue||'Rareté inconnue')}</div></div></article>`}).join('');el.grid.innerHTML=html;if(list.length>240)el.status.textContent='Affichage des 240 premiers résultats. Affine ta recherche pour trouver un objet précis.';else el.status.textContent=list.length+' résultat(s).'}
+ function updateWatchlist(){el.watchCount.textContent=watchlist.length;el.watchItems.innerHTML=watchlist.length?watchlist.map(x=>`<div class="nx-watch-row"><img src="${clean(x.image||'')}" alt="" onerror="this.style.display='none'"><div><strong>${clean(x.name)}</strong><small>${clean(x.category||'Cosmétique')} · Surveillance de la boutique</small></div><button type="button" data-remove="${clean(x.id)}" aria-label="Retirer">×</button></div>`).join(''):'<div class="nx-cat-empty">Ta watchlist est vide. Ajoute des objets avec ☆.</div>';if(showWatchlist)el.watch.classList.add('open');else el.watch.classList.remove('open')}
+ function toggleItem(id){const item=catalogue.find(x=>String(x.id)===id);const index=watchlist.findIndex(x=>x.id===id);if(index>=0)watchlist.splice(index,1);else if(item)watchlist.push({id,name:item.name||'Objet inconnu',image:itemImage(item),category:categoryLabel(categoryOf(item))});saveWatchlist();render()}
+ async function loadCatalogue(){if(loading)return;loading=true;$('nx-cat-refresh').disabled=true;el.status.textContent='Chargement du catalogue Fortnite…';try{const r=await fetch(API,{cache:'no-store',headers:{Accept:'application/json'}});if(!r.ok)throw new Error('HTTP '+r.status);const json=await r.json();if(!Array.isArray(json.data))throw new Error('Format de réponse inattendu');catalogue=json.data;el.status.textContent='Catalogue chargé. Recherche et filtres disponibles.';render()}catch(err){el.status.textContent='Impossible de charger le catalogue : '+err.message+'. Vérifie ta connexion ou réessaie plus tard.';el.grid.innerHTML='<div class="nx-cat-empty">La source du catalogue ne répond pas. Tu peux réessayer avec le bouton ci-dessus.</div>'}finally{loading=false;$('nx-cat-refresh').disabled=false}}
+ function collectIds(value,out,depth=0){if(depth>9||value==null)return;if(Array.isArray(value)){for(const v of value)collectIds(v,out,depth+1);return}if(typeof value==='object'){for(const k of ['id','itemId','item_id','templateId','template_id']){const v=value[k];if(typeof v==='string'&&v.length>=5)out.add(v)}for(const [k,v] of Object.entries(value)){if(v&&typeof v==='object')collectIds(v,out,depth+1)}}}
+ async function checkShop(){if(!watchlist.length)return;try{const r=await fetch(SHOP_API,{cache:'no-store',headers:{Accept:'application/json'}});if(!r.ok)throw new Error('shop HTTP '+r.status);const json=await r.json();const ids=new Set();collectIds(json.data??json,ids);const found=watchlist.filter(x=>ids.has(x.id));for(const x of found){if(!lastShopIds.has(x.id))notifyFound(x)}lastShopIds=ids}catch(err){console.info('NEXUS watchlist: vérification boutique indisponible',err)}}
+ function notifyFound(item){const title='NEXUS — Objet dans la boutique';const body=item.name+' est peut-être disponible dans la boutique Fortnite.';if('Notification'in window&&Notification.permission==='granted'){try{new Notification(title,{body,icon:item.image||undefined,tag:'nexus-'+item.id})}catch(_){}}el.status.textContent='★ Objet surveillé détecté dans les données de la boutique : '+item.name}
+ $('nx-cat-refresh').addEventListener('click',loadCatalogue);el.search.addEventListener('input',render);el.category.addEventListener('change',render);el.rarity.addEventListener('change',render);
+ el.grid.addEventListener('click',e=>{const b=e.target.closest('[data-watch]');if(b)toggleItem(b.getAttribute('data-watch'))});el.watchItems.addEventListener('click',e=>{const b=e.target.closest('[data-remove]');if(!b)return;watchlist=watchlist.filter(x=>x.id!==b.getAttribute('data-remove'));saveWatchlist();render()});
+ $('nx-cat-watch-toggle').addEventListener('click',()=>{showWatchlist=!showWatchlist;updateWatchlist();$('nx-cat-watch-toggle').classList.toggle('active',showWatchlist)});
+ $('nx-cat-notify').addEventListener('click',async()=>{if(!('Notification'in window)){el.status.textContent='Les notifications ne sont pas prises en charge par ce navigateur.';return}try{const p=await Notification.requestPermission();el.status.textContent=p==='granted'?'Notifications activées sur ce navigateur.':'Autorisation de notification non accordée.'}catch(_){el.status.textContent='Impossible de demander les notifications dans ce navigateur.'}});
+ updateWatchlist();loadCatalogue();checkShop();setInterval(checkShop,60000);
+})();
+</script>
+
+<script>
+// Enregistrement PWA : fonctionne sur HTTPS (GitHub Pages) ou localhost.
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(error => {
+      console.warn("NEXUS : enregistrement du service worker impossible", error);
+    });
+  });
+}
+</script>
+</body>
+</html>
